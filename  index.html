@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Entrenamiento · Phone · Nu Colombia</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --nu-purple: #820AD1;
+    --nu-purple-dark: #6200A3;
+    --nu-purple-light: #F3E8FD;
+    --bg: #F7F5F2;
+    --surface: #FFFFFF;
+    --surface2: #F1EFE8;
+    --border: rgba(0,0,0,0.08);
+    --border-hover: rgba(0,0,0,0.16);
+    --text-primary: #1A1A1A;
+    --text-secondary: #6B6B6B;
+    --text-hint: #9E9E9E;
+    --success-bg: #EAF3DE;
+    --success-text: #27500A;
+    --warning-bg: #FAEEDA;
+    --warning-text: #633806;
+    --info-bg: #E6F1FB;
+    --info-text: #0C447C;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--nu-purple);
+    padding: 0;
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 2rem 1.5rem;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--nu-purple);
+    flex-shrink: 0;
+  }
+
+  .logo-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .header-title {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .header-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .nav-bar {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color .15s, border-color .15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .nav-tab:hover { color: rgba(255,255,255,0.9); }
+  .nav-tab.active { color: #fff; border-bottom-color: #fff; }
+
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.75rem 2rem 3rem;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .search-wrap {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 11px 16px 11px 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    font-size: 14px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+
+  .search-wrap input:focus {
+    border-color: var(--nu-purple);
+    box-shadow: 0 0 0 3px rgba(130,10,209,0.1);
+  }
+
+  .search-wrap input::placeholder { color: var(--text-hint); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    margin: 1.5rem 0 10px;
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color .15s, box-shadow .15s, transform .1s;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  .card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-icon svg { width: 16px; height: 16px; }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-top: 6px;
+    margin-left: 44px;
+  }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 9px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .badge-new { background: var(--success-bg); color: var(--success-text); }
+  .badge-updated { background: var(--warning-bg); color: var(--warning-text); }
+
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .faq-q {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-primary);
+    line-height: 1.4;
+    transition: background .12s;
+  }
+
+  .faq-q:hover { background: var(--surface2); }
+
+  .faq-chevron {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: transform .2s;
+    opacity: 0.4;
+  }
+
+  .faq-chevron.open { transform: rotate(180deg); opacity: 0.7; }
+
+  .faq-a {
+    padding: 0 1.25rem;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .25s ease, padding .2s;
+  }
+
+  .faq-a.open {
+    max-height: 300px;
+    padding-bottom: 1rem;
+  }
+
+  .link-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: .9rem 1.25rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color .15s, box-shadow .15s, transform .1s;
+  }
+
+  .link-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transform: translateY(-1px);
+  }
+
+  .link-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--nu-purple);
+    flex-shrink: 0;
+  }
+
+  .link-info { flex: 1; }
+
+  .link-info strong {
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    line-height: 1.3;
+  }
+
+  .link-info small {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    display: block;
+  }
+
+  .link-arrow {
+    font-size: 16px;
+    color: var(--text-hint);
+    line-height: 1;
+  }
+
+  .info-note {
+    background: var(--nu-purple-light);
+    border-radius: 10px;
+    padding: .875rem 1.25rem;
+    font-size: 13px;
+    color: #5A0A96;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 600px) {
+    .header-inner { padding: 1.5rem 1rem 1.25rem; }
+    .nav-bar { padding: 0 1rem; }
+    .nav-tab { padding: 12px 14px; font-size: 13px; }
+    main { padding: 1.25rem 1rem 2.5rem; }
+    .header-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo-row">
+      <div class="logo-mark">Nu</div>
+      <span class="logo-label">Customer Management · Phone · Colombia</span>
+    </div>
+    <h1 class="header-title">Centro de entrenamiento</h1>
+    <p class="header-sub">Equipo especializado · Recursos internos</p>
+  </div>
+  <nav class="nav-bar">
+    <button class="nav-tab active" onclick="switchTab('guias', this)">Guías y procedimientos</button>
+    <button class="nav-tab" onclick="switchTab('faqs', this)">FAQs</button>
+    <button class="nav-tab" onclick="switchTab('links', this)">Links Weduka</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- GUÍAS -->
+  <div id="guias" class="section active">
+    <div class="search-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l3 3"/></svg>
+      <input type="text" placeholder="Buscar guías..." oninput="filterItems(this.value, 'guias')">
+    </div>
+
+    <p class="section-label">Atención al cliente</p>
+
+    <div class="card" data-search="quejas reclamaciones protocolo">
+      <div class="card-top">
+        <div class="card-icon" style="background:var(--info-bg)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#185FA5" stroke-width="1.5"><circle cx="8" cy="8" r="7"/><path d="M8 5v3.5l2 2"/></svg>
+        </div>
+        <span class="card-title">Manejo de quejas y reclamaciones</span>
+        <span class="badge badge-updated">Actualizado</span>
+      </div>
+      <p class="card-desc">Protocolo paso a paso para gestionar reclamaciones en llamada con tiempos de resolución.</p>
+    </div>
+
+    <div class="card" data-search="verificación identidad seguridad autenticación cliente">
+      <div class="card-top">
+        <div class="card-icon" style="background:#EEEDFE">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#534AB7" stroke-width="1.5"><rect x="3" y="2" width="10" height="12" rx="1"/><path d="M6 6h4M6 9h4"/></svg>
+        </div>
+        <span class="card-title">Verificación de identidad del cliente</span>
+      </div>
+      <p class="card-desc">Pasos de autenticación y validación de datos personales al inicio de la llamada.</p>
+    </div>
+
+    <div class="card" data-search="escalamiento casos complejos soporte especializado">
+      <div class="card-top">
+        <div class="card-icon" style="background:var(--warning-bg)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#854F0B" stroke-width="1.5"><path d="M8 2l5 10H3L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>
+        </div>
+        <span class="card-title">Escalamiento de casos complejos</span>
+        <span class="badge badge-new">Nuevo</span>
+      </div>
+      <p class="card-desc">Criterios y canales para escalar situaciones que requieren soporte especializado.</p>
+    </div>
+
+    <p class="section-label">Productos Nu</p>
+
+    <div class="card" data-search="tarjeta crédito bloqueo límite cobro no reconocido">
+      <div class="card-top">
+        <div class="card-icon" style="background:var(--success-bg)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#3B6D11" stroke-width="1.5"><rect x="1" y="3" width="14" height="10" rx="1.5"/><path d="M1 7h14"/></svg>
+        </div>
+        <span class="card-title">Soporte tarjeta de crédito Nu</span>
+      </div>
+      <p class="card-desc">Bloqueos, límites, cobros no reconocidos y ajustes de cupo.</p>
+    </div>
+
+    <div class="card" data-search="cuenta nu transferencia depósito rendimiento saldo">
+      <div class="card-top">
+        <div class="card-icon" style="background:#EEEDFE">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#534AB7" stroke-width="1.5"><circle cx="8" cy="8" r="7"/><path d="M8 4v4l2.5 2.5"/></svg>
+        </div>
+        <span class="card-title">Soporte Cuenta Nu</span>
+      </div>
+      <p class="card-desc">Transferencias, depósitos, rendimientos y movimientos no reconocidos.</p>
+    </div>
+
+    <div class="card" data-search="fraude contracargo disputa cobro">
+      <div class="card-top">
+        <div class="card-icon" style="background:#FAECE7">
+          <svg viewBox="0 0 16 16" fill="none" stroke="#993C1D" stroke-width="1.5"><path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3 1.5.5-3.5L3 4.5 6.5 4z"/></svg>
+        </div>
+        <span class="card-title">Gestión de fraude y contracargos</span>
+      </div>
+      <p class="card-desc">Proceso de disputa, plazos de SLA y registro en el sistema de fraudes.</p>
+    </div>
+  </div>
+
+  <!-- FAQS -->
+  <div id="faqs" class="section">
+    <div class="search-wrap">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l3 3"/></svg>
+      <input type="text" placeholder="Buscar preguntas..." oninput="filterItems(this.value, 'faqs')">
+    </div>
+
+    <p class="section-label">Procesos internos</p>
+
+    <div class="faq-item" data-search="tiempo espera hold llamada">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Cuál es el tiempo máximo de espera permitido en llamada?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">El tiempo máximo de espera en llamada (hold) es de 3 minutos por intervención. Si necesitas más tiempo, informa al cliente y ofrece una devolución de llamada para no afectar el indicador de satisfacción.</div>
+    </div>
+
+    <div class="faq-item" data-search="registro llamada queja sistema crm ticket">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Cómo registro una llamada con queja en el sistema?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">Accede al CRM interno, selecciona "Nueva interacción", elige la categoría "Queja formal" y completa los campos requeridos. Asigna el número de ticket al cliente antes de cerrar la llamada.</div>
+    </div>
+
+    <div class="faq-item" data-search="verificación identidad falla intento fallido">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Qué hago si el cliente no pasa la verificación de identidad?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">Si el cliente falla la verificación en 2 intentos consecutivos, no puedes continuar con la gestión. Indica que debe acceder a la app Nu para resolver su solicitud de forma segura, y registra el intento fallido en el sistema.</div>
+    </div>
+
+    <p class="section-label">Productos y servicios</p>
+
+    <div class="faq-item" data-search="límite crédito ajuste cupo">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Puedo hacer ajustes de límite de crédito desde el canal phone?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">No. Los ajustes de límite son automáticos y gestionados por el sistema de riesgo. Puedes informar al cliente sobre el proceso de revisión, pero no tienes acceso para modificar límites manualmente.</div>
+    </div>
+
+    <div class="faq-item" data-search="cobro no reconocido disputa contracargo fraude">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Cómo reporto un cobro no reconocido por el cliente?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">Solicita al cliente los detalles del cobro (fecha, monto, establecimiento). Registra la disputa en el sistema bajo la categoría "Contracargo" y genera el ticket. El área de fraudes tiene un SLA de 15 días hábiles para responder.</div>
+    </div>
+
+    <div class="faq-item" data-search="desbloqueo tarjeta app pasos">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Cómo guío al cliente para desbloquear su tarjeta?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">El desbloqueo se hace desde la app Nu: Inicio → Tarjeta → Ajustes → Desbloquear tarjeta. Si fue bloqueada por fraude, el proceso es diferente y debe escalarse al área correspondiente.</div>
+    </div>
+
+    <div class="faq-item" data-search="transferencia demora fallo cuenta">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ¿Qué hago si el cliente reporta una transferencia demorada o fallida?
+        <svg class="faq-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <div class="faq-a">Verifica el estado en el sistema. Si la transferencia está en proceso, informa el tiempo estimado. Si aparece como fallida, solicita el comprobante y registra el caso bajo "Incidente transferencia" para revisión del equipo técnico.</div>
+    </div>
+  </div>
+
+  <!-- LINKS WEDUKA -->
+  <div id="links" class="section">
+
+    <p class="section-label">Plataformas de entrenamiento</p>
+
+    <a href="#" class="link-card">
+      <div class="link-dot"></div>
+      <div class="link-info">
+        <strong>Weduka · Portal principal</strong>
+        <small>Acceso a todos los cursos y rutas de aprendizaje</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <a href="#" class="link-card">
+      <div class="link-dot"></div>
+      <div class="link-info">
+        <strong>Weduka · Onboarding Phone</strong>
+        <small>Ruta de entrenamiento para nuevos agentes</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <a href="#" class="link-card">
+      <div class="link-dot"></div>
+      <div class="link-info">
+        <strong>Weduka · Productos Nu Colombia</strong>
+        <small>Cursos sobre tarjeta, cuenta y beneficios</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <a href="#" class="link-card">
+      <div class="link-dot"></div>
+      <div class="link-info">
+        <strong>Weduka · Regulatorio y cumplimiento</strong>
+        <small>Normativas SFC, SARLAFT y protección al consumidor financiero</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <p class="section-label">Herramientas operativas</p>
+
+    <a href="#" class="link-card">
+      <div class="link-dot" style="background:#185FA5"></div>
+      <div class="link-info">
+        <strong>CRM interno</strong>
+        <small>Registro de interacciones y tickets</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <a href="#" class="link-card">
+      <div class="link-dot" style="background:#3B6D11"></div>
+      <div class="link-info">
+        <strong>Base de conocimiento Nu</strong>
+        <small>Políticas, normas y actualizaciones internas</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <a href="#" class="link-card">
+      <div class="link-dot" style="background:#854F0B"></div>
+      <div class="link-info">
+        <strong>Dashboard de métricas Phone</strong>
+        <small>Indicadores de gestión, NPS y tiempo de resolución</small>
+      </div>
+      <span class="link-arrow">↗</span>
+    </a>
+
+    <div class="info-note">
+      ¿Falta un link o necesitas actualizar una URL? Escríbele a tu liderazgo directo para que lo agregue a este portal.
+    </div>
+  </div>
+
+</main>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleFaq(btn) {
+    const ans = btn.nextElementSibling;
+    const chev = btn.querySelector('.faq-chevron');
+    const isOpen = ans.classList.contains('open');
+    ans.classList.toggle('open', !isOpen);
+    chev.classList.toggle('open', !isOpen);
+  }
+
+  function filterItems(val, sectionId) {
+    const sec = document.getElementById(sectionId);
+    const lower = val.toLowerCase();
+    sec.querySelectorAll('.card, .faq-item').forEach(el => {
+      const text = (el.dataset.search || '') + ' ' + el.innerText;
+      el.classList.toggle('hidden', !text.toLowerCase().includes(lower));
+    });
+  }
+</script>
+
+</body>
+</html>
