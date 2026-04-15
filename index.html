@@ -144,6 +144,8 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 
 #secured-teorico-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#7B3FE4}
 #secured-teorico-app.active{display:block}
+#secured-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#f5f0e8}
+#secured-gamificado-app.active{display:block}
 #nucash-app{display:none;position:fixed;inset:0;z-index:1000;background:#1a0533;overflow-y:auto}
 #nucash-app.active{display:block}
 
@@ -328,6 +330,100 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 .weduka-link-dot{width:8px;height:8px;border-radius:50%;background:#820AD1;flex-shrink:0}
 .weduka-link-name{flex:1;font-size:13px;font-weight:700;color:var(--text)}
 .weduka-link-arrow{font-size:14px;color:var(--text-light,#8B75A8);flex-shrink:0}
+</style>
+<style>
+/* ══ SECURED GAMIFICADO APP ══ */
+#secured-gamificado-app *{box-sizing:border-box;margin:0;padding:0}
+#secured-gamificado-app,#secured-gamificado-app button{font-family:'Lato',sans-serif;color:#2a1a0e}
+#secured-gamificado-app .sm-screen{display:none;min-height:100vh;padding:0}
+#secured-gamificado-app .sm-screen.active{display:flex;flex-direction:column}
+#secured-gamificado-app .sm-intro{background:#f5f0e8;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+#secured-gamificado-app .sm-intro-badge{display:inline-flex;align-items:center;gap:8px;background:#4a1a7a;color:#e8d5ff;font-size:13px;font-weight:700;padding:8px 20px;border-radius:30px;margin-bottom:16px;letter-spacing:.5px}
+#secured-gamificado-app .sm-intro-badge-dot{width:8px;height:8px;background:#c4a0ff;border-radius:50%;flex-shrink:0}
+#secured-gamificado-app .sm-title{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:#2a1a0e;line-height:1.1;margin-bottom:8px}
+#secured-gamificado-app .sm-title em{color:#5a2d9c;font-style:normal}
+#secured-gamificado-app .sm-subtitle{font-size:15px;color:#5a4a3a;margin-bottom:20px;line-height:1.6}
+#secured-gamificado-app .sm-lock-row{display:flex;justify-content:center;gap:12px;margin:16px 0 20px;flex-wrap:wrap}
+#secured-gamificado-app .sm-lock-icon{display:flex;flex-direction:column;align-items:center;gap:3px}
+#secured-gamificado-app .sm-lock-shackle{width:20px;height:13px;border:3px solid #8a6d3b;border-bottom:none;border-radius:10px 10px 0 0;transition:all .4s}
+#secured-gamificado-app .sm-lock-body{width:32px;height:26px;background:#b8a070;border-radius:5px;display:flex;align-items:center;justify-content:center;transition:background .4s}
+#secured-gamificado-app .sm-lock-num{font-size:10px;font-weight:700;color:#fff}
+#secured-gamificado-app .sm-lock-icon.open .sm-lock-body{background:#1D9E75}
+#secured-gamificado-app .sm-lock-icon.open .sm-lock-shackle{border-color:#5DCAA5;transform:rotate(30deg);margin-left:10px}
+#secured-gamificado-app .sm-card-box{background:#fff;border-radius:16px;border:1.5px solid #d9cfc0;padding:20px;max-width:520px;width:100%;margin:0 auto 16px;text-align:left}
+#secured-gamificado-app .sm-card-box h3{font-family:'Playfair Display',serif;font-size:15px;color:#4a1a7a;margin-bottom:10px}
+#secured-gamificado-app .sm-mission-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:14px;color:#3a2a1a;line-height:1.5}
+#secured-gamificado-app .sm-mission-dot{width:20px;height:20px;border-radius:50%;background:#4a1a7a;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+#secured-gamificado-app .sm-profile-card{background:#fff;border-radius:16px;border:1.5px solid #d9cfc0;padding:16px 20px;max-width:520px;width:100%;margin:0 auto 18px;text-align:left}
+#secured-gamificado-app .sm-profile-header{font-family:'Playfair Display',serif;font-size:14px;color:#5a2d9c;font-weight:700;margin-bottom:10px}
+#secured-gamificado-app .sm-profile-row{display:flex;gap:8px;margin-bottom:5px;font-size:14px}
+#secured-gamificado-app .sm-profile-label{font-weight:700;min-width:90px;color:#2a1a0e}
+#secured-gamificado-app .sm-profile-val{color:#5a4a3a}
+#secured-gamificado-app .sm-btn-primary{background:#4a1a7a;color:#fff;font-size:16px;font-weight:700;padding:14px 36px;border:none;border-radius:40px;cursor:pointer;letter-spacing:.5px;transition:background .2s,transform .1s}
+#secured-gamificado-app .sm-btn-primary:hover{background:#5a2d9c}
+#secured-gamificado-app .sm-btn-primary:active{transform:scale(.97)}
+#secured-gamificado-app .sm-challenge-top{background:#2a1040;padding:20px 24px 16px}
+#secured-gamificado-app .sm-challenge-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(200,170,255,.15);color:#c4a0ff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:10px;letter-spacing:.5px}
+#secured-gamificado-app .sm-challenge-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:#fff;margin-bottom:4px;line-height:1.2}
+#secured-gamificado-app .sm-challenge-sub{font-size:13px;color:rgba(255,255,255,.55)}
+#secured-gamificado-app .sm-locks-bar{background:#1a0a2e;padding:12px 24px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#secured-gamificado-app .sm-locks-bar-label{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;margin-right:4px}
+#secured-gamificado-app .sm-lock-sm{display:flex;flex-direction:column;align-items:center;gap:2px}
+#secured-gamificado-app .sm-lock-sm-shackle{width:14px;height:9px;border:2px solid #7a5d2b;border-bottom:none;border-radius:6px 6px 0 0;transition:all .4s}
+#secured-gamificado-app .sm-lock-sm-body{width:22px;height:18px;background:#5a3d1a;border-radius:3px;display:flex;align-items:center;justify-content:center;transition:background .4s}
+#secured-gamificado-app .sm-lock-sm-num{font-size:8px;font-weight:700;color:#c8a060;transition:color .4s}
+#secured-gamificado-app .sm-lock-sm.open .sm-lock-sm-body{background:#1D9E75}
+#secured-gamificado-app .sm-lock-sm.open .sm-lock-sm-shackle{border-color:#5DCAA5;transform:rotate(28deg);margin-left:7px}
+#secured-gamificado-app .sm-lock-sm.open .sm-lock-sm-num{color:#fff}
+#secured-gamificado-app .sm-challenge-body{padding:20px 22px;background:#f5f0e8;flex:1}
+#secured-gamificado-app .sm-step-indicator{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:10px 14px;background:#fff;border-radius:10px;border:1.5px solid #d9cfc0}
+#secured-gamificado-app .sm-step-pip{width:10px;height:10px;border-radius:50%;background:#d9cfc0;transition:background .3s;flex-shrink:0}
+#secured-gamificado-app .sm-step-pip.active{background:#4a1a7a}
+#secured-gamificado-app .sm-step-pip.done{background:#1D9E75}
+#secured-gamificado-app .sm-step-label{font-size:12px;color:#9a7a5a;font-weight:700;margin-right:4px}
+#secured-gamificado-app .sm-scene-card{background:#fff;border-radius:14px;border:1.5px solid #d9cfc0;padding:16px;margin-bottom:14px}
+#secured-gamificado-app .sm-scene-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:#9a7a5a;margin-bottom:7px}
+#secured-gamificado-app .sm-scene-quote{font-family:'Playfair Display',serif;font-size:15px;color:#2a1a0e;line-height:1.65;border-left:3px solid #4a1a7a;padding-left:13px;font-style:italic}
+#secured-gamificado-app .sm-question-text{font-size:15px;font-weight:700;color:#2a1a0e;line-height:1.55;margin-bottom:13px}
+#secured-gamificado-app .sm-options-grid{display:flex;flex-direction:column;gap:9px}
+#secured-gamificado-app .sm-option-btn{background:#fff;border:1.5px solid #d9cfc0;border-radius:12px;padding:13px 15px;text-align:left;cursor:pointer;font-family:'Lato',sans-serif;font-size:14px;color:#2a1a0e;line-height:1.4;transition:border-color .15s,background .15s;display:flex;align-items:flex-start;gap:12px;width:100%}
+#secured-gamificado-app .sm-option-btn:hover:not(.disabled):not(.correct):not(.wrong){border-color:#4a1a7a;background:#f8f4ff}
+#secured-gamificado-app .sm-option-btn.correct{border-color:#1D9E75;background:#E1F5EE;color:#085041;pointer-events:none}
+#secured-gamificado-app .sm-option-btn.wrong{border-color:#A32D2D;background:#FCEBEB;color:#501313;pointer-events:none}
+#secured-gamificado-app .sm-option-btn.disabled{pointer-events:none;opacity:.45}
+#secured-gamificado-app .sm-opt-badge{width:28px;height:28px;border-radius:8px;background:#f0ebe0;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#5a4a3a;flex-shrink:0;font-family:'Lato',sans-serif}
+#secured-gamificado-app .sm-option-btn.correct .sm-opt-badge{background:#1D9E75;color:#fff}
+#secured-gamificado-app .sm-option-btn.wrong .sm-opt-badge{background:#A32D2D;color:#fff}
+#secured-gamificado-app .sm-feedback-panel{border-radius:13px;padding:16px;margin-top:14px;display:none}
+#secured-gamificado-app .sm-feedback-panel.show{display:block}
+#secured-gamificado-app .sm-correct-fb{background:#E1F5EE;border:1.5px solid #5DCAA5}
+#secured-gamificado-app .sm-wrong-fb{background:#FCEBEB;border:1.5px solid #F09595}
+#secured-gamificado-app .sm-fb-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:4px}
+#secured-gamificado-app .sm-correct-fb .sm-fb-title{color:#085041}
+#secured-gamificado-app .sm-wrong-fb .sm-fb-title{color:#791F1F}
+#secured-gamificado-app .sm-fb-text{font-size:13px;line-height:1.65}
+#secured-gamificado-app .sm-correct-fb .sm-fb-text{color:#0F6E56}
+#secured-gamificado-app .sm-wrong-fb .sm-fb-text{color:#A32D2D}
+#secured-gamificado-app .sm-fb-key{display:inline-block;background:#4a1a7a;color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px}
+#secured-gamificado-app .sm-action-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+#secured-gamificado-app .sm-btn-next{background:#4a1a7a;color:#fff;font-size:14px;font-weight:700;padding:11px 26px;border:none;border-radius:40px;cursor:pointer;display:none;transition:background .2s}
+#secured-gamificado-app .sm-btn-next.show{display:inline-block}
+#secured-gamificado-app .sm-btn-next:hover{background:#5a2d9c}
+#secured-gamificado-app .sm-btn-retry{background:transparent;color:#791F1F;font-family:'Lato',sans-serif;font-size:14px;font-weight:700;padding:11px 26px;border:2px solid #A32D2D;border-radius:40px;cursor:pointer;display:none;transition:all .2s}
+#secured-gamificado-app .sm-btn-retry.show{display:inline-block}
+#secured-gamificado-app .sm-btn-retry:hover{background:#FCEBEB}
+#secured-gamificado-app .sm-progress-dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
+#secured-gamificado-app .sm-pdot{width:8px;height:8px;border-radius:50%;background:#d9cfc0}
+#secured-gamificado-app .sm-pdot.done{background:#1D9E75}
+#secured-gamificado-app .sm-pdot.current{background:#4a1a7a}
+#secured-gamificado-app .sm-victory{background:#f5f0e8;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+#secured-gamificado-app .sm-stars-row{display:flex;justify-content:center;gap:6px;margin:14px 0;font-size:24px}
+#secured-gamificado-app .sm-summary-card{background:#fff;border-radius:16px;border:1.5px solid #d9cfc0;padding:18px 20px;max-width:500px;width:100%;margin:0 auto 22px;text-align:left}
+#secured-gamificado-app .sm-summary-item{display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid #f0ebe0;font-size:14px;color:#2a1a0e;line-height:1.5}
+#secured-gamificado-app .sm-summary-item:last-child{border-bottom:none}
+#secured-gamificado-app .sm-summary-num{width:24px;height:24px;background:#4a1a7a;color:#fff;border-radius:6px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+#secured-gamificado-app .sm-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,.12);border:1.5px solid rgba(74,26,122,.25);border-radius:40px;padding:8px 20px;color:#4a1a7a;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:20px;font-family:'Lato',sans-serif;transition:background .2s}
+#secured-gamificado-app .sm-back-btn:hover{background:rgba(74,26,122,.22)}
 </style>
 </head>
 <body>
@@ -591,6 +687,8 @@ function launchMode(mode){
     openPuzzleApp();
   } else if(mode==='gamificado'&&currentTopic==='cert'){
     openCharadasApp();
+  } else if(mode==='gamificado'&&currentTopic==='secured'){
+    openSecuredGamificadoApp();
   } else if(mode==='teorico'&&currentTopic==='secured'){
     openSecuredTeoricoApp();
   } else if(mode==='gamificado'&&currentTopic==='nuplus'){
@@ -625,6 +723,16 @@ function openSecuredTeoricoApp(){
 }
 function closeSecuredTeoricoApp(){
   document.getElementById('secured-teorico-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('secured','Secured Card: Misiones y retención','🛡️');
+}
+function openSecuredGamificadoApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('secured-gamificado-app').classList.add('active');
+  smReset();
+}
+function closeSecuredGamificadoApp(){
+  document.getElementById('secured-gamificado-app').classList.remove('active');
   document.getElementById('site-wrap').classList.remove('game-open');
   openTopic('secured','Secured Card: Misiones y retención','🛡️');
 }
@@ -1232,6 +1340,280 @@ function ncLaunchConfetti(){
 function stopNuCashConfetti(){
   if(ncConfAnimId){cancelAnimationFrame(ncConfAnimId);ncConfAnimId=null;}
   var cc=document.getElementById('nc-confetti');if(cc)cc.getContext('2d').clearRect(0,0,9999,9999);
+}
+</script>
+
+<!-- ══ SECURED CARD GAMIFICADO APP ══ -->
+<div id="secured-gamificado-app">
+
+  <!-- INTRO SCREEN -->
+  <div class="sm-screen sm-intro active" id="sm-s-intro">
+    <button class="sm-back-btn" onclick="closeSecuredGamificadoApp()">← Volver a Secured Card</button>
+    <div class="sm-intro-badge"><div class="sm-intro-badge-dot"></div>Operación: Código Morado</div>
+    <h1 class="sm-title">Misión de <em>Retención</em><br>Secured Card</h1>
+    <p class="sm-subtitle">Demuestra tus habilidades de retención.<br>Abre los 4 candados para completar la misión.</p>
+
+    <div class="sm-lock-row">
+      <div class="sm-lock-icon" id="sm-intro-lock-0"><div class="sm-lock-shackle"></div><div class="sm-lock-body"><span class="sm-lock-num">01</span></div></div>
+      <div class="sm-lock-icon" id="sm-intro-lock-1"><div class="sm-lock-shackle"></div><div class="sm-lock-body"><span class="sm-lock-num">02</span></div></div>
+      <div class="sm-lock-icon" id="sm-intro-lock-2"><div class="sm-lock-shackle"></div><div class="sm-lock-body"><span class="sm-lock-num">03</span></div></div>
+      <div class="sm-lock-icon" id="sm-intro-lock-3"><div class="sm-lock-shackle"></div><div class="sm-lock-body"><span class="sm-lock-num">04</span></div></div>
+    </div>
+
+    <div class="sm-card-box">
+      <h3>Objetivos de la misión</h3>
+      <div class="sm-mission-item"><div class="sm-mission-dot">1</div><span>Abrir la conversación de retención con empatía</span></div>
+      <div class="sm-mission-item"><div class="sm-mission-dot">2</div><span>Conectar las objeciones del cliente con argumentos de valor</span></div>
+      <div class="sm-mission-item"><div class="sm-mission-dot">3</div><span>Identificar y capitalizar el momento de upgrade de producto</span></div>
+      <div class="sm-mission-item"><div class="sm-mission-dot">4</div><span>Cerrar con un siguiente paso concreto y sin presión</span></div>
+    </div>
+
+    <div class="sm-profile-card">
+      <div class="sm-profile-header">Tu perfil de agente</div>
+      <div class="sm-profile-row"><span class="sm-profile-label">Producto:</span><span class="sm-profile-val">Tarjeta Abre Caminos (Secured)</span></div>
+      <div class="sm-profile-row"><span class="sm-profile-label">Misión:</span><span class="sm-profile-val">Retención de cliente</span></div>
+      <div class="sm-profile-row"><span class="sm-profile-label">Nivel:</span><span class="sm-profile-val">Agente Nu Colombia</span></div>
+    </div>
+
+    <button class="sm-btn-primary" onclick="smStartMission()">Comenzar misión 🔒</button>
+  </div>
+
+  <!-- CHALLENGE SCREEN -->
+  <div class="sm-screen" id="sm-s-challenge">
+    <div class="sm-challenge-top">
+      <div class="sm-challenge-badge">🟣 Código Morado · Activo</div>
+      <div class="sm-challenge-title">Retención en acción</div>
+      <div class="sm-challenge-sub">Elige la respuesta correcta para desbloquear cada candado</div>
+    </div>
+    <div class="sm-locks-bar">
+      <span class="sm-locks-bar-label">Candados:</span>
+      <div class="sm-lock-sm" id="sm-lock-sm-0"><div class="sm-lock-sm-shackle"></div><div class="sm-lock-sm-body"><span class="sm-lock-sm-num">01</span></div></div>
+      <div class="sm-lock-sm" id="sm-lock-sm-1"><div class="sm-lock-sm-shackle"></div><div class="sm-lock-sm-body"><span class="sm-lock-sm-num">02</span></div></div>
+      <div class="sm-lock-sm" id="sm-lock-sm-2"><div class="sm-lock-sm-shackle"></div><div class="sm-lock-sm-body"><span class="sm-lock-sm-num">03</span></div></div>
+      <div class="sm-lock-sm" id="sm-lock-sm-3"><div class="sm-lock-sm-shackle"></div><div class="sm-lock-sm-body"><span class="sm-lock-sm-num">04</span></div></div>
+    </div>
+    <div class="sm-challenge-body">
+      <div class="sm-step-indicator">
+        <span class="sm-step-label">Paso</span>
+        <div class="sm-step-pip" id="sm-pip-0"></div>
+        <div class="sm-step-pip" id="sm-pip-1"></div>
+        <div class="sm-step-pip" id="sm-pip-2"></div>
+        <div class="sm-step-pip" id="sm-pip-3"></div>
+      </div>
+      <div class="sm-scene-card">
+        <div class="sm-scene-label">El cliente dice...</div>
+        <div class="sm-scene-quote" id="sm-scene-text"></div>
+      </div>
+      <div class="sm-question-text" id="sm-question-text"></div>
+      <div class="sm-options-grid" id="sm-options-grid"></div>
+      <div class="sm-feedback-panel sm-correct-fb" id="sm-fb-correct">
+        <div class="sm-fb-title" id="sm-fb-correct-title"></div>
+        <div class="sm-fb-text" id="sm-fb-correct-text"></div>
+        <div class="sm-fb-key" id="sm-fb-correct-key"></div>
+      </div>
+      <div class="sm-feedback-panel sm-wrong-fb" id="sm-fb-wrong">
+        <div class="sm-fb-title" id="sm-fb-wrong-title"></div>
+        <div class="sm-fb-text" id="sm-fb-wrong-text"></div>
+      </div>
+      <div class="sm-action-row">
+        <button class="sm-btn-next" id="sm-btn-next" onclick="smNextStep()">Siguiente desafío →</button>
+        <button class="sm-btn-retry" id="sm-btn-retry" onclick="smRetryStep()">Intentar de nuevo</button>
+      </div>
+      <div class="sm-progress-dots">
+        <div class="sm-pdot" id="sm-dot-0"></div>
+        <div class="sm-pdot" id="sm-dot-1"></div>
+        <div class="sm-pdot" id="sm-dot-2"></div>
+        <div class="sm-pdot" id="sm-dot-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VICTORY SCREEN -->
+  <div class="sm-screen sm-victory" id="sm-s-victory">
+    <button class="sm-back-btn" onclick="closeSecuredGamificadoApp()">← Volver a Secured Card</button>
+    <div class="sm-intro-badge"><div class="sm-intro-badge-dot"></div>¡Misión completada!</div>
+    <h1 class="sm-title">Todos los candados<br><em>desbloqueados</em></h1>
+    <div class="sm-stars-row">⭐⭐⭐⭐</div>
+    <p class="sm-subtitle">Dominaste las 4 etapas de retención.<br>¡Eres un agente de élite Código Morado!</p>
+    <div class="sm-summary-card">
+      <div class="sm-profile-header">Lo que demostraste</div>
+      <div class="sm-summary-item"><div class="sm-summary-num">1</div><span>Abrir la conversación con empatía y pedir permiso para continuar</span></div>
+      <div class="sm-summary-item"><div class="sm-summary-num">2</div><span>Transformar objeciones en argumentos de valor (historial crediticio)</span></div>
+      <div class="sm-summary-item"><div class="sm-summary-num">3</div><span>Reconocer el momento de upgrade y facilitar el paso al siguiente producto</span></div>
+      <div class="sm-summary-item"><div class="sm-summary-num">4</div><span>Cerrar con un paso concreto sin generar presión innecesaria</span></div>
+    </div>
+    <button class="sm-btn-primary" onclick="smReset()">Jugar de nuevo 🔒</button>
+  </div>
+
+</div><!-- /secured-gamificado-app -->
+
+<script>
+var smCurrentStep=0;
+var smSteps=[
+  {
+    scene:'"Llevo 6 meses con la tarjeta y apenas la uso. Tengo que depositar plata primero y eso no me sirve. Quiero cancelarla."',
+    question:'¿Cuál es la respuesta más efectiva para abrir la conversación de retención?',
+    options:[
+      'Entiendo, con gusto le ayudo a cancelarla de inmediato.',
+      'Con mucho gusto le ayudo. Antes de proceder, ¿me permite un momento para revisar su cuenta y contarle algo que puede ser muy valioso para usted?',
+      'La tarjeta tiene muchos beneficios, ¿no cree que vale la pena conservarla?',
+      'Si no la usa, lo mejor es cancelarla antes de que acumulen más cargos.'
+    ],
+    correct:1,
+    fbCorrectTitle:'¡Primer candado desbloqueado!',
+    fbCorrectText:'Escuchar y pedir permiso para continuar es el primer paso en retención. Nunca canceles de inmediato ni argumentes sin escuchar al cliente.',
+    fbCorrectKey:'Empatía → Permiso → Revisión',
+    fbWrongTitle:'Recalibra tu respuesta',
+    fbWrongText:'Esta respuesta cierra la conversación sin explorar opciones. En retención siempre busca mantener al cliente en línea y generar empatía antes de argumentar.'
+  },
+  {
+    scene:'"El límite es muy bajo y encima tengo que cargarla yo mismo antes de gastar. Una tarjeta de crédito de verdad no funciona así."',
+    question:'¿Qué argumento conecta mejor con la queja de este cliente?',
+    options:[
+      'Todos nuestros clientes comienzan con el mismo límite, así funciona el producto.',
+      'Con la Tarjeta Abre Caminos usted está construyendo historial crediticio. Eso es lo que le abre las puertas a una tarjeta Nu de crédito con límite real.',
+      'Si deposita más, su límite sube proporcionalmente.',
+      'Le recomiendo usarla más seguido para que empiece a ver el beneficio.'
+    ],
+    correct:1,
+    fbCorrectTitle:'¡Segundo candado abierto!',
+    fbCorrectText:'Conectar el inconveniente actual (límite bajo / depósito previo) con el beneficio futuro (historial → crédito tradicional) transforma una objeción en una razón para quedarse.',
+    fbCorrectKey:'Secured → Historial → Crédito Nu',
+    fbWrongTitle:'Ajusta el argumento',
+    fbWrongText:'Esta respuesta no aborda la queja del cliente ni muestra un beneficio claro. En retención, cada argumento debe convertir la objeción en valor.'
+  },
+  {
+    scene:'"Mire, ahora tengo mejor empleo y creo que ya puedo calificar para una tarjeta de crédito normal. ¿Para qué sigo con esta?"',
+    question:'¿Cómo capitalizas este momento de la mejor manera?',
+    options:[
+      '¡Entonces cancele la Abre Caminos y solicite la Nu Crédito directamente!',
+      'Entendemos. Si ya no la necesita, procedo con la cancelación.',
+      '¡Qué buena noticia! Con el historial que construyó con la Abre Caminos, su solicitud de tarjeta Nu de crédito tiene mayor probabilidad de aprobarse. ¿Le gustaría que revisemos su elegibilidad ahora mismo?',
+      'La tarjeta secured aún tiene ventajas aunque ya tenga mejor ingreso.'
+    ],
+    correct:2,
+    fbCorrectTitle:'¡Tercer candado desbloqueado!',
+    fbCorrectText:'Este es un momento de upgrade, no solo de retención. Conectar el progreso del cliente con el siguiente producto convierte una cancelación en una oportunidad de crecimiento.',
+    fbCorrectKey:'Reconocer logro → Historial → Upgrade Nu',
+    fbWrongTitle:'Recalibra',
+    fbWrongText:'Dejar ir al cliente sin explorar el upgrade pierde la oportunidad. Cuando el cliente está listo para más, el agente debe facilitar ese siguiente paso.'
+  },
+  {
+    scene:'"Bueno, lo de la tarjeta de crédito suena interesante... pero déjame pensarlo."',
+    question:'¿Cuál es el cierre más efectivo para mantener el momentum?',
+    options:[
+      'Claro, tómese su tiempo. Cuando quiera llame de nuevo.',
+      'Le envío información por correo y decide cuando guste.',
+      'Perfecto. Para no perder su progreso, ¿qué le parece si iniciamos la solicitud ahora y usted decide en las próximas 24 horas? Así no empieza desde cero.',
+      'Si no decide hoy perdemos esta oportunidad de revisar su caso.'
+    ],
+    correct:2,
+    fbCorrectTitle:'¡Misión completada! Todos los candados abiertos.',
+    fbCorrectText:'El cierre ideal mantiene el control sin presionar. Ofrecer un siguiente paso concreto con tiempo para decidir reduce la fricción y aumenta la conversión.',
+    fbCorrectKey:'Iniciar proceso → Dar espacio → Sin presión',
+    fbWrongTitle:'Último ajuste',
+    fbWrongText:'Un cierre demasiado abierto pierde el momentum; uno demasiado agresivo genera rechazo. Busca dar un siguiente paso concreto sin presionar al cliente.'
+  }
+];
+
+function smReset(){
+  smCurrentStep=0;
+  for(var i=0;i<4;i++){
+    var il=document.getElementById('sm-intro-lock-'+i);
+    if(il) il.classList.remove('open');
+  }
+  document.querySelectorAll('#secured-gamificado-app .sm-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('sm-s-intro').classList.add('active');
+  window.scrollTo({top:0});
+}
+
+function smStartMission(){
+  document.querySelectorAll('#secured-gamificado-app .sm-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('sm-s-challenge').classList.add('active');
+  smLoadStep(0);
+  window.scrollTo({top:0});
+}
+
+function smLoadStep(idx){
+  smCurrentStep=idx;
+  var step=smSteps[idx];
+  document.getElementById('sm-scene-text').textContent=step.scene;
+  document.getElementById('sm-question-text').textContent=step.question;
+  var grid=document.getElementById('sm-options-grid');
+  var labels=['A','B','C','D'];
+  grid.innerHTML='';
+  step.options.forEach(function(opt,i){
+    var btn=document.createElement('button');
+    btn.className='sm-option-btn';
+    btn.innerHTML='<span class="sm-opt-badge">'+labels[i]+'</span><span>'+opt+'</span>';
+    btn.onclick=(function(ii){return function(){smSelectOption(ii);};})(i);
+    grid.appendChild(btn);
+  });
+  for(var i=0;i<4;i++){
+    var pip=document.getElementById('sm-pip-'+i);
+    pip.className='sm-step-pip';
+    if(i<idx) pip.classList.add('done');
+    else if(i===idx) pip.classList.add('active');
+  }
+  for(var i=0;i<4;i++){
+    var dot=document.getElementById('sm-dot-'+i);
+    dot.className='sm-pdot';
+    if(i<idx) dot.classList.add('done');
+    else if(i===idx) dot.classList.add('current');
+  }
+  document.getElementById('sm-fb-correct').classList.remove('show');
+  document.getElementById('sm-fb-wrong').classList.remove('show');
+  document.getElementById('sm-btn-next').classList.remove('show');
+  document.getElementById('sm-btn-retry').classList.remove('show');
+  for(var i=0;i<4;i++) document.getElementById('sm-lock-sm-'+i).classList.remove('open');
+  for(var i=0;i<idx;i++) document.getElementById('sm-lock-sm-'+i).classList.add('open');
+}
+
+function smSelectOption(idx){
+  var step=smSteps[smCurrentStep];
+  var isCorrect=(idx===step.correct);
+  var btns=document.querySelectorAll('#sm-options-grid .sm-option-btn');
+  btns.forEach(function(b,i){
+    if(i===idx) b.classList.add(isCorrect?'correct':'wrong');
+    else b.classList.add('disabled');
+  });
+  if(isCorrect){
+    document.getElementById('sm-fb-correct-title').textContent=step.fbCorrectTitle;
+    document.getElementById('sm-fb-correct-text').textContent=step.fbCorrectText;
+    document.getElementById('sm-fb-correct-key').textContent=step.fbCorrectKey;
+    document.getElementById('sm-fb-correct').classList.add('show');
+    document.getElementById('sm-fb-wrong').classList.remove('show');
+    document.getElementById('sm-lock-sm-'+smCurrentStep).classList.add('open');
+    var nextBtn=document.getElementById('sm-btn-next');
+    nextBtn.textContent=smCurrentStep<smSteps.length-1?'Siguiente desafío →':'Ver resultados 🎉';
+    nextBtn.classList.add('show');
+  } else {
+    document.getElementById('sm-fb-wrong-title').textContent=step.fbWrongTitle;
+    document.getElementById('sm-fb-wrong-text').textContent=step.fbWrongText;
+    document.getElementById('sm-fb-wrong').classList.add('show');
+    document.getElementById('sm-fb-correct').classList.remove('show');
+    document.getElementById('sm-btn-retry').classList.add('show');
+  }
+}
+
+function smNextStep(){
+  if(smCurrentStep<smSteps.length-1){
+    smLoadStep(smCurrentStep+1);
+  } else {
+    smShowVictory();
+  }
+  window.scrollTo({top:0});
+}
+
+function smRetryStep(){
+  smLoadStep(smCurrentStep);
+  window.scrollTo({top:0});
+}
+
+function smShowVictory(){
+  document.querySelectorAll('#secured-gamificado-app .sm-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('sm-s-victory').classList.add('active');
+  window.scrollTo({top:0});
 }
 </script>
 
