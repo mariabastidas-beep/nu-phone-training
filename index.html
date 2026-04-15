@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro de Entrenamiento · Phone · Nu Colombia</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --nu-dark:#3D1372;--nu-mid:#6B21D6;--nu-lila:#C4A8F0;--nu-lila-light:#EDE3FB;
+  --bg:#F2EEF8;--white:#FFFFFF;--text:#1A0533;--text-mid:#5B4778;--text-light:#8B75A8;
+  --card-radius:24px;--btn-radius:50px;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{0%{transform:scale(0.92);opacity:0}70%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes bounce-in{0%{transform:scale(0.5);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ── SITE ── */
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.site-wrap{display:block}
+.site-wrap.game-open{display:none}
+
+
+main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
+.home-label{font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:1rem;animation:fadeUp .4s .2s ease both;opacity:0;animation-fill-mode:forwards}
+.topics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:14px}
+.topic-card{background:var(--nu-dark);border-radius:var(--card-radius);padding:1.6rem 1.4rem;cursor:pointer;transition:transform .18s,background .18s,box-shadow .18s;border:none;text-align:left;font-family:'Nunito',sans-serif;position:relative;overflow:hidden;opacity:0;animation:fadeUp .4s ease forwards}
+.topic-card::before{content:'';position:absolute;top:-30px;right:-30px;width:90px;height:90px;background:rgba(255,255,255,0.06);border-radius:50%}
+.topic-card:hover{transform:translateY(-4px);background:#4D1A8A;box-shadow:0 12px 32px rgba(61,19,114,0.25)}
+.topic-card.lila{background:var(--nu-lila)}
+.topic-card.lila:hover{background:#B899E8;box-shadow:0 12px 32px rgba(107,33,214,0.2)}
+.topic-card.lila .topic-name{color:var(--nu-dark)}
+.topic-card.lila .topic-arrow{color:rgba(61,19,114,0.35)}
+.topic-emoji{font-size:30px;display:block;margin-bottom:.75rem;line-height:1}
+.topic-name{font-size:14px;font-weight:800;color:#fff;line-height:1.35;margin-bottom:.5rem}
+.topic-arrow{font-size:18px;color:rgba(255,255,255,0.35);font-weight:700}
+.links-card{background:var(--nu-lila-light);border:2px dashed var(--nu-lila);border-radius:var(--card-radius);padding:1.4rem 1.75rem;cursor:pointer;display:flex;align-items:center;gap:16px;transition:background .15s,transform .15s,box-shadow .15s;width:100%;opacity:0;animation:fadeUp .4s 1s ease forwards;font-family:'Nunito',sans-serif}
+.links-card:hover{background:#E0D0FA;transform:translateY(-3px);box-shadow:0 10px 28px rgba(107,33,214,0.15)}
+.links-card-emoji{font-size:34px;flex-shrink:0}
+.links-card-text strong{font-size:16px;font-weight:900;color:var(--nu-dark);display:block}
+.links-card-text span{font-size:13px;color:var(--text-mid)}
+.links-card-arrow{margin-left:auto;font-size:22px;color:var(--nu-mid);font-weight:700;transition:transform .15s}
+.links-card:hover .links-card-arrow{transform:translateX(4px)}
+.home-view{display:block}.home-view.hidden{display:none}
+.detail-view{display:none}.detail-view.active{display:block}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--nu-lila-light);border:none;border-radius:var(--btn-radius);padding:9px 20px;font-size:13px;font-weight:800;color:var(--nu-dark);cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:1.5rem;transition:background .12s,transform .12s;animation:fadeUp .35s ease both}
+.back-btn:hover{background:#E0D0FA;transform:translateX(-2px)}
+.detail-header{background:var(--nu-dark);border-radius:var(--card-radius);padding:2.25rem;margin-bottom:1.5rem;position:relative;overflow:hidden;animation:pop .4s ease both}
+.detail-header::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;background:rgba(255,255,255,0.04);border-radius:50%}
+.detail-emoji{font-size:42px;display:block;margin-bottom:.75rem}
+.detail-topic-label{font-size:11px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--nu-lila);margin-bottom:8px}
+.detail-header h2{color:#fff;font-size:24px;font-weight:900;line-height:1.25}
+.sec-label{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-light);margin:1.5rem 0 12px}
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mode-card{border-radius:var(--card-radius);padding:2rem 1.75rem;cursor:pointer;transition:transform .18s,box-shadow .18s;border:none;text-align:left;font-family:'Nunito',sans-serif;position:relative;overflow:hidden;animation:fadeUp .4s ease both}
+.mode-card:nth-child(2){animation-delay:.08s}
+.mode-card:hover{transform:translateY(-4px)}
+.mode-card.teorico{background:var(--nu-lila-light)}.mode-card.gamificado{background:var(--nu-dark)}
+.mode-card.teorico:hover{box-shadow:0 14px 36px rgba(107,33,214,0.15)}
+.mode-card.gamificado:hover{box-shadow:0 14px 36px rgba(61,19,114,0.3)}
+.mode-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%}
+.mode-card.teorico::before{background:rgba(107,33,214,0.07)}.mode-card.gamificado::before{background:rgba(255,255,255,0.05)}
+.mode-emoji{font-size:38px;display:block;margin-bottom:1rem}
+.mode-title{font-size:19px;font-weight:900;margin-bottom:6px;line-height:1.2}
+.mode-card.teorico .mode-title{color:var(--nu-dark)}.mode-card.gamificado .mode-title{color:#fff}
+.mode-desc{font-size:13px;line-height:1.55;margin-bottom:1rem}
+.mode-card.teorico .mode-desc{color:var(--text-mid)}.mode-card.gamificado .mode-desc{color:rgba(255,255,255,0.65)}
+.mode-badge{display:inline-block;font-size:11px;font-weight:800;padding:4px 14px;border-radius:var(--btn-radius)}
+.mode-card.teorico .mode-badge{background:var(--nu-lila);color:var(--nu-dark)}
+.mode-card.gamificado .mode-badge{background:rgba(255,255,255,0.15);color:#fff}
+.mode-cta{display:flex;align-items:center;justify-content:space-between;margin-top:1.5rem}
+.mode-cta-arrow{font-size:24px;font-weight:700;transition:transform .15s}
+.mode-card:hover .mode-cta-arrow{transform:translateX(4px)}
+.mode-card.teorico .mode-cta-arrow{color:var(--nu-mid)}.mode-card.gamificado .mode-cta-arrow{color:rgba(255,255,255,0.5)}
+@media(max-width:640px){
+  .topics-grid{grid-template-columns:1fr 1fr}.mode-grid{grid-template-columns:1fr}
+}
+
+/* ── CHARADAS APP ── */
+#charadas-app{display:none;position:fixed;inset:0;z-index:1000;background:#1a0533;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+#charadas-app.active{display:flex}
+#char-screen-start{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;color:#fff;text-align:center;padding:40px 24px}
+#char-screen-game{display:none;flex-direction:column;align-items:center;width:100vw;height:100vh;position:relative}
+#char-screen-end{display:none;flex-direction:column;align-items:center;justify-content:center;gap:24px;color:#fff;text-align:center;padding:40px 24px;position:relative}
+.char-nu-logo{width:72px;height:72px;background:#820ad1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;letter-spacing:-2px;font-family:'Nunito',sans-serif}
+#char-screen-start h1{font-size:2.2rem;font-weight:900;line-height:1.1;font-family:'Nunito',sans-serif}
+#char-screen-start h1 span{color:#c17bff}
+#char-screen-start p{font-size:1rem;color:#c8a8f8;max-width:300px}
+.char-btn-back{background:transparent;color:#a07acc;border:1.5px solid #4a2070;border-radius:12px;padding:8px 22px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;transition:all .2s;margin-bottom:4px}
+.char-btn-back:hover{background:rgba(130,10,209,.2);border-color:#820ad1;color:#d4aaff}
+.char-btn-start{background:#820ad1;color:#fff;border:none;border-radius:16px;padding:16px 48px;font-size:1.1rem;font-weight:800;cursor:pointer;transition:background .2s,transform .1s;font-family:'Nunito',sans-serif;box-shadow:0 6px 24px rgba(130,10,209,.4)}
+.char-btn-start:hover{background:#9c20f0}
+.char-btn-start:active{transform:scale(.97)}
+.char-hud{width:100%;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.35)}
+.char-hud-score{font-size:.95rem;color:#c8a8f8;font-weight:600}
+.char-hud-score strong{color:#fff;font-size:1.2rem}
+.char-hud-counter{font-size:.85rem;color:#a07acc}
+.char-game-area{flex:1;display:flex;align-items:center;justify-content:space-between;width:100%;padding:20px 14px;gap:10px}
+.char-btn-action{width:76px;height:76px;border-radius:50%;border:none;font-size:1.8rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s,box-shadow .12s;flex-shrink:0;box-shadow:0 4px 20px rgba(0,0,0,.4);color:#fff;font-weight:700}
+.char-btn-skip{background:#c0392b}.char-btn-skip:hover{background:#e74c3c;transform:scale(1.06)}
+.char-btn-correct{background:#27ae60}.char-btn-correct:hover{background:#2ecc71;transform:scale(1.06)}
+.char-card-wrapper{flex:1;display:flex;align-items:center;justify-content:center;height:100%}
+.char-card{background:linear-gradient(145deg,#820ad1,#5b0997);border-radius:28px;padding:38px 28px;max-width:400px;width:100%;text-align:center;box-shadow:0 12px 48px rgba(130,10,209,.5),0 0 0 1px rgba(255,255,255,.08);position:relative;overflow:hidden;animation:cardIn .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes cardIn{from{opacity:0;transform:scale(.7) rotateY(20deg)}to{opacity:1;transform:scale(1) rotateY(0)}}
+.char-card::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05)}
+.char-card-label{font-size:.75rem;color:#d4aaff;text-transform:uppercase;letter-spacing:2px;margin-bottom:18px;font-weight:700}
+.char-card-title{font-size:clamp(1.3rem,4vw,2.2rem);font-weight:900;color:#fff;line-height:1.25;position:relative;z-index:1;font-family:'Nunito',sans-serif}
+.char-card.slide-out-left{animation:charOutLeft .25s ease-in forwards}
+.char-card.slide-out-right{animation:charOutRight .25s ease-in forwards}
+@keyframes charOutLeft{to{opacity:0;transform:translateX(-120%) rotate(-15deg)}}
+@keyframes charOutRight{to{opacity:0;transform:translateX(120%) rotate(15deg)}}
+.char-instructions{display:flex;gap:20px;padding:8px 20px 6px;color:#a07acc;font-size:.8rem;text-align:center}
+.char-instructions span{flex:1}
+.char-instructions strong{color:#e0c4ff;display:block;font-size:.95rem;margin-bottom:2px}
+.char-btn-end{background:transparent;color:#a07acc;border:1.5px solid #4a2070;border-radius:12px;padding:9px 26px;font-size:.85rem;font-weight:700;cursor:pointer;margin:4px 20px 16px;transition:all .2s;font-family:'Nunito',sans-serif}
+.char-btn-end:hover{background:rgba(130,10,209,.2);border-color:#820ad1;color:#d4aaff}
+.char-result-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#820ad1,#5b0997);border:4px solid #c17bff;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(130,10,209,.6)}
+.char-result-circle .big-num{font-size:3rem;font-weight:900;line-height:1;color:#fff;font-family:'Nunito',sans-serif}
+.char-result-circle .total{font-size:.9rem;color:#d4aaff}
+#char-screen-end h2{font-size:1.8rem;font-weight:900;font-family:'Nunito',sans-serif}
+.char-result-msg{font-size:1rem;color:#c8a8f8;max-width:300px}
+.char-result-detail{font-size:.9rem;color:#a07acc}
+.char-btn-restart{background:#820ad1;color:#fff;border:none;border-radius:14px;padding:14px 40px;font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s,transform .1s;font-family:'Nunito',sans-serif}
+.char-btn-restart:hover{background:#9c20f0}
+#char-confetti{position:fixed;inset:0;pointer-events:none;z-index:1100}
+@media(max-width:480px){.char-btn-action{width:60px;height:60px;font-size:1.5rem}.char-card{padding:28px 18px}}
+
+/* ── PUZZLE GAME (full screen) ── */
+#puzzle-app{display:none;position:fixed;inset:0;z-index:1000;flex-direction:column}
+
+#secured-teorico-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#7B3FE4}
+#secured-teorico-app.active{display:block}
+#nucash-app{display:none;position:fixed;inset:0;z-index:1000;background:#1a0533;overflow-y:auto}
+#nucash-app.active{display:block}
+
+#puzzle-app.active{display:flex}
+#setup-page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 60% 40%,#1e1050 0%,#0f0e17 70%);padding:16px;z-index:10}
+.puz-card{background:#fff;border-radius:24px;padding:28px 32px;width:100%;max-width:500px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+.puz-card h1{text-align:center;font-size:1.5em;color:#3b1d8e;margin-bottom:3px;font-family:'Nunito',sans-serif;font-weight:900}
+.puz-card .sub{text-align:center;color:#aaa;font-size:.83em;margin-bottom:18px}
+.back-to-site{display:inline-flex;align-items:center;gap:6px;background:#EDE3FB;border:none;border-radius:50px;padding:7px 16px;font-size:12px;font-weight:800;color:#3D1372;cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:16px;transition:background .12s}
+.back-to-site:hover{background:#ddd0f5}
+.upload-zone{border:2.5px dashed #c9bfef;border-radius:14px;padding:24px 14px;text-align:center;cursor:pointer;transition:.25s;background:#f9f7ff;margin-bottom:16px}
+.upload-zone:hover,.upload-zone.drag-over{border-color:#7c3aed;background:#f0ebff}
+.upload-zone .uz-icon{font-size:2em;margin-bottom:5px}
+.upload-zone .uz-label{font-weight:700;color:#5b34d4;font-size:.88em}
+.upload-zone .uz-sub{color:#bbb;font-size:.75em;margin-top:3px}
+#puz-file-input{display:none}
+.sec-lbl{font-size:.68em;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#9b8ec4;margin-bottom:7px}
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px}
+.pb{background:#f5f3ff;border:2px solid #e5dff9;border-radius:9px;padding:7px 4px;cursor:pointer;transition:.18s;color:#5b34d4;font-weight:700;text-align:center;font-size:.78em;font-family:'Nunito',sans-serif}
+.pb:hover{border-color:#7c3aed;background:#ede8ff}
+.pb.active{background:#7c3aed;border-color:#7c3aed;color:#fff}
+.pb span{display:block;font-size:1.2em;line-height:1.2}
+.sr{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.sr label{font-size:.78em;font-weight:700;color:#555;width:65px}
+.sr input[type=range]{flex:1;accent-color:#7c3aed}
+.sr .sv{font-weight:800;color:#7c3aed;width:20px;text-align:right;font-size:.88em}
+.piece-total{text-align:center;background:#f5f3ff;border-radius:8px;padding:6px;font-size:.8em;color:#888;margin:8px 0 16px}
+.piece-total strong{color:#7c3aed;font-size:1.2em}
+.play-btn{width:100%;padding:14px;background:linear-gradient(135deg,#6c3de0,#a855f7);color:#fff;border:none;border-radius:13px;font-size:1em;font-weight:800;cursor:pointer;transition:.28s;box-shadow:0 4px 20px rgba(108,61,224,.4);font-family:'Nunito',sans-serif}
+.play-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 28px rgba(108,61,224,.5)}
+.play-btn:disabled{opacity:.38;cursor:not-allowed;transform:none}
+#puz-game-page{position:absolute;inset:0;display:none;flex-direction:column}
+#hud{height:50px;background:rgba(15,14,23,.92);backdrop-filter:blur(12px);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08);z-index:50}
+.hud-logo{color:#fff;font-size:1em;font-weight:800}
+.hud-div{width:1px;height:22px;background:rgba(255,255,255,.15)}
+.hud-stat{display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.8);font-size:.82em;white-space:nowrap}
+.hud-stat strong{color:#fff;font-weight:700}
+.prog-wrap{flex:1;height:5px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;min-width:40px}
+.prog-bar{height:100%;background:linear-gradient(90deg,#6c3de0,#a855f7);border-radius:3px;transition:width .3s}
+.hbtn{padding:5px 10px;border:1px solid rgba(255,255,255,.18);border-radius:7px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);cursor:pointer;font-size:.76em;transition:.18s;white-space:nowrap;font-family:'Nunito',sans-serif;font-weight:700}
+.hbtn:hover{background:rgba(255,255,255,.16)}
+.hbtn.danger{border-color:rgba(255,120,80,.4);color:#ff9472}
+#game-canvas{flex:1;display:block;touch-action:none}
+#win-overlay{position:absolute;inset:0;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:500}
+.win-card{background:#fff;border-radius:24px;padding:40px 36px;text-align:center;max-width:360px;width:90%;box-shadow:0 32px 90px rgba(0,0,0,.6);animation:popIn .5s cubic-bezier(.34,1.56,.64,1);font-family:'Nunito',sans-serif}
+@keyframes popIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.win-emoji{font-size:3.2em;margin-bottom:8px}
+.win-title{font-size:1.8em;font-weight:900;color:#3b1d8e;margin-bottom:5px}
+.win-sub{color:#999;font-size:.86em;margin-bottom:20px}
+.win-stats{display:flex;gap:14px;justify-content:center;margin-bottom:22px}
+.win-stat{background:#f5f3ff;border-radius:12px;padding:11px 16px;min-width:85px}
+.win-stat .wv{font-size:1.3em;font-weight:800;color:#7c3aed}
+.win-stat .wl{font-size:.7em;color:#aaa;margin-top:2px}
+.win-actions{display:flex;gap:9px;justify-content:center}
+.wbtn{padding:10px 18px;border-radius:11px;border:none;font-size:.88em;font-weight:700;cursor:pointer;transition:.2s;font-family:'Nunito',sans-serif}
+.wbtn-p{background:linear-gradient(135deg,#6c3de0,#a855f7);color:#fff}
+.wbtn-s{background:#f5f3ff;color:#7c3aed;border:2px solid #e5dff9}
+#hint-overlay{position:absolute;inset:0;z-index:400;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center}
+#hint-img{max-width:70vw;max-height:72vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.hint-lbl{position:absolute;bottom:28%;color:rgba(255,255,255,.7);font-size:.83em;font-family:'Nunito',sans-serif}
+#confetti-canvas{position:absolute;inset:0;pointer-events:none;z-index:499}
+</style>
+<style>
+#nucash-app *{box-sizing:border-box}
+#nucash-app{font-family:'Segoe UI',Arial,sans-serif}
+.nc-screen{display:none;flex-direction:column;align-items:center;width:100%;min-height:100vh;padding:20px;position:relative;z-index:1}
+.nc-screen.active{display:flex}
+.nc-title{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;color:#f0c040;text-shadow:0 0 20px rgba(240,192,64,.6),0 2px 0 #7a5000;letter-spacing:2px;text-align:center;margin-bottom:4px}
+.nc-title span{color:#fff}
+.nc-subtitle{font-size:.85rem;color:#c4a8f0;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px}
+.nc-card{background:linear-gradient(145deg,#2a0856,#3b0d72);border:1.5px solid rgba(240,192,64,.25);border-radius:20px;padding:28px 32px;width:100%;max-width:780px;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;overflow:hidden}
+.nc-card::before{content:'';position:absolute;top:-50px;right:-50px;width:180px;height:180px;border-radius:50%;background:rgba(240,192,64,.04)}
+.nc-btn{border:none;cursor:pointer;font-weight:700;border-radius:12px;transition:all .15s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.nc-btn:active{transform:scale(.96)}
+.nc-btn-gold{background:linear-gradient(135deg,#f0c040,#d4a017);color:#1a0533;padding:14px 40px;font-size:1.1rem;box-shadow:0 4px 20px rgba(240,192,64,.35)}
+.nc-btn-gold:hover{background:linear-gradient(135deg,#ffe07a,#f0c040)}
+.nc-btn-outline{background:transparent;border:1.5px solid rgba(240,192,64,.35);color:#c4a8f0;padding:10px 24px;font-size:.9rem}
+.nc-btn-outline:hover{border-color:#f0c040;color:#f0c040}
+.nc-btn-back{display:inline-flex;align-items:center;gap:6px;background:#EDE3FB;border:none;border-radius:50px;padding:7px 16px;font-size:12px;font-weight:800;color:#3D1372;cursor:pointer;font-family:'Nunito',sans-serif;margin-bottom:16px;transition:background .12s}
+.nc-btn-back:hover{background:#ddd0f5}
+.nc-intro-logo{width:90px;height:90px;background:linear-gradient(135deg,#6b21c8,#3b0d72);border-radius:50%;border:3px solid #f0c040;display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:900;color:#f0c040;box-shadow:0 0 30px rgba(240,192,64,.3);letter-spacing:-2px}
+.nc-tagline{font-size:.95rem;color:#c4a8f0;max-width:360px;line-height:1.5;text-align:center}
+.nc-rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;width:100%;max-width:780px;margin-bottom:20px}
+@media(max-width:600px){.nc-rules-grid{grid-template-columns:1fr}}
+.nc-rules-section h3{font-size:.75rem;color:#f0c040;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:700}
+.nc-rules-section p{color:#ddd;font-size:.93rem;line-height:1.6}
+.nc-money-rule{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;margin-bottom:8px;background:rgba(0,0,0,.2)}
+.nc-money-rule .nc-icon{font-size:1.3rem;flex-shrink:0}
+.nc-money-rule .nc-amount{font-size:1.1rem;font-weight:800;min-width:52px}
+.nc-money-rule .nc-desc{font-size:.85rem;color:#ccc;line-height:1.3}
+.nc-money-rule.nc-correct .nc-amount{color:#22c55e}
+.nc-money-rule.nc-regular .nc-amount{color:#eab308}
+.nc-money-rule.nc-incorrect .nc-amount{color:#ef4444}
+.nc-starting-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(240,192,64,.12);border:1px solid rgba(240,192,64,.3);border-radius:20px;padding:6px 16px;font-size:1rem;font-weight:700;color:#f0c040;margin-bottom:14px}
+.nc-player-setup{width:100%;max-width:500px}
+.nc-player-input-row{display:flex;gap:10px;margin-bottom:10px}
+.nc-player-input-row input{flex:1;background:rgba(0,0,0,.3);border:1.5px solid rgba(240,192,64,.2);border-radius:10px;padding:12px 16px;color:#fff;font-size:1rem;outline:none;transition:border-color .2s}
+.nc-player-input-row input::placeholder{color:rgba(255,255,255,.3)}
+.nc-player-input-row input:focus{border-color:#f0c040}
+.nc-btn-add{background:rgba(240,192,64,.15);border:1.5px solid rgba(240,192,64,.3);border-radius:10px;color:#f0c040;width:44px;height:44px;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.nc-btn-add:hover{background:rgba(240,192,64,.25)}
+.nc-player-chip{display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.25);border:1px solid rgba(240,192,64,.15);border-radius:10px;padding:10px 14px;margin-bottom:6px;color:#eee;font-size:.95rem}
+.nc-player-chip .nc-remove{cursor:pointer;color:#ef4444;opacity:.6;font-size:1.1rem;line-height:1;transition:opacity .2s}
+.nc-player-chip .nc-remove:hover{opacity:1}
+.nc-q-hud{width:100%;max-width:780px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.nc-q-counter{font-size:.85rem;color:#c4a8f0;background:rgba(0,0,0,.3);border-radius:8px;padding:4px 12px}
+.nc-q-badge{font-size:.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:20px}
+.nc-q-badge.scenario{background:rgba(107,33,200,.4);border:1px solid rgba(107,33,200,.6);color:#d4aaff}
+.nc-q-badge.fv{background:rgba(234,179,8,.15);border:1px solid rgba(234,179,8,.4);color:#f0c040}
+.nc-q-card{width:100%;max-width:780px;background:linear-gradient(145deg,#2a0856,#3b0d72);border:1.5px solid rgba(240,192,64,.2);border-radius:20px;padding:28px 32px;box-shadow:0 8px 40px rgba(0,0,0,.5);position:relative;overflow:hidden;animation:ncqIn .35s cubic-bezier(.34,1.4,.64,1) both}
+@keyframes ncqIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.nc-q-card::after{content:'Nu cash';position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:.75rem;font-weight:700;color:rgba(240,192,64,.25);letter-spacing:4px;text-transform:uppercase}
+.nc-q-text{font-size:clamp(1rem,2.5vw,1.3rem);color:#fff;line-height:1.55;text-align:center;font-weight:600;padding-top:12px;white-space:pre-line}
+.nc-q-stmt{margin-top:14px;padding:12px 16px;background:rgba(240,192,64,.07);border-left:3px solid #f0c040;border-radius:0 8px 8px 0;font-size:.95rem;color:#ffe07a;line-height:1.5;font-style:italic}
+.nc-ps-label{width:100%;max-width:780px;font-size:.8rem;color:#c4a8f0;text-transform:uppercase;letter-spacing:2px;margin:14px 0 8px}
+.nc-ps{width:100%;max-width:780px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.nc-pb{padding:9px 20px;border-radius:40px;border:1.5px solid rgba(255,255,255,.12);background:rgba(0,0,0,.25);color:#ccc;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
+.nc-pb:hover{border-color:#f0c040;color:#f0c040}
+.nc-pb.sel{background:rgba(240,192,64,.15);border-color:#f0c040;color:#f0c040}
+.nc-pb .nc-pb-bal{font-size:.75rem;font-weight:600;padding:2px 7px;border-radius:20px;background:rgba(0,0,0,.3)}
+.nc-pb.sel .nc-pb-bal{background:rgba(240,192,64,.2)}
+.nc-actions{width:100%;max-width:780px;display:flex;gap:12px;margin-bottom:14px}
+.nc-abtn{flex:1;padding:16px 12px;border-radius:14px;border:none;font-size:1rem;font-weight:700;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.4;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif}
+.nc-abtn.en{opacity:1;pointer-events:auto}
+.nc-abtn:active{transform:scale(.96)}
+.nc-abtn .nc-si{font-size:1.5rem}
+.nc-abtn .nc-sl{font-size:.8rem;font-weight:600}
+.nc-abtn .nc-sa{font-size:1.1rem;font-weight:900}
+.nc-abtn.nc-cor{background:linear-gradient(135deg,#166534,#15803d);color:#86efac;box-shadow:0 4px 16px rgba(34,197,94,.25)}
+.nc-abtn.nc-cor .nc-sa{color:#4ade80}
+.nc-abtn.nc-cor.en:hover{background:linear-gradient(135deg,#15803d,#16a34a)}
+.nc-abtn.nc-reg{background:linear-gradient(135deg,#713f12,#92400e);color:#fcd34d;box-shadow:0 4px 16px rgba(234,179,8,.2)}
+.nc-abtn.nc-reg .nc-sa{color:#f0c040}
+.nc-abtn.nc-reg.en:hover{background:linear-gradient(135deg,#92400e,#b45309)}
+.nc-abtn.nc-inc{background:linear-gradient(135deg,#7f1d1d,#991b1b);color:#fca5a5;box-shadow:0 4px 16px rgba(239,68,68,.25)}
+.nc-abtn.nc-inc .nc-sa{color:#f87171}
+.nc-abtn.nc-inc.en:hover{background:linear-gradient(135deg,#991b1b,#b91c1c)}
+.nc-abtn.nc-hlp{background:linear-gradient(135deg,#1e3a5f,#1d4ed8);color:#93c5fd;box-shadow:0 4px 16px rgba(59,130,246,.25)}
+.nc-abtn.nc-hlp .nc-sa{color:#60a5fa}
+.nc-abtn.nc-hlp.en:hover{background:linear-gradient(135deg,#1d4ed8,#2563eb)}
+.nc-helper-panel{width:100%;max-width:780px;background:rgba(29,78,216,.1);border:1.5px solid rgba(96,165,250,.35);border-radius:14px;padding:14px 18px;margin-bottom:14px;display:none}
+.nc-helper-panel.vis{display:block}
+.nc-hp-label{font-size:.8rem;color:#93c5fd;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+.nc-hs{display:flex;flex-wrap:wrap;gap:8px}
+.nc-hb{padding:8px 18px;border-radius:40px;border:1.5px solid rgba(96,165,250,.25);background:rgba(0,0,0,.25);color:#93c5fd;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:7px}
+.nc-hb:hover{border-color:#60a5fa;color:#60a5fa}
+.nc-hb.sel{background:rgba(59,130,246,.2);border-color:#60a5fa;color:#fff}
+.nc-hb .nc-hb-b{font-size:.72rem;font-weight:600;padding:2px 6px;border-radius:20px;background:rgba(0,0,0,.3)}
+.nc-confirm-help{margin-top:10px;background:linear-gradient(135deg,#1d4ed8,#2563eb);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .15s;opacity:.4;pointer-events:none;font-family:'Segoe UI',Arial,sans-serif}
+.nc-confirm-help.en{opacity:1;pointer-events:auto}
+.nc-confirm-help.en:hover{background:linear-gradient(135deg,#2563eb,#3b82f6)}
+.nc-bal-bar{width:100%;max-width:780px;display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;background:rgba(0,0,0,.3);border-radius:12px;border:1px solid rgba(240,192,64,.1)}
+.nc-bi{display:flex;align-items:center;gap:6px;font-size:.85rem}
+.nc-bi .nc-bn{color:#ccc}
+.nc-bi .nc-ba{font-weight:800;font-size:.9rem;color:#f0c040;transition:color .4s}
+.nc-bi .nc-ba.up{color:#22c55e}
+.nc-bi .nc-ba.dn{color:#ef4444}
+.nc-bi .nc-bd{width:8px;height:8px;border-radius:50%;background:#f0c040;flex-shrink:0}
+.nc-ff{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;font-size:5rem;font-weight:900;pointer-events:none;z-index:1100;opacity:0;transition:opacity .15s}
+.nc-ff.show{opacity:1}
+.nc-ff.hide{opacity:0;transition:opacity .5s}
+.nc-rank{width:100%;max-width:500px;margin-bottom:24px}
+.nc-ri{display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:14px;margin-bottom:10px;background:rgba(0,0,0,.25);border:1px solid rgba(240,192,64,.12)}
+.nc-ri.first{background:linear-gradient(135deg,rgba(240,192,64,.15),rgba(240,192,64,.05));border-color:rgba(240,192,64,.4);box-shadow:0 0 20px rgba(240,192,64,.1)}
+.nc-rp{font-size:1.4rem;font-weight:900;min-width:32px;text-align:center}
+.nc-ri.first .nc-rp{color:#f0c040}
+.nc-ri:not(.first) .nc-rp{color:#c4a8f0}
+.nc-rname{flex:1;font-size:1rem;color:#eee;font-weight:600}
+.nc-ramt{font-size:1.3rem;font-weight:900;color:#f0c040}
+.nc-ri:nth-child(2) .nc-ramt{color:#cbd5e1}
+.nc-ri:nth-child(3) .nc-ramt{color:#b45309}
+.nc-winner-banner{font-size:1rem;color:#f0c040;margin-bottom:8px;letter-spacing:1px}
+.nc-winner-name{font-size:2rem;font-weight:900;color:#fff;margin-bottom:4px}
+.nc-winner-amt{font-size:1.1rem;color:#c4a8f0;margin-bottom:24px}
+.nc-gap-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.nc-mt16{margin-top:16px}
+#nc-confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1050}
+@media(max-width:520px){.nc-actions{flex-direction:column}.nc-q-card,.nc-card{padding:20px 18px}}
+
+.weduka-link-row{display:flex;align-items:center;gap:12px;padding:.875rem 1.25rem;background:var(--white);border:0.5px solid var(--color-border-tertiary,rgba(0,0,0,0.1));border-radius:12px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .1s}
+.weduka-link-row:hover{border-color:#820AD1;transform:translateY(-1px)}
+.weduka-link-dot{width:8px;height:8px;border-radius:50%;background:#820AD1;flex-shrink:0}
+.weduka-link-name{flex:1;font-size:13px;font-weight:700;color:var(--text)}
+.weduka-link-arrow{font-size:14px;color:var(--text-light,#8B75A8);flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- ══ SITE ══ -->
+<div class="site-wrap" id="site-wrap">
+  <main>
+    <div class="home-view" id="home-view">
+      <p class="home-label">✨ ¿Qué tema quieres explorar hoy?</p>
+      <div class="topics-grid">
+        <button class="topic-card" style="animation-delay:.05s" onclick="openTopic('secured','Secured Card: Misiones y retención','🛡️')">
+          <span class="topic-emoji">🛡️</span><div class="topic-name">Secured Card: Misiones y retención</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card lila" style="animation-delay:.1s" onclick="openTopic('cert','Certificados','📜')">
+          <span class="topic-emoji">📜</span><div class="topic-name">Certificados</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card" style="animation-delay:.15s" onclick="openTopic('marketing','Marketing, Alianzas y Mastercard','🤝')">
+          <span class="topic-emoji">🤝</span><div class="topic-name">Marketing, Alianzas y Mastercard</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card lila" style="animation-delay:.2s" onclick="openTopic('amparada','Tarjeta Amparada','🔒')">
+          <span class="topic-emoji">🔒</span><div class="topic-name">Tarjeta Amparada</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card" style="animation-delay:.25s" onclick="openTopic('limite','Gestión de límite','📈')">
+          <span class="topic-emoji">📈</span><div class="topic-name">Gestión de límite</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card lila" style="animation-delay:.3s" onclick="openTopic('nuplus','Nu Plus','⭐')">
+          <span class="topic-emoji">⭐</span><div class="topic-name">Nu Plus</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card" style="animation-delay:.35s" onclick="openTopic('retencion','Retención','💜')">
+          <span class="topic-emoji">💜</span><div class="topic-name">Retención</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card lila" style="animation-delay:.4s" onclick="openTopic('cancelcuenta','Cancelación Cuenta de Ahorros','🏦')">
+          <span class="topic-emoji">🏦</span><div class="topic-name">Cancelación Cuenta de Ahorros</div><div class="topic-arrow">→</div>
+        </button>
+        <button class="topic-card" style="animation-delay:.45s" onclick="openTopic('canceltarjeta','Cancelación Tarjeta de Crédito','💳')">
+          <span class="topic-emoji">💳</span><div class="topic-name">Cancelación Tarjeta de Crédito</div><div class="topic-arrow">→</div>
+        </button>
+      </div>
+      <button class="links-card" onclick="openTopic('links','Links Weduka','🔗')">
+        <span class="links-card-emoji">🔗</span>
+        <div class="links-card-text"><strong>Links Weduka</strong><span>Todo lo que necesitas, en un solo lugar</span></div>
+        <span class="links-card-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="detail-view" id="detail-view">
+      <button class="back-btn" onclick="goHome()">← Volver al inicio</button>
+      <div class="detail-header">
+        <span class="detail-emoji" id="detail-emoji"></span>
+        <div class="detail-topic-label">Estás explorando</div>
+        <h2 id="detail-title"></h2>
+      </div>
+      <div id="modes-section">
+        <p class="sec-label">¿Cómo te late aprender hoy? 👇</p>
+        <div class="mode-grid">
+          <div class="mode-card teorico" onclick="launchMode('teorico')">
+            <span class="mode-emoji">📖</span>
+            <div class="mode-title">Refuerzo teórico</div>
+            <div class="mode-desc">Repasa los conceptos clave, políticas y procedimientos. Todo clarito y al grano.</div>
+            <div class="mode-badge">📚 Lectura guiada</div>
+            <div class="mode-cta"><span style="font-size:14px;font-weight:800;color:var(--nu-mid)">¡Vamos!</span><span class="mode-cta-arrow">→</span></div>
+          </div>
+          <div class="mode-card gamificado" onclick="launchMode('gamificado')">
+            <span class="mode-emoji">🎮</span>
+            <div class="mode-title">Manos a la obra</div>
+            <div class="mode-desc">Pon a prueba lo que sabes con casos reales, preguntas y puntos. ¡A jugar!</div>
+            <div class="mode-badge">🏆 Gamificado</div>
+            <div class="mode-cta"><span style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.8)">¡A jugar!</span><span class="mode-cta-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="links-section" style="display:none">
+        <div style="margin-bottom:1rem">
+          <input type="text" id="weduka-search" placeholder="🔍 Buscar weduka..." oninput="filterWedukas(this.value)"
+            style="width:100%;padding:10px 16px;border-radius:10px;border:1.5px solid var(--nu-lila);background:var(--white);font-size:14px;font-family:'Nunito',sans-serif;color:var(--text);outline:none">
+        </div>
+        <div id="weduka-links-list" style="display:flex;flex-direction:column;gap:8px">
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4723" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">Contact Reasons de Customer Management</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4581" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">Bloqueos de Customer Management</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4809" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Actualización de ingresos</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4775" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Beneficios: Alianzas</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4843" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Beneficios: Campañas de Marketing e investigación</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4662" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Beneficios: Mastercard</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4691" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Cancelación: Aviso de defunción</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4455" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Cancelación: Cuenta de ahorros y tarjeta débito (Konecta)</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4863" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Cancelación: Cuenta de ahorros y tarjeta débito (Teleperformance)</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4511" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Cancelación: Tarjeta de crédito (Konecta)</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4864" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Cancelación: Tarjeta de crédito (Teleperformance)</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4741" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Certificados: Cuenta de ahorros y tarjeta débito</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4714" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Certificados: Préstamo Nu</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4740" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Certificados: Tarjeta de crédito</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4805" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Contratos: Tarjeta de crédito y cuenta de ahorros</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4782" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Límite: Dudas generales</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4519" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Límite: Información sobre incremento</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4814" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Límite: Reducción de cupo</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4823" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Notificaciones: Aviso de viaje</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4791" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Notificaciones: Problemas</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4669" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Nu Plus: Acumulación y redención de puntos</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4657" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Nu Plus: Funcionamiento</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4659" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Nu Plus: Inactivación o renovación del programa</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4716" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Tarjeta Abre Caminos: Misiones</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4727" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Tarjeta Amparada: Dudas generales y Gestión de tarjeta</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4763" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Tarjeta Amparada: Invitación y activación</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4830" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Tarjeta física: Contactless</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4764" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">CM - Tarjeta física: Funcionamiento, características y numeración</span><span class="weduka-link-arrow">↗</span></a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4487&logType=18&idlogSearch=0" target="_blank" class="weduka-link-row"><div class="weduka-link-dot"></div><span class="weduka-link-name">Contact Reasons - Tarjeta Morada Abre Caminos</span><span class="weduka-link-arrow">↗</span></a>
+        </div>
+      </div>
+        <div id="weduka-links-list" style="display:flex;flex-direction:column;gap:8px">
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4723" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">Contact Reasons de Customer Management</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4455" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Cancelación: Cuenta de ahorros y tarjeta débito (Konecta)</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4863" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Cancelación: Cuenta de ahorros y tarjeta débito (Teleperformance)</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4741" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Certificados: Cuenta de ahorros y tarjeta débito</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4775" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Beneficios: Alianzas</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4691" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Cancelación: Aviso de defunción</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4823" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Notificaciones: Aviso de viaje</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4662" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Beneficios: Mastercard</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4581" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">Bloqueos de Customer Management</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4487&logType=18&idlogSearch=0" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">Contact Reasons - Tarjeta Morada Abre Caminos</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4830" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Tarjeta física: Contactless</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4805" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Contratos: Tarjeta de crédito y cuenta de ahorros</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4511" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Cancelación: Tarjeta de crédito (Konecta)</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4864" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Cancelación: Tarjeta de crédito (Teleperformance)</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4740" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Certificados: Tarjeta de crédito</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4782" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Límite: Dudas generales</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4764" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Tarjeta física: Funcionamiento, características y numeración</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4519" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Límite: Información sobre incremento</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4714" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Certificados: Préstamo Nu</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4843" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Beneficios: Campañas de Marketing e investigación</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4791" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Notificaciones: Problemas</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4777" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">Nu FATCA/CRS - Dudas generales</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4659" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Nu Plus: Inactivación o renovación del programa</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4669" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Nu Plus: Acumulación y redención de puntos</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4657" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Nu Plus: Funcionamiento</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4814" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Límite: Reducción de cupo</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4742" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">REGSOL - Información sobre INFO_REQUEST y HOLMES_OUT</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4716" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Tarjeta Abre Caminos: Misiones</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4727" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Tarjeta Amparada: Dudas generales y Gestión de tarjeta</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4763" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Tarjeta Amparada: Invitación y activación</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        <a href="https://nucolombia.myweduka.com/DocumentFind/Document?idDocument=4809" target="_blank" class="weduka-link-row">
+          <div class="weduka-link-dot"></div>
+          <span class="weduka-link-name">CM - Actualización de ingresos</span>
+          <span class="weduka-link-arrow">↗</span>
+        </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ══ CHARADAS APP (full-screen) ══ -->
+<div id="charadas-app">
+  <canvas id="char-confetti"></canvas>
+  <div id="char-screen-start">
+    <button class="char-btn-back" onclick="closeCharadasApp()">← Volver a Certificados</button>
+    <div class="char-nu-logo">Nu</div>
+    <h1>Charadas<br><span style="color:#c17bff">Certificados</span></h1>
+    <p>¿Puedes adivinar el tipo de certificado que describe la charada?</p>
+    <button class="char-btn-start" onclick="charStartGame()">¡Jugar!</button>
+  </div>
+  <div id="char-screen-game">
+    <div class="char-hud">
+      <div class="char-hud-score">Adivinadas: <strong id="char-score">0</strong></div>
+      <div class="char-hud-counter" id="char-counter">1 / 28</div>
+    </div>
+    <div class="char-game-area">
+      <button class="char-btn-action char-btn-skip" onclick="charHandleAction('skip')" title="No adivinó">✗</button>
+      <div class="char-card-wrapper">
+        <div class="char-card" id="char-card">
+          <div class="char-card-label">Certificado Nu</div>
+          <div class="char-card-title" id="char-card-text">...</div>
+        </div>
+      </div>
+      <button class="char-btn-action char-btn-correct" onclick="charHandleAction('correct')" title="¡Adivinó!">✓</button>
+    </div>
+    <div class="char-instructions">
+      <span><strong>✗</strong> No adivinó<br>Siguiente carta</span>
+      <span><strong>✓</strong> ¡Adivinó!<br>+1 punto</span>
+    </div>
+    <button class="char-btn-end" onclick="charEndRound()">Finalizar ronda</button>
+  </div>
+  <div id="char-screen-end">
+    <div class="char-nu-logo">Nu</div>
+    <div class="char-result-circle">
+      <span class="big-num" id="char-final-score">0</span>
+      <span class="total" id="char-final-total">de 28</span>
+    </div>
+    <h2 id="char-result-title">¡Bien jugado!</h2>
+    <p class="char-result-msg" id="char-result-msg"></p>
+    <p class="char-result-detail" id="char-result-detail"></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <button class="char-btn-back" onclick="closeCharadasApp()">🏠 Inicio</button>
+      <button class="char-btn-restart" onclick="charRestartGame()">🔄 Jugar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PUZZLE APP (full-screen) ══ -->
+<div id="puzzle-app">
+  <!-- Setup screen -->
+  <div id="setup-page">
+    <div class="puz-card">
+      <button class="back-to-site" onclick="closePuzzleApp()">← Volver a Tarjeta Amparada</button>
+      <h1>🧩 Rompecabezas</h1>
+      <p class="sub">Sube una imagen y arma el puzzle en el navegador</p>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('puz-file-input').click()">
+        <div class="uz-icon" id="uz-icon">🖼️</div>
+        <div class="uz-label" id="uz-label">Haz clic o arrastra tu imagen</div>
+        <div class="uz-sub" id="uz-sub">PNG · JPG · WebP</div>
+        <input type="file" id="puz-file-input" accept="image/*">
+      </div>
+      <div class="sec-lbl">Número de fichas</div>
+      <div class="presets">
+        <button class="pb" onclick="setGrid(2,2,this)"><span>4</span>2×2</button>
+        <button class="pb active" onclick="setGrid(3,3,this)"><span>9</span>3×3</button>
+        <button class="pb" onclick="setGrid(4,4,this)"><span>16</span>4×4</button>
+        <button class="pb" onclick="setGrid(5,5,this)"><span>25</span>5×5</button>
+        <button class="pb" onclick="setGrid(4,5,this)"><span>20</span>4×5</button>
+        <button class="pb" onclick="setGrid(6,6,this)"><span>36</span>6×6</button>
+        <button class="pb" onclick="setGrid(7,7,this)"><span>49</span>7×7</button>
+        <button class="pb" onclick="setGrid(10,10,this)"><span>100</span>10×10</button>
+      </div>
+      <div class="sr"><label>Filas</label><input type="range" id="r-sl" min="2" max="15" value="3" oninput="syncSl()"><span class="sv" id="r-v">3</span></div>
+      <div class="sr"><label>Columnas</label><input type="range" id="c-sl" min="2" max="15" value="3" oninput="syncSl()"><span class="sv" id="c-v">3</span></div>
+      <div class="piece-total">Total: <strong id="puz-total">9</strong> fichas</div>
+      <button class="play-btn" id="play-btn" disabled onclick="startGame()">▶ ¡Jugar!</button>
+    </div>
+  </div>
+  <!-- Game screen -->
+  <div id="puz-game-page">
+    <div id="hud">
+      <span class="hud-logo">🧩 Tarjeta Amparada</span>
+      <div class="hud-div"></div>
+      <div class="hud-stat">⏱ <strong id="h-time">0:00</strong></div>
+      <div class="hud-div"></div>
+      <div class="hud-stat">🎯 <strong id="h-prog">0 / 0</strong></div>
+      <div class="prog-wrap"><div class="prog-bar" id="h-bar" style="width:0%"></div></div>
+      <button class="hbtn" onclick="showHint()">🔍 Pista</button>
+      <button class="hbtn" onclick="shufflePieces()">🔀 Mezclar</button>
+      <button class="hbtn danger" onclick="exitToSetup()">✕ Salir</button>
+    </div>
+    <canvas id="game-canvas"></canvas>
+  </div>
+  <!-- Hint -->
+  <div id="hint-overlay"><img id="hint-img" src="" alt=""><div class="hint-lbl">La pista desaparece en 3 segundos…</div></div>
+  <!-- Win -->
+  <div id="win-overlay">
+    <canvas id="confetti-canvas"></canvas>
+    <div class="win-card">
+      <div class="win-emoji">🎉</div>
+      <div class="win-title">¡Lo lograste!</div>
+      <p class="win-sub">¡Armaste el rompecabezas de Tarjeta Amparada!</p>
+      <div class="win-stats">
+        <div class="win-stat"><div class="wv" id="w-time">—</div><div class="wl">Tiempo</div></div>
+        <div class="win-stat"><div class="wv" id="w-pieces">—</div><div class="wl">Fichas</div></div>
+      </div>
+      <div class="win-actions">
+        <button class="wbtn wbtn-s" onclick="closePuzzleApp()">🏠 Inicio</button>
+        <button class="wbtn wbtn-p" onclick="restartGame()">🔄 Otra vez</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /win-overlay -->
+</div><!-- /puzzle-app -->
+
+<script>
+/* ══ SITE NAV ══ */
+var currentTopic='', currentTopicName='';
+function openTopic(id,name,emoji){
+  currentTopic=id; currentTopicName=name;
+  document.getElementById('home-view').classList.add('hidden');
+  document.getElementById('detail-view').classList.add('active');
+  document.getElementById('detail-title').textContent=name;
+  document.getElementById('detail-emoji').textContent=emoji||'';
+  document.getElementById('modes-section').style.display=id==='links'?'none':'block';
+  document.getElementById('links-section').style.display=id==='links'?'block':'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function filterWedukas(val){
+  var lower=val.toLowerCase();
+  document.querySelectorAll('#weduka-links-list .weduka-link-row').forEach(function(row){
+    var text=row.querySelector('.weduka-link-name').textContent.toLowerCase();
+    row.style.display=text.includes(lower)?'flex':'none';
+  });
+}
+function goHome(){
+  document.getElementById('detail-view').classList.remove('active');
+  document.getElementById('home-view').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function launchMode(mode){
+  if(mode==='gamificado'&&currentTopic==='amparada'){
+    openPuzzleApp();
+  } else if(mode==='gamificado'&&currentTopic==='cert'){
+    openCharadasApp();
+  } else if(mode==='teorico'&&currentTopic==='secured'){
+    openSecuredTeoricoApp();
+  } else if(mode==='gamificado'&&currentTopic==='nuplus'){
+    openNuCashApp();
+  } else {
+    alert((mode==='teorico'?'📖 Próximamente: Refuerzo teórico':'🎮 Próximamente: Manos a la obra')+' de "'+currentTopicName+'"');
+  }
+}
+function openCharadasApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('charadas-app').classList.add('active');
+  document.getElementById('char-screen-start').style.display='flex';
+  document.getElementById('char-screen-game').style.display='none';
+  document.getElementById('char-screen-end').style.display='none';
+}
+function closeCharadasApp(){
+  charStopConfetti();
+  document.getElementById('charadas-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+}
+function openPuzzleApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('puzzle-app').classList.add('active');
+  document.getElementById('setup-page').style.display='flex';
+  document.getElementById('puz-game-page').style.display='none';
+  document.getElementById('win-overlay').style.display='none';
+}
+function openSecuredTeoricoApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('secured-teorico-app').classList.add('active');
+  window.scrollTo({top:0});
+}
+function closeSecuredTeoricoApp(){
+  document.getElementById('secured-teorico-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('secured','Secured Card: Misiones y retención','🛡️');
+}
+function openNuCashApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('nucash-app').classList.add('active');
+}
+function closeNuCashApp(){
+  stopNuCashConfetti();
+  document.getElementById('nucash-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('nuplus','Nu Plus','⭐');
+}
+function closePuzzleApp(){
+  exitToSetup();
+  document.getElementById('puzzle-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  currentTopic='amparada'; currentTopicName='Tarjeta Amparada';
+  openTopic('amparada','Tarjeta Amparada','🔒');
+}
+
+/* ══ CHARADAS LOGIC ══ */
+var CHAR_CARDS=[
+  "Certificado de transacciones","Certificado tarjeta física","Certificado de tarjeta virtual",
+  "Certificado de límite aprobado","Certificado de deuda a la fecha","Certificado de pagos al día",
+  "Certificado PAN","Certificado de reversión","Certificado de pagos por PSE",
+  "Certificado de pagos en efectivo","Certificado de reversión no recibida","Certificado reportes en buró",
+  "Certificado de cesión de deuda","Certificado de paz y salvo","Certificado retiros en efectivo",
+  "Certificado de reversión a cuenta","Certificado transferencia a banco",
+  "Certificado depósito desde otro banco PSE","Certificado transferencia a cuenta Nu",
+  "Certificado depósito desde otro banco","Certificado de cuenta en inglés",
+  "Certificado de nómina Nu","Certificado Anual de retención en la fuente","Certificado de cuenta",
+  "Reporte anual de costos (RACT)","Certificado de CDT","Extractos",
+  "Certificado de pago de servicios públicos"
+];
+var charDeck=[],charIndex=0,charScore=0,charAnimating=false;
+var charConfCanvas,charConfCtx,charConfParticles=[],charConfAnimId=null;
+
+function charShuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+function charStartGame(){
+  charDeck=charShuffle(CHAR_CARDS);charIndex=0;charScore=0;charAnimating=false;
+  document.getElementById('char-screen-start').style.display='none';
+  document.getElementById('char-screen-game').style.display='flex';
+  charShowCard();
+}
+function charShowCard(){
+  var card=document.getElementById('char-card');
+  card.className='char-card';
+  document.getElementById('char-card-text').textContent=charDeck[charIndex];
+  document.getElementById('char-score').textContent=charScore;
+  document.getElementById('char-counter').textContent=(charIndex+1)+' / '+charDeck.length;
+}
+function charHandleAction(type){
+  if(charAnimating) return;charAnimating=true;
+  if(type==='correct') charScore++;
+  var card=document.getElementById('char-card');
+  card.classList.add(type==='correct'?'slide-out-right':'slide-out-left');
+  setTimeout(function(){
+    charIndex++;
+    if(charIndex>=charDeck.length){charShowEnd();}
+    else{card.className='char-card';charShowCard();charAnimating=false;}
+  },260);
+}
+function charEndRound(){charShowEnd(true);}
+function charShowEnd(manual){
+  var played=manual?charIndex:charDeck.length;
+  document.getElementById('char-screen-game').style.display='none';
+  document.getElementById('char-screen-end').style.display='flex';
+  document.getElementById('char-final-score').textContent=charScore;
+  document.getElementById('char-final-total').textContent='de '+played;
+  var pct=played===0?0:charScore/played;
+  var title,msg;
+  if(played===0){title='Sin tarjetas';msg='No se jugó ninguna tarjeta.';}
+  else if(pct===1){title='¡Perfecto! 🎉';msg='¡Adivinaron todos los certificados! Son unos expertos Nu.';}
+  else if(pct>=.75){title='¡Excelente! 🌟';msg='Gran conocimiento. ¡Casi perfectos!';}
+  else if(pct>=.5){title='¡Bien jugado! 💜';msg='Buen resultado. ¡Sigan practicando!';}
+  else if(pct>=.25){title='¡Buen intento! 💪';msg='Hay certificados por repasar. ¿Otra vez?';}
+  else{title='¡A practicar! 📚';msg='¡Son muchos certificados! La próxima mejor.';}
+  document.getElementById('char-result-title').textContent=title;
+  document.getElementById('char-result-msg').textContent=msg;
+  document.getElementById('char-result-detail').textContent=charScore+' adivinadas · '+(played-charScore)+' no adivinadas';
+  if(charScore>0) charLaunchConfetti();
+}
+function charRestartGame(){
+  charStopConfetti();
+  document.getElementById('char-screen-end').style.display='none';
+  document.getElementById('char-screen-start').style.display='flex';
+}
+function charLaunchConfetti(){
+  charConfCanvas=document.getElementById('char-confetti');
+  charConfCanvas.width=window.innerWidth;charConfCanvas.height=window.innerHeight;
+  charConfCtx=charConfCanvas.getContext('2d');
+  var COLS=['#820ad1','#c17bff','#fff','#f0c040','#27ae60','#e74c3c','#3498db'];
+  charConfParticles=[];
+  for(var i=0;i<120;i++) charConfParticles.push({x:Math.random()*charConfCanvas.width,y:-20-Math.random()*200,vx:(Math.random()-.5)*4,vy:2+Math.random()*4,w:8+Math.random()*10,h:4+Math.random()*6,angle:Math.random()*Math.PI*2,spin:(Math.random()-.5)*.2,color:COLS[Math.floor(Math.random()*COLS.length)],opacity:1});
+  (function loop(){
+    charConfCtx.clearRect(0,0,charConfCanvas.width,charConfCanvas.height);
+    var alive=false;
+    charConfParticles.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.angle+=p.spin;p.vy+=.05;if(p.y>charConfCanvas.height-40) p.opacity-=.03;if(p.opacity>0) alive=true;charConfCtx.save();charConfCtx.globalAlpha=Math.max(0,p.opacity);charConfCtx.translate(p.x,p.y);charConfCtx.rotate(p.angle);charConfCtx.fillStyle=p.color;charConfCtx.fillRect(-p.w/2,-p.h/2,p.w,p.h);charConfCtx.restore();});
+    if(alive) charConfAnimId=requestAnimationFrame(loop);else charConfCtx.clearRect(0,0,charConfCanvas.width,charConfCanvas.height);
+  })();
+}
+function charStopConfetti(){
+  if(charConfAnimId){cancelAnimationFrame(charConfAnimId);charConfAnimId=null;}
+  var cc=document.getElementById('char-confetti');if(cc) cc.getContext('2d').clearRect(0,0,9999,9999);
+}
+document.addEventListener('keydown',function(e){
+  if(document.getElementById('char-screen-game').style.display==='flex'){
+    if(e.key==='ArrowLeft') charHandleAction('skip');
+    if(e.key==='ArrowRight') charHandleAction('correct');
+    if(e.key==='Escape') charEndRound();
+  }
+});
+var img=null, rows=3, cols=3;
+var pieces=[], dragging=null, dragOffX=0, dragOffY=0;
+var placedCount=0, totalPieces=0;
+var startTime=null, timerID=null;
+var hEdges=[], vEdges=[];
+var boardX, boardY, boardW, boardH, cellW, cellH;
+var gc, gctx, rafID=null, confRaf=null;
+
+document.getElementById('puz-file-input').addEventListener('change',function(e){
+  var f=e.target.files[0]; if(f) loadImg(f);
+});
+var uz=document.getElementById('upload-zone');
+uz.addEventListener('dragover',function(e){e.preventDefault();uz.classList.add('drag-over');});
+uz.addEventListener('dragleave',function(){uz.classList.remove('drag-over');});
+uz.addEventListener('drop',function(e){
+  e.preventDefault();uz.classList.remove('drag-over');
+  var f=e.dataTransfer.files[0];
+  if(f&&f.type.startsWith('image/')) loadImg(f);
+});
+
+function loadImg(file){
+  var r=new FileReader();
+  r.onload=function(e){
+    var i=new Image();
+    i.onload=function(){
+      img=i;
+      document.getElementById('uz-icon').textContent='✅';
+      document.getElementById('uz-label').textContent=file.name.length>30?file.name.slice(0,27)+'…':file.name;
+      document.getElementById('uz-sub').textContent=i.width+' × '+i.height+' px';
+      document.getElementById('play-btn').disabled=false;
+    };
+    i.src=e.target.result;
+  };
+  r.readAsDataURL(file);
+}
+
+function setGrid(r,c,btn){
+  rows=r;cols=c;
+  document.getElementById('r-sl').value=r;document.getElementById('c-sl').value=c;
+  document.getElementById('r-v').textContent=r;document.getElementById('c-v').textContent=c;
+  document.getElementById('puz-total').textContent=r*c;
+  document.querySelectorAll('.pb').forEach(function(b){b.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+}
+function syncSl(){
+  rows=+document.getElementById('r-sl').value;cols=+document.getElementById('c-sl').value;
+  document.getElementById('r-v').textContent=rows;document.getElementById('c-v').textContent=cols;
+  document.getElementById('puz-total').textContent=rows*cols;
+  document.querySelectorAll('.pb').forEach(function(b){b.classList.remove('active');});
+}
+
+function startGame(){
+  if(!img) return;
+  document.getElementById('setup-page').style.display='none';
+  var gp=document.getElementById('puz-game-page');gp.style.display='flex';
+  gc=document.getElementById('game-canvas');gctx=gc.getContext('2d');
+  resizeCanvas();initEdges();createPieces();scatter();
+  placedCount=0;totalPieces=rows*cols;updateHUD();startTimer();
+  gc.addEventListener('mousedown',onMD);gc.addEventListener('mousemove',onMM);
+  gc.addEventListener('mouseup',onMU);gc.addEventListener('mouseleave',onMU);
+  gc.addEventListener('touchstart',onTS,{passive:false});gc.addEventListener('touchmove',onTM,{passive:false});
+  gc.addEventListener('touchend',onTE);
+  window.addEventListener('resize',onResize);
+  if(rafID) cancelAnimationFrame(rafID);
+  rafID=requestAnimationFrame(render);
+}
+
+function resizeCanvas(){gc.width=window.innerWidth;gc.height=window.innerHeight-50;computeBoard();}
+function onResize(){
+  resizeCanvas();
+  pieces.forEach(function(p){
+    p.homeX=boardX+p.c*cellW;p.homeY=boardY+p.r*cellH;
+    if(p.placed){p.x=p.homeX;p.y=p.homeY;}
+  });
+}
+function computeBoard(){
+  var W=gc.width,H=gc.height,PAD=20;
+  var maxBW=W*.58-PAD*2,maxBH=H-PAD*2,asp=img.width/img.height;
+  if(maxBW/maxBH>asp){boardH=Math.min(maxBH,720);boardW=boardH*asp;}
+  else{boardW=Math.min(maxBW,840);boardH=boardW/asp;}
+  var MAX_CELL=130;
+  if(boardW/cols>MAX_CELL){boardW=MAX_CELL*cols;boardH=boardW/asp;}
+  if(boardH/rows>MAX_CELL){boardH=MAX_CELL*rows;boardW=boardH*asp;}
+  cellW=boardW/cols;cellH=boardH/rows;
+  var rl=W*.42;boardX=rl+(W-rl-boardW)/2;boardY=(H-boardH)/2;
+}
+function initEdges(){
+  hEdges=[];vEdges=[];
+  for(var r=0;r<rows-1;r++){hEdges[r]=[];for(var c=0;c<cols;c++) hEdges[r][c]=Math.random()>.5?1:-1;}
+  for(var r=0;r<rows;r++){vEdges[r]=[];for(var c=0;c<cols-1;c++) vEdges[r][c]=Math.random()>.5?1:-1;}
+}
+function getTabs(r,c){
+  return{top:r===0?0:-hEdges[r-1][c],bottom:r===rows-1?0:hEdges[r][c],left:c===0?0:-vEdges[r][c-1],right:c===cols-1?0:vEdges[r][c]};
+}
+function createPieces(){
+  pieces=[];
+  for(var r=0;r<rows;r++) for(var c=0;c<cols;c++)
+    pieces.push({r:r,c:c,homeX:boardX+c*cellW,homeY:boardY+r*cellH,x:0,y:0,tabs:getTabs(r,c),placed:false});
+  for(var i=pieces.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=pieces[i];pieces[i]=pieces[j];pieces[j]=t;}
+}
+function scatter(){
+  var tW=gc.width*.40,tH=gc.height,P=12;
+  pieces.forEach(function(p){if(p.placed)return;p.x=P+Math.random()*Math.max(4,tW-cellW-P*2);p.y=P+Math.random()*Math.max(4,tH-cellH-P*2);});
+}
+function shufflePieces(){scatter();}
+
+function render(){
+  var ctx=gctx,W=gc.width,H=gc.height;
+  ctx.fillStyle='#111827';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='rgba(255,255,255,.025)';ctx.fillRect(0,0,W*.40,H);
+  ctx.strokeStyle='rgba(255,255,255,.09)';ctx.lineWidth=1;ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(W*.40,0);ctx.lineTo(W*.40,H);ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.22)';ctx.font='700 10px Nunito,sans-serif';ctx.textAlign='center';
+  ctx.fillText('PIEZAS',W*.20,18);ctx.fillText('TABLERO',boardX+boardW/2,boardY-20);ctx.textAlign='left';
+  ctx.save();ctx.shadowColor='rgba(108,61,224,.3)';ctx.shadowBlur=30;
+  ctx.fillStyle='rgba(255,255,255,.04)';ctx.beginPath();
+  if(ctx.roundRect) ctx.roundRect(boardX-14,boardY-14,boardW+28,boardH+28,10);
+  else ctx.rect(boardX-14,boardY-14,boardW+28,boardH+28);
+  ctx.fill();ctx.restore();
+  ctx.strokeStyle='rgba(255,255,255,.22)';ctx.lineWidth=1;ctx.setLineDash([3,4]);
+  for(var r=0;r<=rows;r++){ctx.beginPath();ctx.moveTo(boardX,boardY+r*cellH);ctx.lineTo(boardX+boardW,boardY+r*cellH);ctx.stroke();}
+  for(var c=0;c<=cols;c++){ctx.beginPath();ctx.moveTo(boardX+c*cellW,boardY);ctx.lineTo(boardX+c*cellW,boardY+boardH);ctx.stroke();}
+  ctx.setLineDash([]);
+  var sorted=pieces.slice().sort(function(a,b){
+    if(a===dragging) return 1;if(b===dragging) return -1;
+    if(a.placed&&!b.placed) return -1;if(!a.placed&&b.placed) return 1;return 0;
+  });
+  sorted.forEach(function(p){drawPiece(ctx,p);});
+  rafID=requestAnimationFrame(render);
+}
+
+function drawPiece(ctx,p){
+  var isDrag=p===dragging;
+  ctx.save();
+  if(isDrag){ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=22;ctx.shadowOffsetX=5;ctx.shadowOffsetY=6;}
+  ctx.beginPath();buildPath(ctx,p.x,p.y,p.tabs);ctx.clip();
+  ctx.drawImage(img,p.x-p.c*cellW,p.y-p.r*cellH,boardW,boardH);
+  if(isDrag){ctx.fillStyle='rgba(0,0,0,.08)';ctx.fillRect(p.x-cellW,p.y-cellH,cellW*3,cellH*3);}
+  ctx.restore();
+  ctx.save();ctx.beginPath();buildPath(ctx,p.x,p.y,p.tabs);
+  if(p.placed){ctx.strokeStyle='rgba(80,220,100,.25)';ctx.lineWidth=1;}
+  else if(isDrag){ctx.strokeStyle='rgba(255,255,255,.95)';ctx.lineWidth=2;}
+  else{ctx.strokeStyle='rgba(255,255,255,.55)';ctx.lineWidth=1.2;}
+  ctx.stroke();ctx.restore();
+}
+function buildPath(ctx,px,py,t){
+  ctx.moveTo(px,py);
+  edge(ctx,px,py,px+cellW,py,t.top);edge(ctx,px+cellW,py,px+cellW,py+cellH,t.right);
+  edge(ctx,px+cellW,py+cellH,px,py+cellH,t.bottom);edge(ctx,px,py+cellH,px,py,t.left);ctx.closePath();
+}
+function edge(ctx,x1,y1,x2,y2,d){
+  if(!d){ctx.lineTo(x2,y2);return;}
+  var dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,nx=uy,ny=-ux;
+  var h=len*.24*d,t1=.37,t2=.63;
+  var s1x=x1+ux*len*t1,s1y=y1+uy*len*t1,s2x=x1+ux*len*t2,s2y=y1+uy*len*t2;
+  var mx=(x1+x2)/2,my=(y1+y2)/2,tx=mx+nx*h,ty=my+ny*h;
+  ctx.lineTo(s1x,s1y);
+  ctx.bezierCurveTo(s1x+nx*h*.55,s1y+ny*h*.55,tx-ux*len*.09,ty-uy*len*.09,tx,ty);
+  ctx.bezierCurveTo(tx+ux*len*.09,ty+uy*len*.09,s2x+nx*h*.55,s2y+ny*h*.55,s2x,s2y);
+  ctx.lineTo(x2,y2);
+}
+function pos(e){var r=gc.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+function pieceAt(x,y){
+  var pad=Math.min(cellW,cellH)*.28;
+  for(var i=pieces.length-1;i>=0;i--){var p=pieces[i];if(x>=p.x-pad&&x<=p.x+cellW+pad&&y>=p.y-pad&&y<=p.y+cellH+pad) return p;}
+  return null;
+}
+function pickUp(p,x,y){if(!p||p.placed)return;dragging=p;dragOffX=x-p.x;dragOffY=y-p.y;pieces.splice(pieces.indexOf(p),1);pieces.push(p);gc.style.cursor='grabbing';}
+function drop(){if(!dragging)return;snap(dragging);dragging=null;gc.style.cursor='grab';}
+function onMD(e){e.preventDefault();var p=pos(e);pickUp(pieceAt(p.x,p.y),p.x,p.y);}
+function onMM(e){if(!dragging)return;var p=pos(e);dragging.x=p.x-dragOffX;dragging.y=p.y-dragOffY;}
+function onMU(){drop();}
+function onTS(e){e.preventDefault();if(e.touches.length!==1)return;var t=e.touches[0],r=gc.getBoundingClientRect();pickUp(pieceAt(t.clientX-r.left,t.clientY-r.top),t.clientX-r.left,t.clientY-r.top);}
+function onTM(e){e.preventDefault();if(!dragging||e.touches.length!==1)return;var t=e.touches[0],r=gc.getBoundingClientRect();dragging.x=t.clientX-r.left-dragOffX;dragging.y=t.clientY-r.top-dragOffY;}
+function onTE(){drop();}
+function snap(p){
+  var S=Math.min(cellW,cellH)*.42;
+  if(Math.abs(p.x-p.homeX)<S&&Math.abs(p.y-p.homeY)<S){p.x=p.homeX;p.y=p.homeY;p.placed=true;placedCount++;updateHUD();if(placedCount===totalPieces) onWin();}
+}
+function updateHUD(){document.getElementById('h-prog').textContent=placedCount+' / '+totalPieces;document.getElementById('h-bar').style.width=(totalPieces>0?placedCount/totalPieces*100:0)+'%';}
+function startTimer(){startTime=Date.now();clearInterval(timerID);timerID=setInterval(function(){var s=Math.floor((Date.now()-startTime)/1000);document.getElementById('h-time').textContent=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');},1000);}
+function elapsedStr(){if(!startTime)return'—';var s=Math.floor((Date.now()-startTime)/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function showHint(){var ov=document.getElementById('hint-overlay');document.getElementById('hint-img').src=img.src;ov.style.display='flex';setTimeout(function(){ov.style.display='none';},3000);}
+function onWin(){
+  clearInterval(timerID);
+  document.getElementById('w-time').textContent=elapsedStr();
+  document.getElementById('w-pieces').textContent=totalPieces+' fichas';
+  document.getElementById('win-overlay').style.display='flex';
+  launchConfetti();
+}
+function launchConfetti(){
+  var cc=document.getElementById('confetti-canvas');
+  cc.width=window.innerWidth;cc.height=window.innerHeight;
+  var ctx=cc.getContext('2d');
+  var COLS=['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff922b','#c77dff','#ff85a1'];
+  var ps=[];for(var i=0;i<200;i++) ps.push({x:Math.random()*cc.width,y:-20-Math.random()*350,vx:(Math.random()-.5)*6,vy:2.5+Math.random()*5,w:9+Math.random()*13,h:5+Math.random()*8,color:COLS[0|Math.random()*COLS.length],rot:Math.random()*Math.PI*2,rv:(Math.random()-.5)*.25});
+  if(confRaf) cancelAnimationFrame(confRaf);
+  (function loop(){ctx.clearRect(0,0,cc.width,cc.height);var alive=false;ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.rot+=p.rv;p.vy+=.06;if(p.y<cc.height+20) alive=true;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();});if(alive) confRaf=requestAnimationFrame(loop);})();
+}
+function exitToSetup(){
+  clearInterval(timerID);if(rafID){cancelAnimationFrame(rafID);rafID=null;}if(confRaf){cancelAnimationFrame(confRaf);confRaf=null;}
+  if(gc){gc.removeEventListener('mousedown',onMD);gc.removeEventListener('mousemove',onMM);gc.removeEventListener('mouseup',onMU);gc.removeEventListener('mouseleave',onMU);gc.removeEventListener('touchstart',onTS);gc.removeEventListener('touchmove',onTM);gc.removeEventListener('touchend',onTE);}
+  window.removeEventListener('resize',onResize);
+  document.getElementById('puz-game-page').style.display='none';
+  document.getElementById('win-overlay').style.display='none';
+  document.getElementById('setup-page').style.display='flex';
+  var cc=document.getElementById('confetti-canvas');if(cc) cc.getContext('2d').clearRect(0,0,9999,9999);
+}
+function restartGame(){
+  document.getElementById('win-overlay').style.display='none';
+  if(confRaf){cancelAnimationFrame(confRaf);confRaf=null;}
+  document.getElementById('confetti-canvas').getContext('2d').clearRect(0,0,9999,9999);
+  initEdges();createPieces();scatter();placedCount=0;updateHUD();startTimer();
+  if(rafID) cancelAnimationFrame(rafID);rafID=requestAnimationFrame(render);
+}
+</script>
+
+<!-- ══ NU CASH APP ══ -->
+<div id="nucash-app">
+<canvas id="nc-confetti"></canvas>
+<div class="nc-ff" id="nc-ff"></div>
+
+<!-- INTRO -->
+<div class="nc-screen active" id="nc-intro">
+  <div style="margin-top:20px">
+    <button class="nc-btn-back" onclick="closeNuCashApp()">← Volver a Nu Plus</button>
+  </div>
+  <div class="nc-intro-logo">Nu</div>
+  <div style="margin-top:16px;text-align:center">
+    <div class="nc-title">NU <span>CASH</span></div>
+    <div class="nc-subtitle">⚡ Trivia Terminal ⚡</div>
+  </div>
+  <p class="nc-tagline">Responde situaciones y preguntas de Nu Plus para acumular dinero. ¡El que más tenga al final gana!</p>
+  <button class="nc-btn nc-btn-gold nc-mt16" onclick="ncGoTo('nc-rules')">Ver reglas →</button>
+</div>
+
+<!-- RULES -->
+<div class="nc-screen" id="nc-rules">
+  <div class="nc-title">NU <span>CASH</span></div>
+  <div class="nc-subtitle">Reglas del juego</div>
+  <div class="nc-rules-grid">
+    <div class="nc-card nc-rules-section">
+      <h3>🎮 Dinámica</h3>
+      <p>Cada jugador comienza con un presupuesto inicial y deberá responder diferentes preguntas o situaciones para multiplicar su dinero o perderlo.</p>
+      <br><p><strong style="color:#f0c040">🏆 Objetivo:</strong> La persona con mayor liquidez al final de las rondas gana la partida.</p>
+    </div>
+    <div class="nc-card nc-rules-section">
+      <h3>💵 ¡Gana Dinero!</h3>
+      <div class="nc-starting-badge">💰 Cada persona inicia con <strong style="margin-left:4px">$50</strong></div>
+      <div class="nc-money-rule nc-correct"><span class="nc-icon">✅</span><span class="nc-amount">+$10</span><span class="nc-desc">por cada respuesta <strong>correcta</strong></span></div>
+      <div class="nc-money-rule nc-regular"><span class="nc-icon">🔶</span><span class="nc-amount">+$5</span><span class="nc-desc">por cada respuesta <strong>regular</strong></span></div>
+      <div class="nc-money-rule nc-incorrect"><span class="nc-icon">❌</span><span class="nc-amount">-$5</span><span class="nc-desc">por cada respuesta <strong>incorrecta</strong></span></div>
+      <div class="nc-money-rule"><span class="nc-icon">🤝</span><span class="nc-amount" style="font-size:.85rem;color:#60a5fa">+$3/$5</span><span class="nc-desc">con ayuda: <strong>+$3</strong> quien responde, <strong>+$5</strong> quien ayudó</span></div>
+    </div>
+  </div>
+  <div class="nc-gap-row">
+    <button class="nc-btn nc-btn-outline" onclick="ncGoTo('nc-intro')">← Volver</button>
+    <button class="nc-btn nc-btn-gold" onclick="ncGoTo('nc-players')">Configurar jugadores →</button>
+  </div>
+</div>
+
+<!-- PLAYERS -->
+<div class="nc-screen" id="nc-players">
+  <div class="nc-title">NU <span>CASH</span></div>
+  <div class="nc-subtitle">Agregar jugadores</div>
+  <div class="nc-player-setup">
+    <div class="nc-player-input-row">
+      <input type="text" id="nc-player-input" placeholder="Nombre del jugador..." maxlength="20" onkeydown="if(event.key==='Enter') ncAddPlayer()">
+      <button class="nc-btn-add" onclick="ncAddPlayer()">+</button>
+    </div>
+    <div id="nc-player-list"></div>
+    <p style="font-size:.8rem;color:#c4a8f0;margin-bottom:16px" id="nc-player-hint">Agrega al menos 1 jugador para comenzar.</p>
+    <div class="nc-gap-row">
+      <button class="nc-btn nc-btn-outline" onclick="ncGoTo('nc-rules')">← Volver</button>
+      <button class="nc-btn nc-btn-gold" id="nc-start-btn" onclick="ncStartGame()" disabled style="opacity:.4;pointer-events:none">Comenzar juego →</button>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION -->
+<div class="nc-screen" id="nc-question">
+  <div class="nc-q-hud" style="width:100%;max-width:780px">
+    <span class="nc-q-counter" id="nc-q-counter">Pregunta 1 / 9</span>
+    <span class="nc-q-badge scenario" id="nc-q-badge">Escenario</span>
+  </div>
+  <div class="nc-q-card" id="nc-q-card">
+    <div class="nc-q-text" id="nc-q-text">...</div>
+    <div class="nc-q-stmt" id="nc-q-stmt" style="display:none"></div>
+  </div>
+  <div class="nc-ps-label">¿Quién responde?</div>
+  <div class="nc-ps" id="nc-ps"></div>
+  <div class="nc-actions">
+    <button class="nc-abtn nc-cor" id="nc-bcor" onclick="ncMark('correct')"><span class="nc-si">✅</span><span class="nc-sl">Correcta</span><span class="nc-sa">+$10</span></button>
+    <button class="nc-abtn nc-reg" id="nc-breg" onclick="ncMark('regular')"><span class="nc-si">🔶</span><span class="nc-sl">Regular</span><span class="nc-sa">+$5</span></button>
+    <button class="nc-abtn nc-inc" id="nc-binc" onclick="ncMark('incorrect')"><span class="nc-si">❌</span><span class="nc-sl">Incorrecta</span><span class="nc-sa">-$5</span></button>
+    <button class="nc-abtn nc-hlp" id="nc-bhlp" onclick="ncOpenHelper()"><span class="nc-si">🤝</span><span class="nc-sl">Con Ayuda</span><span class="nc-sa">+$3</span></button>
+  </div>
+  <div class="nc-helper-panel" id="nc-hp">
+    <div class="nc-hp-label">🤝 ¿Quién ayudó? (recibe +$5)</div>
+    <div class="nc-hs" id="nc-hs"></div>
+    <button class="nc-confirm-help" id="nc-chbtn" onclick="ncConfirmHelp()">Confirmar ayuda → +$3 / +$5</button>
+  </div>
+  <div class="nc-bal-bar" id="nc-bal-bar"></div>
+  <div class="nc-gap-row nc-mt16" style="width:100%;max-width:780px">
+    <button class="nc-btn nc-btn-outline" onclick="ncSkip()">Saltar pregunta →</button>
+    <button class="nc-btn nc-btn-outline" style="border-color:rgba(239,68,68,.3);color:#f87171" onclick="ncEndGame()">Finalizar ronda</button>
+  </div>
+</div>
+
+<!-- END -->
+<div class="nc-screen" id="nc-end">
+  <div class="nc-title" style="margin-bottom:4px">🏆 Resultados</div>
+  <div class="nc-subtitle">Nu Cash · Trivia Terminal</div>
+  <div style="text-align:center;margin-bottom:20px">
+    <div class="nc-winner-banner">🥇 Ganador / Ganadora</div>
+    <div class="nc-winner-name" id="nc-winner-name">—</div>
+    <div class="nc-winner-amt" id="nc-winner-amt">$50</div>
+  </div>
+  <div class="nc-rank" id="nc-rank"></div>
+  <div class="nc-gap-row">
+    <button class="nc-btn nc-btn-outline" onclick="ncPlayAgain()">Jugar de nuevo</button>
+    <button class="nc-btn nc-btn-gold" onclick="closeNuCashApp()">🏠 Inicio</button>
+  </div>
+</div>
+
+</div><!-- /nucash-app -->
+
+<script>
+var NC_QUESTIONS=[
+  {type:'scenario',text:'Natalia se comunica porque no sabe si recibió los puntos por una compra que hizo dos días atrás.',stmt:null},
+  {type:'fv',text:'Un cliente se contacta diciendo que no visualiza el +0.5 adicional en su cajita. El paso a seguir es:',stmt:'Validar en widget de Money boxes si tiene el +0,5 adicional.'},
+  {type:'scenario',text:'Un cliente se comunica porque no sabe cuáles compras le sumaron puntos a su Nu Plus en el mes de enero.\n\n¿Cómo podemos validar los puntos que obtuvo el cliente con sus compras?',stmt:null},
+  {type:'fv',text:'Si un cliente solicita que le ayudemos con la aprobación de una compra en proceso para cumplir con su mínimo de gasto, el paso a seguir es:',stmt:'Escalar un SJ para que se pueda aprobar la compra.'},
+  {type:'scenario',text:'Valentino se comunica porque dice que realizó una compra el día de ayer y esta no se sumó en la meta del mes.\n\n¿Generas un escalamiento? ¿Por qué?',stmt:null},
+  {type:'scenario',text:'Camilo va a comprar un nuevo celular hoy y quiere saber si esa compra le contará para la meta del mes.',stmt:null},
+  {type:'fv',text:'Si un cliente tiene solo tarjeta de crédito y quiere redimir sus puntos en dinero, el paso a seguir es:',stmt:'Escalar un SJ con la situación y decirle que esté pendiente del correo porque van a solicitar un certificado de cuenta para enviarle el dinero.'},
+  {type:'scenario',text:'¿Cuáles son las fechas del ciclo de Nu Plus?',stmt:null},
+  {type:'scenario',text:'Daniela realizó una compra el 27 de enero a las 11:59 pm. ¿Esta compra contó en la meta y le dio puntos?',stmt:null}
+];
+var ncPlayers=[],ncQ=0,ncSelPlayer=null,ncSelHelper=null;
+
+function ncGoTo(id){
+  document.querySelectorAll('#nucash-app .nc-screen').forEach(function(s){s.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+}
+function ncAddPlayer(){
+  var inp=document.getElementById('nc-player-input');
+  var name=inp.value.trim();
+  if(!name) return;
+  if(ncPlayers.find(function(p){return p.name.toLowerCase()===name.toLowerCase();})){inp.value='';return;}
+  ncPlayers.push({name:name,balance:50});
+  inp.value='';
+  ncRenderPlayerList();
+}
+function ncRemovePlayer(i){ncPlayers.splice(i,1);ncRenderPlayerList();}
+function ncRenderPlayerList(){
+  var list=document.getElementById('nc-player-list');
+  list.innerHTML=ncPlayers.map(function(p,i){return'<div class="nc-player-chip"><span>💰 '+p.name+' — <strong style="color:#f0c040">$'+p.balance+'</strong></span><span class="nc-remove" onclick="ncRemovePlayer('+i+')">✕</span></div>';}).join('');
+  var hint=document.getElementById('nc-player-hint');
+  var btn=document.getElementById('nc-start-btn');
+  if(ncPlayers.length>=1){
+    hint.textContent=ncPlayers.length+' jugador'+(ncPlayers.length>1?'es':'')+' listo'+(ncPlayers.length>1?'s':'')+ '.';
+    btn.disabled=false;btn.style.opacity='1';btn.style.pointerEvents='auto';
+  } else {
+    hint.textContent='Agrega al menos 1 jugador para comenzar.';
+    btn.disabled=true;btn.style.opacity='.4';btn.style.pointerEvents='none';
+  }
+}
+function ncStartGame(){
+  ncQ=0;ncSelPlayer=null;ncSelHelper=null;
+  ncPlayers.forEach(function(p){p.balance=50;});
+  ncGoTo('nc-question');ncRenderQuestion();
+}
+function ncRenderQuestion(){
+  var q=NC_QUESTIONS[ncQ];
+  document.getElementById('nc-q-counter').textContent='Pregunta '+(ncQ+1)+' / '+NC_QUESTIONS.length;
+  var badge=document.getElementById('nc-q-badge');
+  if(q.type==='fv'){badge.textContent='Falso o Verdadero';badge.className='nc-q-badge fv';}
+  else{badge.textContent='Escenario';badge.className='nc-q-badge scenario';}
+  var card=document.getElementById('nc-q-card');
+  card.className='nc-q-card';void card.offsetWidth;card.className='nc-q-card';
+  document.getElementById('nc-q-text').textContent=q.text;
+  var stmt=document.getElementById('nc-q-stmt');
+  if(q.stmt){stmt.textContent=q.stmt;stmt.style.display='block';}else{stmt.style.display='none';}
+  ncSelPlayer=null;ncSelHelper=null;
+  ncCloseHelper();ncRenderPS();ncUpdateActions();ncRenderBal();
+}
+function ncRenderPS(){
+  var ps=document.getElementById('nc-ps');
+  ps.innerHTML=ncPlayers.map(function(p,i){
+    var col=p.balance>=50?'#22c55e':p.balance>=30?'#f0c040':'#ef4444';
+    return'<button class="nc-pb '+(ncSelPlayer===i?'sel':'')+'" onclick="ncSelP('+i+')">'
+      +p.name+'<span class="nc-pb-bal" style="color:'+col+'">$'+p.balance+'</span></button>';
+  }).join('');
+}
+function ncSelP(i){ncSelPlayer=i;ncRenderPS();ncUpdateActions();}
+function ncUpdateActions(){
+  var en=ncSelPlayer!==null;
+  ['nc-bcor','nc-breg','nc-binc','nc-bhlp'].forEach(function(id){
+    var b=document.getElementById(id);
+    if(en)b.classList.add('en');else b.classList.remove('en');
+  });
+}
+function ncOpenHelper(){
+  if(ncSelPlayer===null) return;
+  ncSelHelper=null;
+  document.getElementById('nc-hp').classList.add('vis');
+  ncRenderHelperSel();ncUpdateConfirmHelp();
+}
+function ncCloseHelper(){document.getElementById('nc-hp').classList.remove('vis');ncSelHelper=null;}
+function ncRenderHelperSel(){
+  var hs=document.getElementById('nc-hs');
+  hs.innerHTML=ncPlayers.map(function(p,i){return{p:p,i:i};}).filter(function(x){return x.i!==ncSelPlayer;}).map(function(x){
+    var col=x.p.balance>=50?'#22c55e':x.p.balance>=30?'#f0c040':'#ef4444';
+    return'<button class="nc-hb '+(ncSelHelper===x.i?'sel':'')+'" onclick="ncSelH('+x.i+')">'
+      +x.p.name+'<span class="nc-hb-b" style="color:'+col+'">$'+x.p.balance+'</span></button>';
+  }).join('');
+}
+function ncSelH(i){ncSelHelper=i;ncRenderHelperSel();ncUpdateConfirmHelp();}
+function ncUpdateConfirmHelp(){
+  var b=document.getElementById('nc-chbtn');
+  if(ncSelHelper!==null)b.classList.add('en');else b.classList.remove('en');
+}
+function ncConfirmHelp(){
+  if(ncSelPlayer===null||ncSelHelper===null) return;
+  ncPlayers[ncSelPlayer].balance+=3;ncPlayers[ncSelHelper].balance+=5;
+  ncFlash('🤝','#60a5fa');ncCloseHelper();ncRenderBal(ncSelPlayer,true);ncNext();
+}
+function ncMark(type){
+  if(ncSelPlayer===null) return;
+  var d=type==='correct'?10:type==='regular'?5:-5;
+  ncPlayers[ncSelPlayer].balance+=d;
+  ncFlash(type==='correct'?'✅':type==='regular'?'🔶':'❌',type==='correct'?'#4ade80':type==='regular'?'#fbbf24':'#f87171');
+  ncRenderBal(ncSelPlayer,d>0);ncNext();
+}
+function ncFlash(txt,col){
+  var f=document.getElementById('nc-ff');
+  f.textContent=txt;f.style.color=col;
+  f.classList.add('show');
+  setTimeout(function(){f.classList.remove('show');f.classList.add('hide');},400);
+  setTimeout(function(){f.classList.remove('hide');},900);
+}
+function ncRenderBal(hi,up){
+  var bar=document.getElementById('nc-bal-bar');
+  bar.innerHTML=ncPlayers.map(function(p,i){
+    var cls=(i===hi)?( up?'up':'dn'):'';
+    return'<div class="nc-bi"><div class="nc-bd" style="background:'+ncColor(i)+'"></div>'
+      +'<span class="nc-bn">'+p.name+'</span>'
+      +'<span class="nc-ba '+cls+'" id="ncbal'+i+'">$'+p.balance+'</span></div>';
+  }).join('');
+  if(hi!=null){setTimeout(function(){var el=document.getElementById('ncbal'+hi);if(el){el.classList.remove('up','dn');}},1000);}
+}
+function ncColor(i){var c=['#f0c040','#a78bfa','#34d399','#f472b6','#60a5fa','#fb923c','#a3e635','#e879f9'];return c[i%c.length];}
+function ncSkip(){ncNext();}
+function ncNext(){ncQ++;if(ncQ>=NC_QUESTIONS.length)ncEndGame();else{ncSelPlayer=null;ncSelHelper=null;ncRenderQuestion();}}
+function ncEndGame(){
+  stopNuCashConfetti();
+  var sorted=ncPlayers.slice().sort(function(a,b){return b.balance-a.balance;});
+  var w=sorted[0];
+  document.getElementById('nc-winner-name').textContent=w.name;
+  document.getElementById('nc-winner-amt').textContent='$'+w.balance;
+  var medals=['🥇','🥈','🥉'];
+  document.getElementById('nc-rank').innerHTML=sorted.map(function(p,i){
+    var col=p.balance>=50?'#f0c040':p.balance>=30?'#c4a8f0':'#ef4444';
+    return'<div class="nc-ri '+(i===0?'first':'')+'"><span class="nc-rp">'+(medals[i]||(i+1))+'</span>'
+      +'<span class="nc-rname">'+p.name+'</span>'
+      +'<span class="nc-ramt" style="color:'+col+'">$'+p.balance+'</span></div>';
+  }).join('');
+  ncGoTo('nc-end');ncLaunchConfetti();
+}
+function ncPlayAgain(){
+  stopNuCashConfetti();
+  ncPlayers.forEach(function(p){p.balance=50;});
+  ncQ=0;ncSelPlayer=null;ncSelHelper=null;ncCloseHelper();ncGoTo('nc-question');ncRenderQuestion();
+}
+var ncConfCanvas=null,ncConfCtx=null,ncConfParticles=[],ncConfAnimId=null;
+function ncLaunchConfetti(){
+  ncConfCanvas=document.getElementById('nc-confetti');
+  ncConfCanvas.width=window.innerWidth;ncConfCanvas.height=window.innerHeight;
+  ncConfCtx=ncConfCanvas.getContext('2d');
+  var COLS=['#f0c040','#a78bfa','#34d399','#f472b6','#60a5fa','#fb923c','#fff'];
+  ncConfParticles=[];
+  for(var i=0;i<140;i++) ncConfParticles.push({x:Math.random()*ncConfCanvas.width,y:-20-Math.random()*300,vx:(Math.random()-.5)*5,vy:2.5+Math.random()*4,w:8+Math.random()*10,h:4+Math.random()*6,angle:Math.random()*Math.PI*2,spin:(Math.random()-.5)*.2,color:COLS[Math.floor(Math.random()*COLS.length)],opacity:1});
+  (function loop(){
+    ncConfCtx.clearRect(0,0,ncConfCanvas.width,ncConfCanvas.height);
+    var alive=false;
+    ncConfParticles.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.angle+=p.spin;p.vy+=.05;if(p.y>ncConfCanvas.height-40) p.opacity-=.025;if(p.opacity>0) alive=true;ncConfCtx.save();ncConfCtx.globalAlpha=Math.max(0,p.opacity);ncConfCtx.translate(p.x,p.y);ncConfCtx.rotate(p.angle);ncConfCtx.fillStyle=p.color;ncConfCtx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ncConfCtx.restore();});
+    if(alive) ncConfAnimId=requestAnimationFrame(loop);else ncConfCtx.clearRect(0,0,ncConfCanvas.width,ncConfCanvas.height);
+  })();
+}
+function stopNuCashConfetti(){
+  if(ncConfAnimId){cancelAnimationFrame(ncConfAnimId);ncConfAnimId=null;}
+  var cc=document.getElementById('nc-confetti');if(cc)cc.getContext('2d').clearRect(0,0,9999,9999);
+}
+</script>
+
+<!-- ══ SECURED CARD TEORICO APP ══ -->
+<div id="secured-teorico-app">
+<div class="nu-wrap" style="font-family:'Nunito',sans-serif;background:#7B3FE4;min-height:100vh;padding:0 0 40px;position:relative;overflow:hidden">
+  <div style="position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.12);pointer-events:none;width:420px;height:420px;top:-120px;right:-100px"></div>
+  <div style="position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.12);pointer-events:none;width:280px;height:280px;top:200px;left:-120px"></div>
+  <div style="position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.12);pointer-events:none;width:200px;height:200px;bottom:40px;right:60px"></div>
+
+  <div style="background:#1A0A3C;border-radius:0 0 40px 40px;margin:0 0 32px;padding:28px 24px 24px;text-align:center;position:relative;z-index:1">
+    <button onclick="closeSecuredTeoricoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);border-radius:40px;padding:7px 16px;margin-bottom:14px;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif">← Volver a Secured Card</button>
+    <h1 style="color:#fff;font-size:23px;font-weight:900;line-height:1.2;margin-bottom:8px">Tarjeta <em style="color:#C4A0FF;font-style:normal">Abre Caminos</em><br>Guía para el Agente</h1>
+    <p style="color:rgba(255,255,255,0.6);font-size:13px">Toca cada punto para ver cómo responder al cliente</p>
+    <div style="display:flex;justify-content:center;gap:18px;margin-top:16px">
+      <svg width="54" height="70" viewBox="0 0 54 70" fill="none"><circle cx="27" cy="18" r="13" fill="#C4A0FF"/><circle cx="22" cy="15" r="1.5" fill="#1A0A3C"/><circle cx="32" cy="15" r="1.5" fill="#1A0A3C"/><path d="M22 22 Q27 26 32 22" stroke="#1A0A3C" stroke-width="1.5" stroke-linecap="round" fill="none"/><rect x="14" y="31" width="26" height="28" rx="13" fill="#A97FF5"/><rect x="19" y="38" width="6" height="8" rx="3" fill="#C4A0FF"/><rect x="29" y="38" width="6" height="8" rx="3" fill="#C4A0FF"/><rect x="20" y="59" width="6" height="11" rx="3" fill="#A97FF5"/><rect x="28" y="59" width="6" height="11" rx="3" fill="#A97FF5"/></svg>
+      <svg width="58" height="40" viewBox="0 0 58 40" fill="none" style="margin-top:15px"><rect x="1" y="1" width="56" height="38" rx="8" fill="#1A0A3C" stroke="#A97FF5" stroke-width="1.5"/><rect x="1" y="10" width="56" height="8" fill="#A97FF5" opacity="0.3"/><rect x="8" y="24" width="18" height="3" rx="1.5" fill="#C4A0FF" opacity="0.7"/><circle cx="44" cy="27" r="5" fill="#EF9F27" opacity="0.6"/><circle cx="49" cy="27" r="5" fill="#F09975" opacity="0.6"/></svg>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:8px;margin:0 20px 14px;position:relative;z-index:1">
+    <div style="width:10px;height:10px;border-radius:50%;background:#FF5252;flex-shrink:0"></div>
+    <span style="color:rgba(255,255,255,0.9);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Puntos de mayor fricción</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:12px;padding:0 20px;position:relative;z-index:1">
+
+    <div style="background:#1A0A3C;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.2s;border:1.5px solid rgba(255,255,255,0.08)" onclick="stToggle(this)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+        <div style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(169,127,245,0.15)">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="9" r="6" fill="#A97FF5"/><circle cx="10.5" cy="7.5" r="1" fill="#1A0A3C"/><circle cx="15.5" cy="7.5" r="1" fill="#1A0A3C"/><path d="M10 11 Q13 13.5 16 11" stroke="#1A0A3C" stroke-width="1.2" stroke-linecap="round" fill="none"/><rect x="6" y="15" width="14" height="10" rx="7" fill="#A97FF5"/><text x="10" y="22" font-size="5" fill="#1A0A3C" font-family="Nunito,sans-serif" font-weight="900">$0?</text></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:2px;color:#A97FF5">Situación 01</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.35">¿Por qué veo mi cupo en $0?</div>
+        </div>
+        <div class="st-chev" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="st-body" style="max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 16px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;margin-top:4px">
+            <svg width="52" height="64" viewBox="0 0 52 64" fill="none"><circle cx="26" cy="16" r="12" fill="#C4A0FF"/><circle cx="21.5" cy="13.5" r="1.4" fill="#1A0A3C"/><circle cx="30.5" cy="13.5" r="1.4" fill="#1A0A3C"/><path d="M21 20 Q26 23 31 20" stroke="#1A0A3C" stroke-width="1.4" stroke-linecap="round" fill="none"/><rect x="13" y="28" width="24" height="25" rx="12" fill="#A97FF5"/></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;padding:5px 10px;border-radius:8px;display:inline-block;background:rgba(169,127,245,0.15);color:#C4A0FF">🎯 El depósito es el combustible</span>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;border-left:3px solid #A97FF5;padding-left:10px;margin-top:8px">El cupo de $0 <strong style="color:#fff">no es desconfianza</strong>, es el punto de partida. La tarjeta funciona por misiones: la primera es hacer el depósito inicial. Sin ese paso, el sistema no tiene movimientos positivos que reportar a las centrales de riesgo. <strong style="color:#fff">El cliente enciende su propio motor crediticio.</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A0A3C;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.2s;border:1.5px solid rgba(255,255,255,0.08)" onclick="stToggle(this)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+        <div style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(93,202,165,0.15)">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="2" y="8" width="10" height="7" rx="2" fill="#5DCAA5"/><text x="3.5" y="14" font-size="4.5" fill="#085041" font-family="Nunito,sans-serif" font-weight="900">DB</text><rect x="14" y="8" width="10" height="7" rx="2" fill="#9FE1CB"/><text x="15" y="14" font-size="4.5" fill="#085041" font-family="Nunito,sans-serif" font-weight="900">CR</text><circle cx="13" cy="20" r="4" fill="#1D9E75"/><text x="10.5" y="23" font-size="7" fill="#fff" font-family="Nunito,sans-serif" font-weight="900">?</text></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:2px;color:#5DCAA5">Situación 02</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.35">¿Me aprobaron una tarjeta de crédito o una débito?</div>
+        </div>
+        <div class="st-chev" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="st-body" style="max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 16px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;margin-top:4px"><svg width="52" height="64" viewBox="0 0 52 64" fill="none"><circle cx="26" cy="16" r="12" fill="#5DCAA5"/><rect x="13" y="28" width="24" height="25" rx="12" fill="#5DCAA5"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;padding:5px 10px;border-radius:8px;display:inline-block;background:rgba(93,202,165,0.15);color:#5DCAA5">🎯 Gastar vs. construir reputación</span>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;border-left:3px solid #5DCAA5;padding-left:10px;margin-top:8px">La débito es para <strong style="color:#fff">gastar</strong>. La Abre Caminos es para <strong style="color:#fff">construir</strong>. El depósito no es un pago, es una garantía de cumplimiento. Al usarla como crédito, el cliente demuestra que sabe manejar una tarjeta. Es su llave para préstamos más grandes en el futuro.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A0A3C;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.2s;border:1.5px solid rgba(255,255,255,0.08)" onclick="stToggle(this)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+        <div style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(239,159,39,0.15)">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="10" stroke="#EF9F27" stroke-width="1.5" fill="none"/><path d="M13 7 L13 13 L17 16" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:2px;color:#EF9F27">Situación 03</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.35">Cumplí la misión de depósito y no me dieron el cupo prometido</div>
+        </div>
+        <div class="st-chev" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="st-body" style="max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 16px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;margin-top:4px"><svg width="52" height="64" viewBox="0 0 52 64" fill="none"><circle cx="26" cy="16" r="12" fill="#EF9F27"/><rect x="13" y="28" width="24" height="25" rx="12" fill="#EF9F27"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;padding:5px 10px;border-radius:8px;display:inline-block;background:rgba(239,159,39,0.15);color:#EF9F27">🎯 Procesar el primer logro</span>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;border-left:3px solid #EF9F27;padding-left:10px;margin-top:8px">Decirle al cliente: <em style="color:#fff">"Tu depósito activó una señal en nuestro sistema."</em> Las 72 horas son el tiempo que tarda Nu en <strong style="color:#fff">duplicar el cupo</strong> y validar la fase de inicio. La recompensa está en camino — ¡ya cumplió su objetivo!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A0A3C;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.2s;border:1.5px solid rgba(255,255,255,0.08)" onclick="stToggle(this)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+        <div style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(240,153,123,0.15)">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="10" fill="#F09975" opacity="0.3"/><text x="9" y="17" font-size="11" fill="#F09975" font-family="Nunito,sans-serif" font-weight="900">%</text><path d="M6 20 L20 6" stroke="#F09975" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:2px;color:#F09975">Situación 04</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.35">¿Por qué debo pagar intereses por usar mi propio dinero?</div>
+        </div>
+        <div class="st-chev" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="st-body" style="max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 16px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;margin-top:4px"><svg width="52" height="64" viewBox="0 0 52 64" fill="none"><circle cx="26" cy="16" r="12" fill="#F09975"/><rect x="13" y="28" width="24" height="25" rx="12" fill="#F09975"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;padding:5px 10px;border-radius:8px;display:inline-block;background:rgba(240,153,123,0.15);color:#F09975">🎯 El entrenador financiero 24/7</span>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;border-left:3px solid #F09975;padding-left:10px;margin-top:8px">El interés no es por "usar su plata", es por la <strong style="color:#fff">gestión de su historial</strong>. El cliente paga por una plataforma que le reporta beneficios crediticios. Si quiere mejorar sin costos extra: pagar a una cuota le da reporte positivo con <strong style="color:#fff">costo $0</strong>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1A0A3C;border-radius:20px;overflow:hidden;cursor:pointer;transition:transform 0.2s;border:1.5px solid rgba(255,255,255,0.08)" onclick="stToggle(this)">
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px">
+        <div style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(212,83,126,0.15)">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 3 L15.5 9.5 L22 9.5 L17 13.5 L19 20 L13 16 L7 20 L9 13.5 L4 9.5 L10.5 9.5 Z" fill="#ED93B1"/></svg>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:0.6;margin-bottom:2px;color:#ED93B1">Situación 05</div>
+          <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.35">¿Cuándo tendré un cupo sin respaldo?</div>
+        </div>
+        <div class="st-chev" style="width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.3s">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="st-body" style="max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s ease;padding:0 16px">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div style="flex-shrink:0;margin-top:4px"><svg width="52" height="64" viewBox="0 0 52 64" fill="none"><circle cx="26" cy="16" r="12" fill="#ED93B1"/><rect x="13" y="28" width="24" height="25" rx="12" fill="#ED93B1"/></svg></div>
+          <div style="flex:1;min-width:0">
+            <span style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px;padding:5px 10px;border-radius:8px;display:inline-block;background:rgba(212,83,126,0.15);color:#ED93B1">🎯 El éxito depende del cumplimiento</span>
+            <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.65;border-left:3px solid #ED93B1;padding-left:10px;margin-top:8px">No hay una fecha fija, pero hay una fórmula clara: <strong style="color:#fff">cumplir las misiones aumenta directamente la probabilidad</strong> de obtener un cupo sin respaldo. Cada misión completada le dice a Nu: "este cliente sabe manejar su tarjeta." Las compras frecuentes, los pagos puntuales y el depósito inicial son señales que el sistema analiza. <strong style="color:#fff">Entre más misiones cumpla, más rápido construye el perfil que le abre esa puerta.</strong> ¡Anímalo a enfocarse en la próxima misión!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin:24px 20px 0;position:relative;z-index:1">
+    <div style="display:flex;align-items:center;gap:8px;margin:0 0 14px">
+      <div style="width:10px;height:10px;border-radius:50%;background:#FF5252;flex-shrink:0"></div>
+      <span style="color:rgba(255,255,255,0.9);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Casos frecuentes — ¡Recuerda esto!</span>
+    </div>
+
+    <div style="background:rgba(26,10,60,0.85);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;margin-bottom:12px">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+        <div style="width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;background:rgba(123,63,228,0.5);color:#C4A0FF">1</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.4">El cliente cumplió la misión de depósito pero no ve el cupo extra reflejado</div>
+      </div>
+      <ul style="list-style:none;margin-top:8px">
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#A97FF5;display:inline-block"></span>Revisa que haya completado la misión correctamente.</li>
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#A97FF5;display:inline-block"></span>Recuérdale que puede tomar hasta <strong style="color:#fff">72 horas</strong>.</li>
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#A97FF5;display:inline-block"></span>Debe ajustar el nuevo cupo manualmente desde la <strong style="color:#fff">App</strong>.</li>
+      </ul>
+      <div style="background:rgba(123,63,228,0.25);border:1px solid rgba(169,127,245,0.4);border-radius:10px;padding:9px 12px;margin-top:10px;font-size:12px;color:#C4A0FF;font-weight:600;line-height:1.5">💡 Los clientes esperan que el cupo se vea reflejado inmediato al depositar — aclara siempre el tiempo de espera.</div>
+    </div>
+
+    <div style="background:rgba(26,10,60,0.85);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;margin-bottom:12px">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+        <div style="width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;background:rgba(123,63,228,0.5);color:#C4A0FF">2</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.4">Hizo compras con la tarjeta pero la misión no sale como completada en la App</div>
+      </div>
+      <ul style="list-style:none;margin-top:8px">
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#5DCAA5;display:inline-block"></span>Recuérdale que puede necesitar esperar hasta su <strong style="color:#fff">fecha de corte</strong>.</li>
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#5DCAA5;display:inline-block"></span>Esto asegura que todas las acciones sean procesadas correctamente.</li>
+      </ul>
+    </div>
+
+    <div style="background:rgba(26,10,60,0.85);border:1.5px solid rgba(255,255,255,0.1);border-radius:16px;padding:14px 16px;margin-bottom:12px">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
+        <div style="width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;background:rgba(123,63,228,0.5);color:#C4A0FF">3</div>
+        <div style="font-size:13px;font-weight:700;color:#fff;line-height:1.4">Hizo una compra y fue rechazada por "Saldo insuficiente"</div>
+      </div>
+      <ul style="list-style:none;margin-top:8px">
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#F09975;display:inline-block"></span>Ocurre cuando Nu otorga un cupo sin respaldo pero el cliente intenta usarlo <strong style="color:#fff">sin ajustarlo desde la App</strong>.</li>
+        <li style="font-size:13px;color:rgba(255,255,255,0.75);padding:3px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0;background:#F09975;display:inline-block"></span>Debe ir a la App y ajustar manualmente el nuevo cupo <strong style="color:#fff">antes de usar la tarjeta</strong>.</li>
+      </ul>
+    </div>
+  </div>
+
+    <div style="padding:0 20px;margin:24px 0 0;position:relative;z-index:1">
+    <a href="https://backoffice.nu.com.co/shuffle/#/person/69b6de0a-fd2f-4732-922a-cf2584143709" target="_blank"
+      style="display:flex;align-items:center;gap:14px;background:#1A0A3C;border:1.5px solid rgba(169,127,245,0.4);border-radius:20px;padding:16px 20px;text-decoration:none;transition:transform 0.2s,border-color 0.2s;cursor:pointer"
+      onmouseover="this.style.transform='translateY(-2px)';this.style.borderColor='rgba(169,127,245,0.9)'"
+      onmouseout="this.style.transform='';this.style.borderColor='rgba(169,127,245,0.4)'">
+      <div style="width:48px;height:48px;border-radius:14px;background:rgba(123,63,228,0.3);border:1.5px solid rgba(169,127,245,0.5);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <rect x="2" y="5" width="24" height="16" rx="3" fill="#A97FF5" opacity="0.25" stroke="#A97FF5" stroke-width="1.2"/>
+          <rect x="2" y="5" width="24" height="5" rx="3" fill="#A97FF5" opacity="0.4"/>
+          <rect x="5" y="15" width="8" height="1.5" rx="0.75" fill="#C4A0FF" opacity="0.8"/>
+          <rect x="5" y="18" width="5" height="1.5" rx="0.75" fill="#A97FF5" opacity="0.6"/>
+          <circle cx="20" cy="17" r="3.5" fill="#7B3FE4" stroke="#C4A0FF" stroke-width="1"/>
+          <circle cx="23" cy="17" r="3.5" fill="#EF9F27" opacity="0.7" stroke="#FAC775" stroke-width="1"/>
+          <circle cx="9" cy="23" r="4" fill="#C4A0FF" opacity="0.2" stroke="#A97FF5" stroke-width="0.8"/>
+          <circle cx="9" cy="23" r="1.5" fill="#C4A0FF"/>
+          <rect x="14" y="21" width="10" height="1.2" rx="0.6" fill="#A97FF5" opacity="0.5"/>
+          <rect x="14" y="23.5" width="7" height="1.2" rx="0.6" fill="#A97FF5" opacity="0.35"/>
+        </svg>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#A97FF5;margin-bottom:3px">Shuffle · Ejemplo real</div>
+        <div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3">¿Cómo se ve un cliente de Tarjeta Abre Caminos?</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-top:3px">Ver perfil en Shuffle →</div>
+      </div>
+      <div style="flex-shrink:0;opacity:0.5">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9h10M9 4l5 5-5 5" stroke="#C4A0FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div style="text-align:center;margin-top:28px;padding:0 20px;position:relative;z-index:1">
+    <p style="color:rgba(255,255,255,0.4);font-size:11px">Nu Colombia · Onboarding BPO · Customer Management</p>
+  </div>
+</div>
+</div><!-- /secured-teorico-app -->
+
+<script>
+function stToggle(card){
+  var body=card.querySelector('.st-body');
+  var chev=card.querySelector('.st-chev');
+  var isOpen=body.style.maxHeight&&body.style.maxHeight!=='0px'&&body.style.maxHeight!=='';
+  document.querySelectorAll('#secured-teorico-app .st-body').forEach(function(b){b.style.maxHeight='0';b.style.padding='0 16px';});
+  document.querySelectorAll('#secured-teorico-app .st-chev').forEach(function(c){c.style.transform='';});
+  if(!isOpen){body.style.maxHeight='500px';body.style.padding='0 16px 16px';chev.style.transform='rotate(180deg)';}
+}
+</script>
+
+</body>
+</html>
