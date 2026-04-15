@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Letras Flash — Nu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap');
+
+  :root {
+    --navy-deep:  #04091a;
+    --navy-dark:  #071228;
+    --navy-mid:   #0d2060;
+    --navy-card:  #0a1848;
+    --navy-panel: #091540;
+    --gold:       #d4a520;
+    --gold-light: #f5cb30;
+    --gold-dim:   #a07810;
+    --gold-pale:  #ffe680;
+    --yellow:     #ffe200;
+    --electric:   #ffe44d;
+    --white:      #ffffff;
+    --text-light: #ccdcff;
+    --border-gold: 2px solid var(--gold);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: radial-gradient(ellipse at 50% 0%, #0d2060 0%, #04091a 65%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,220,80,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 45% 10%, rgba(255,220,80,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 55%, rgba(255,220,80,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 80%, rgba(255,220,80,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 90%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 35% 60%, rgba(255,220,80,0.3) 0%, transparent 100%),
+      radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow top */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(100,140,255,0.2) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ============ SCREENS ============ */
+  .screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+    padding: 24px 20px;
+  }
+  .screen.active { display: flex; }
+
+  /* ============ GOLD ORNAMENT DIVIDER ============ */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 500px;
+  }
+  .ornament-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .ornament-star { color: var(--gold-light); font-size: 14px; }
+
+  /* ============ INTRO SCREEN ============ */
+  #screen-intro { gap: 36px; text-align: center; }
+
+  .intro-book {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    filter: drop-shadow(0 0 40px rgba(212,165,32,0.35));
+  }
+
+  .book-banner {
+    background: linear-gradient(135deg, #8a6000, var(--gold), #f5cb30, var(--gold), #8a6000);
+    border: 3px solid var(--gold-light);
+    border-radius: 8px;
+    padding: 8px 32px 6px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(212,165,32,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  .book-banner-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--navy-deep);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .book-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 100px);
+    color: var(--yellow);
+    letter-spacing: 4px;
+    line-height: 0.9;
+    text-shadow:
+      0 0 20px rgba(255,226,0,0.8),
+      0 0 60px rgba(255,200,0,0.4),
+      3px 3px 0 #6b4400,
+      -1px -1px 0 #a06800;
+    position: relative;
+  }
+
+  .book-title .flash-bolt {
+    color: var(--electric);
+    text-shadow:
+      0 0 15px rgba(255,228,77,1),
+      0 0 40px rgba(255,200,0,0.8),
+      2px 2px 0 #5a3800;
+  }
+
+  .book-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--navy-deep);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .intro-tagline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: var(--gold-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(212,165,32,0.5);
+  }
+
+  /* ============ BUTTONS ============ */
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.12);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn:hover::after { opacity: 1; }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #8a6000, var(--gold), var(--gold-light), var(--gold), #8a6000);
+    color: var(--navy-deep);
+    padding: 16px 48px;
+    font-size: 18px;
+    box-shadow: 0 6px 24px rgba(212,165,32,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+    border: 2px solid var(--gold-light);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+  .btn-gold:hover {
+    box-shadow: 0 10px 36px rgba(212,165,32,0.75), inset 0 1px 0 rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text-light);
+    padding: 11px 32px;
+    font-size: 14px;
+    border: 2px solid rgba(212,165,32,0.35);
+    letter-spacing: 2px;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+    background: rgba(212,165,32,0.07);
+  }
+
+  /* ============ RULES SCREEN ============ */
+  #screen-rules {
+    gap: 20px;
+    max-width: 860px;
+    width: 100%;
+  }
+
+  .screen-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    color: var(--gold-light);
+    letter-spacing: 4px;
+    text-align: center;
+    text-shadow: 0 0 24px rgba(212,165,32,0.5), 2px 2px 0 rgba(0,0,0,0.5);
+  }
+  .screen-title span { color: var(--yellow); }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+  }
+  @media (max-width: 700px) {
+    .rules-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 440px) {
+    .rules-grid { grid-template-columns: 1fr; }
+  }
+
+  .rule-card {
+    background: linear-gradient(160deg, rgba(13,32,96,0.9), rgba(9,21,64,0.95));
+    border: 2px solid rgba(212,165,32,0.4);
+    border-radius: 12px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rule-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .rule-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+
+  .rule-icon { font-size: 32px; }
+  .rule-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .rule-text {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+  .rule-text strong { color: var(--yellow); }
+
+  .rules-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ============ GAME SCREEN ============ */
+  #screen-game {
+    gap: 20px;
+    max-width: 740px;
+    width: 100%;
+  }
+
+  .round-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .round-badge {
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-light));
+    border-radius: 6px;
+    padding: 6px 18px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 3px 10px rgba(212,165,32,0.4);
+  }
+
+  .round-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .round-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid rgba(212,165,32,0.4);
+    background: transparent;
+    transition: all 0.3s;
+  }
+  .round-dot.active {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+    box-shadow: 0 0 8px rgba(245,203,48,0.8);
+  }
+  .round-dot.done {
+    background: var(--gold-dim);
+    border-color: var(--gold-dim);
+  }
+
+  /* ============ MAIN ROUND CARD ============ */
+  .round-card {
+    width: 100%;
+    background: linear-gradient(160deg, #0d2060 0%, #091540 50%, #061030 100%);
+    border: 3px solid var(--gold);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 6px rgba(212,165,32,0.12),
+      0 24px 60px rgba(0,0,0,0.7),
+      0 0 60px rgba(13,32,96,0.4);
+  }
+
+  /* Corner ornaments */
+  .card-orn {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    z-index: 5;
+  }
+  .card-orn svg { width: 100%; height: 100%; }
+  .card-orn.tl { top: 6px; left: 6px; }
+  .card-orn.tr { top: 6px; right: 6px; transform: scaleX(-1); }
+  .card-orn.bl { bottom: 6px; left: 6px; transform: scaleY(-1); }
+  .card-orn.br { bottom: 6px; right: 6px; transform: scale(-1); }
+
+  /* Inner card layout: two panels */
+  .card-panels {
+    display: grid;
+    grid-template-columns: 1fr 3px 1fr;
+    min-height: 200px;
+  }
+
+  .panel {
+    padding: 28px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .panel-divider {
+    background: linear-gradient(180deg, transparent, var(--gold), var(--gold), transparent);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .panel-divider-bolt {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #f5cb30, #ffe200, #f5cb30);
+    border-radius: 50%;
+    border: 3px solid var(--navy-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 0 20px rgba(255,226,0,0.8), 0 0 40px rgba(255,200,0,0.4);
+    animation: boltPulse 2s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+
+  @keyframes boltPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(255,226,0,0.7), 0 0 30px rgba(255,200,0,0.3); }
+    50% { box-shadow: 0 0 28px rgba(255,226,0,1), 0 0 60px rgba(255,200,0,0.6); }
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .panel-star { color: var(--gold-light); font-size: 13px; }
+  .panel-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(212,165,32,0.4);
+  }
+  .panel-sublabel {
+    font-size: 12px;
+    color: rgba(204,220,255,0.55);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .panel-value {
+    font-family: 'Nunito', sans-serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.25;
+    text-shadow: 0 0 16px rgba(255,255,255,0.2);
+  }
+
+  .panel-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 100px);
+    color: var(--yellow);
+    line-height: 1;
+    text-shadow:
+      0 0 20px rgba(255,226,0,0.9),
+      0 0 50px rgba(255,200,0,0.5),
+      3px 3px 0 rgba(0,0,0,0.4);
+  }
+  .panel-words-label {
+    font-size: 15px;
+    color: var(--text-light);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Card bottom bar */
+  .card-footer {
+    background: linear-gradient(90deg, #8a6000, var(--gold), var(--gold-light), var(--gold), #8a6000);
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-top: 2px solid rgba(255,255,255,0.2);
+  }
+  .card-footer-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .card-footer-bolt {
+    font-size: 16px;
+    animation: boltPulse2 1.5s ease-in-out infinite;
+  }
+  @keyframes boltPulse2 {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; filter: drop-shadow(0 0 6px gold); }
+  }
+
+  /* ============ TIMER ============ */
+  .timer-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .timer-display {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--yellow);
+    letter-spacing: 4px;
+    text-shadow:
+      0 0 20px rgba(255,226,0,0.9),
+      0 0 50px rgba(255,200,0,0.4);
+    line-height: 1;
+    transition: color 0.3s;
+    min-width: 180px;
+    text-align: center;
+  }
+  .timer-display.warning {
+    color: #ff6a00;
+    text-shadow: 0 0 20px rgba(255,106,0,0.9), 0 0 50px rgba(255,60,0,0.4);
+    animation: timerWarning 0.5s ease-in-out infinite alternate;
+  }
+  .timer-display.stopped {
+    color: rgba(255,226,0,0.3);
+    text-shadow: none;
+  }
+
+  @keyframes timerWarning {
+    from { transform: scale(1); }
+    to { transform: scale(1.04); }
+  }
+
+  .timer-bar-track {
+    width: 100%;
+    max-width: 500px;
+    height: 10px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid rgba(212,165,32,0.25);
+  }
+  .timer-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--yellow));
+    border-radius: 5px;
+    transition: width 0.25s linear, background 0.5s;
+    width: 100%;
+  }
+  .timer-bar-fill.warning {
+    background: linear-gradient(90deg, #c03000, #ff6a00);
+  }
+
+  /* ============ ACTION BUTTONS ============ */
+  .game-actions {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-timer {
+    background: linear-gradient(135deg, #1a3a8a, #2a54c0, #1a3a8a);
+    color: var(--yellow);
+    padding: 14px 32px;
+    font-size: 16px;
+    border: 2px solid rgba(100,150,255,0.5);
+    box-shadow: 0 6px 20px rgba(26,58,138,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-timer:hover {
+    box-shadow: 0 10px 30px rgba(26,58,138,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    border-color: rgba(150,200,255,0.7);
+  }
+  .btn-timer:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-next {
+    background: linear-gradient(135deg, #8a6000, var(--gold), var(--gold-light), var(--gold), #8a6000);
+    color: var(--navy-deep);
+    padding: 14px 32px;
+    font-size: 16px;
+    border: 2px solid var(--gold-light);
+    box-shadow: 0 6px 20px rgba(212,165,32,0.45);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-next:hover {
+    box-shadow: 0 10px 32px rgba(212,165,32,0.7);
+    transform: translateY(-2px);
+  }
+
+  .btn-stop {
+    background: linear-gradient(135deg, #6b0000, #b01010, #6b0000);
+    color: #ffaaaa;
+    padding: 14px 32px;
+    font-size: 16px;
+    border: 2px solid rgba(255,80,80,0.4);
+    box-shadow: 0 6px 20px rgba(176,16,16,0.4);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .btn-stop:hover {
+    box-shadow: 0 10px 30px rgba(176,16,16,0.6);
+    transform: translateY(-2px);
+  }
+
+  /* ============ FLASH! announcement ============ */
+  .flash-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .flash-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .flash-box {
+    background: linear-gradient(135deg, #071228, #0d2060);
+    border: 4px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px 60px;
+    text-align: center;
+    box-shadow: 0 0 80px rgba(212,165,32,0.5), 0 30px 80px rgba(0,0,0,0.7);
+    animation: flashPop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+
+  @keyframes flashPop {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .flash-word {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 100px;
+    color: var(--yellow);
+    line-height: 1;
+    text-shadow:
+      0 0 30px rgba(255,226,0,1),
+      0 0 80px rgba(255,200,0,0.6),
+      4px 4px 0 rgba(0,0,0,0.5);
+    letter-spacing: 6px;
+  }
+
+  .flash-sub {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: var(--text-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .flash-close {
+    margin-top: 24px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-light));
+    border: 2px solid var(--gold-light);
+    border-radius: 8px;
+    padding: 10px 32px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .flash-close:hover { transform: scale(1.05); }
+
+  /* ============ END SCREEN ============ */
+  #screen-end { gap: 28px; max-width: 540px; width: 100%; text-align: center; }
+
+  .end-trophy { font-size: 80px; animation: trophySpin 0.6s ease forwards; }
+  @keyframes trophySpin {
+    from { transform: rotate(-20deg) scale(0); opacity: 0; }
+    to { transform: rotate(0) scale(1); opacity: 1; }
+  }
+
+  .end-subtitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 16px;
+    color: var(--text-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .end-card {
+    background: linear-gradient(160deg, rgba(13,32,96,0.9), rgba(9,21,64,0.95));
+    border: 2px solid rgba(212,165,32,0.45);
+    border-radius: 16px;
+    padding: 32px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .end-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--gold-light), var(--gold), transparent);
+  }
+
+  .rounds-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .round-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    border: 1px solid rgba(212,165,32,0.15);
+  }
+
+  .rs-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .rs-category {
+    font-size: 13px;
+    color: rgba(204,220,255,0.5);
+    font-style: italic;
+    text-align: left;
+  }
+  .rs-words {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--yellow);
+    text-shadow: 0 0 10px rgba(255,226,0,0.5);
+    white-space: nowrap;
+  }
+  .rs-words span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 12px;
+    color: var(--text-light);
+    vertical-align: middle;
+    margin-left: 4px;
+    opacity: 0.6;
+  }
+
+  .end-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ============ TRANSITION ============ */
+  .round-card {
+    animation: cardIn 0.4s cubic-bezier(0.34,1.3,0.64,1) forwards;
+  }
+  @keyframes cardIn {
+    from { transform: scale(0.92) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  /* ============ CONFETTI ============ */
+  #confetti-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 999;
+  }
+
+  /* ============ CARD SLIDE ANIMATION ============ */
+  .round-card.slide-out {
+    animation: cardOut 0.35s ease forwards;
+  }
+  @keyframes cardOut {
+    to { transform: translateX(-80px) scale(0.94); opacity: 0; }
+  }
+  .round-card.slide-in-anim {
+    animation: cardIn 0.4s cubic-bezier(0.34,1.3,0.64,1) forwards;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- FLASH OVERLAY -->
+<div class="flash-overlay" id="flash-overlay">
+  <div class="flash-box">
+    <div class="flash-word">⚡FLASH!</div>
+    <div class="flash-sub">¡Tiempo terminado — detén la escritura!</div>
+    <button class="flash-close" id="flash-close-btn">Continuar</button>
+  </div>
+</div>
+
+<!-- ===== INTRO ===== -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-book">
+    <div class="book-banner">
+      <div class="book-banner-sub">Un juego de escritura rápida</div>
+      <div class="book-title">LETRAS<span class="flash-bolt">⚡</span>FLASH</div>
+      <div class="book-subtitle">Escrito a toda velocidad</div>
+    </div>
+  </div>
+
+  <div class="ornament">
+    <div class="ornament-line"></div>
+    <span class="ornament-star">✦</span>
+    <span class="ornament-star">★</span>
+    <span class="ornament-star">✦</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <p class="intro-tagline">⚡ Gestión de Límite · Nu ⚡</p>
+
+  <button class="btn btn-gold" onclick="showRules()">Ver Reglas</button>
+  <button class="btn btn-outline" onclick="startGame()" style="margin-top:-16px">Jugar directo</button>
+</div>
+
+<!-- ===== REGLAS ===== -->
+<div id="screen-rules" class="screen">
+  <h2 class="screen-title">CÓMO JUGAR A <span>LETRAS FLASH</span></h2>
+
+  <div class="ornament" style="max-width:600px">
+    <div class="ornament-line"></div>
+    <span class="ornament-star">⚡</span>
+    <div class="ornament-line"></div>
+  </div>
+
+  <div class="rules-grid">
+    <div class="rule-card">
+      <span class="rule-icon">📖</span>
+      <div class="rule-title">Inicio de Ronda</div>
+      <div class="rule-text">Se revela una <strong>CATEGORÍA</strong> y un <strong>NÚMERO DE PALABRAS OBJETIVO</strong>.</div>
+    </div>
+    <div class="rule-card">
+      <span class="rule-icon">⏱️</span>
+      <div class="rule-title">¡Tienes 1 Minuto!</div>
+      <div class="rule-text">Para escribir todas las <strong>palabras objetivo</strong> que pertenezcan a la categoría.</div>
+    </div>
+    <div class="rule-card">
+      <span class="rule-icon">⚡</span>
+      <div class="rule-title">El Reto de Escritura</div>
+      <div class="rule-text">¿Lo lograste primero? <strong>¡Grita 'FLASH'</strong> para parar la ronda!</div>
+    </div>
+    <div class="rule-card">
+      <span class="rule-icon">💰</span>
+      <div class="rule-title">Acumulación de Puntos</div>
+      <div class="rule-text">Cada <strong>palabra correcta</strong> en la categoría vale <strong>PUNTOS</strong>.</div>
+    </div>
+    <div class="rule-card">
+      <span class="rule-icon">🏆</span>
+      <div class="rule-title">Determinar el Ganador</div>
+      <div class="rule-text">¡Gana quien <strong>acumule más puntos</strong> al final de todas las rondas!</div>
+    </div>
+    <div class="rule-card">
+      <span class="rule-icon">🔄</span>
+      <div class="rule-title">Rondas</div>
+      <div class="rule-text">El juego tiene <strong>5 rondas</strong>. Usa el botón <strong>"Siguiente Ronda"</strong> para avanzar.</div>
+    </div>
+  </div>
+
+  <div class="rules-actions">
+    <button class="btn btn-gold" onclick="startGame()">¡Comenzar Juego!</button>
+    <button class="btn btn-outline" onclick="showScreen('screen-intro')">← Volver</button>
+  </div>
+</div>
+
+<!-- ===== JUEGO ===== -->
+<div id="screen-game" class="screen">
+
+  <div class="round-header">
+    <div class="round-badge" id="round-badge">Ronda 1 de 5</div>
+    <div class="round-dots" id="round-dots"></div>
+  </div>
+
+  <!-- Main round card -->
+  <div class="round-card" id="round-card">
+    <!-- Corner ornaments -->
+    <div class="card-orn tl">
+      <svg viewBox="0 0 44 44" fill="none">
+        <path d="M3 3 L3 20 Q3 41 24 41 L41 41" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M3 3 L14 3" stroke="#d4a520" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="3" cy="3" r="3" fill="#d4a520" opacity="0.8"/>
+      </svg>
+    </div>
+    <div class="card-orn tr">
+      <svg viewBox="0 0 44 44" fill="none">
+        <path d="M3 3 L3 20 Q3 41 24 41 L41 41" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M3 3 L14 3" stroke="#d4a520" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="3" cy="3" r="3" fill="#d4a520" opacity="0.8"/>
+      </svg>
+    </div>
+    <div class="card-orn bl">
+      <svg viewBox="0 0 44 44" fill="none">
+        <path d="M3 3 L3 20 Q3 41 24 41 L41 41" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M3 3 L14 3" stroke="#d4a520" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="3" cy="3" r="3" fill="#d4a520" opacity="0.8"/>
+      </svg>
+    </div>
+    <div class="card-orn br">
+      <svg viewBox="0 0 44 44" fill="none">
+        <path d="M3 3 L3 20 Q3 41 24 41 L41 41" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M3 3 L14 3" stroke="#d4a520" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="3" cy="3" r="3" fill="#d4a520" opacity="0.8"/>
+      </svg>
+    </div>
+
+    <div class="card-panels">
+      <!-- LEFT: Category -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-star">✦</span>
+          <span class="panel-label">Categoría</span>
+          <span class="panel-star">✦</span>
+        </div>
+        <div class="panel-sublabel">escribe sobre:</div>
+        <div class="panel-value" id="round-category">Tipo de límite</div>
+      </div>
+
+      <!-- Divider with bolt -->
+      <div class="panel-divider">
+        <div class="panel-divider-bolt">⚡</div>
+      </div>
+
+      <!-- RIGHT: Word count -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-star">✦</span>
+          <span class="panel-label">Palabras</span>
+          <span class="panel-star">✦</span>
+        </div>
+        <div class="panel-sublabel">cantidad objetivo:</div>
+        <div class="panel-number" id="round-words">4</div>
+        <div class="panel-words-label">palabras</div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <span class="card-footer-bolt">⚡</span>
+      <span class="card-footer-text">LETRAS FLASH &nbsp;|&nbsp; ¡Escrito a toda velocidad!</span>
+      <span class="card-footer-bolt">⚡</span>
+    </div>
+  </div>
+
+  <!-- Timer -->
+  <div class="timer-section">
+    <div class="timer-display stopped" id="timer-display">1:00</div>
+    <div class="timer-bar-track">
+      <div class="timer-bar-fill" id="timer-bar"></div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="game-actions">
+    <button class="btn-timer" id="btn-start-timer" onclick="startTimer()">
+      ▶ Iniciar Tiempo
+    </button>
+    <button class="btn-stop" id="btn-stop-timer" onclick="stopTimerManual()" style="display:none">
+      ⚡ FLASH! — Parar
+    </button>
+    <button class="btn-next" id="btn-next-round" onclick="nextRound()">
+      Siguiente Ronda →
+    </button>
+  </div>
+
+</div>
+
+<!-- ===== FIN ===== -->
+<div id="screen-end" class="screen">
+  <div class="end-trophy">🏆</div>
+  <h2 class="screen-title" style="font-size:36px;">¡FIN DEL JUEGO!</h2>
+  <p class="end-subtitle">⚡ Letras Flash — Gestión de Límite ⚡</p>
+
+  <div class="end-card">
+    <div class="rounds-summary" id="rounds-summary"></div>
+  </div>
+
+  <div class="end-actions">
+    <button class="btn btn-gold" onclick="startGame()">Jugar de Nuevo</button>
+    <button class="btn btn-outline" onclick="showScreen('screen-intro')">Inicio</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  DATA — 5 RONDAS
+// ============================================================
+const ROUNDS = [
+  { round: 1, category: 'Tipo de límite',          words: 4 },
+  { round: 2, category: 'Botón o Sección App',      words: 5 },
+  { round: 3, category: 'Buenos hábitos financieros', words: 3 },
+  { round: 4, category: 'Escenarios de aumento',    words: 4 },
+  { round: 5, category: 'Acciones en la App',       words: 4 },
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let currentRound = 0;
+let timerInterval = null;
+let timerSeconds = 60;
+let timerRunning = false;
+
+// ============================================================
+//  SCREEN
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function showRules() { showScreen('screen-rules'); }
+
+// ============================================================
+//  GAME START
+// ============================================================
+function startGame() {
+  currentRound = 0;
+  clearTimer();
+  renderRound();
+  buildDots();
+  showScreen('screen-game');
+}
+
+// ============================================================
+//  RENDER ROUND
+// ============================================================
+function renderRound(animate = false) {
+  const r = ROUNDS[currentRound];
+  document.getElementById('round-badge').textContent = `Ronda ${r.round} de ${ROUNDS.length}`;
+  document.getElementById('round-category').textContent = r.category;
+  document.getElementById('round-words').textContent = r.words;
+
+  updateDots();
+  resetTimerDisplay();
+
+  // Show/hide next button
+  const btnNext = document.getElementById('btn-next-round');
+  btnNext.textContent = currentRound < ROUNDS.length - 1 ? 'Siguiente Ronda →' : '🏆 Ver Resultados';
+
+  if (animate) {
+    const card = document.getElementById('round-card');
+    card.classList.remove('slide-in-anim');
+    void card.offsetWidth; // reflow
+    card.classList.add('slide-in-anim');
+  }
+}
+
+// ============================================================
+//  DOTS
+// ============================================================
+function buildDots() {
+  const container = document.getElementById('round-dots');
+  container.innerHTML = '';
+  ROUNDS.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'round-dot';
+    dot.id = `dot-${i}`;
+    container.appendChild(dot);
+  });
+  updateDots();
+}
+
+function updateDots() {
+  ROUNDS.forEach((_, i) => {
+    const dot = document.getElementById(`dot-${i}`);
+    if (!dot) return;
+    dot.className = 'round-dot';
+    if (i < currentRound) dot.classList.add('done');
+    else if (i === currentRound) dot.classList.add('active');
+  });
+}
+
+// ============================================================
+//  NEXT ROUND
+// ============================================================
+function nextRound() {
+  clearTimer();
+
+  if (currentRound >= ROUNDS.length - 1) {
+    showEndScreen();
+    return;
+  }
+
+  const card = document.getElementById('round-card');
+  card.classList.add('slide-out');
+
+  setTimeout(() => {
+    card.classList.remove('slide-out');
+    currentRound++;
+    renderRound(true);
+  }, 320);
+}
+
+// ============================================================
+//  TIMER
+// ============================================================
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerSeconds = 60;
+
+  document.getElementById('btn-start-timer').style.display = 'none';
+  document.getElementById('btn-stop-timer').style.display = 'flex';
+
+  const display = document.getElementById('timer-display');
+  const bar = document.getElementById('timer-bar');
+  display.classList.remove('stopped', 'warning');
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    display.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+
+    const pct = (timerSeconds / 60) * 100;
+    bar.style.width = pct + '%';
+
+    if (timerSeconds <= 10) {
+      display.classList.add('warning');
+      bar.classList.add('warning');
+    }
+
+    if (timerSeconds <= 0) {
+      clearTimer();
+      triggerFlash();
+    }
+  }, 1000);
+}
+
+function stopTimerManual() {
+  clearTimer();
+  triggerFlash();
+}
+
+function clearTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+  timerRunning = false;
+  document.getElementById('btn-start-timer').style.display = 'flex';
+  document.getElementById('btn-stop-timer').style.display = 'none';
+}
+
+function resetTimerDisplay() {
+  clearTimer();
+  const display = document.getElementById('timer-display');
+  const bar = document.getElementById('timer-bar');
+  display.textContent = '1:00';
+  display.classList.remove('warning');
+  display.classList.add('stopped');
+  bar.style.width = '100%';
+  bar.classList.remove('warning');
+}
+
+// ============================================================
+//  FLASH! OVERLAY
+// ============================================================
+function triggerFlash() {
+  clearTimer();
+  const overlay = document.getElementById('flash-overlay');
+  overlay.classList.add('show');
+}
+
+document.getElementById('flash-close-btn').addEventListener('click', () => {
+  document.getElementById('flash-overlay').classList.remove('show');
+  const display = document.getElementById('timer-display');
+  display.classList.add('stopped');
+});
+
+// ============================================================
+//  END SCREEN
+// ============================================================
+function showEndScreen() {
+  const container = document.getElementById('rounds-summary');
+  container.innerHTML = ROUNDS.map(r => `
+    <div class="round-summary-row">
+      <div>
+        <div class="rs-label">Ronda ${r.round}</div>
+        <div class="rs-category">${r.category}</div>
+      </div>
+      <div class="rs-words">${r.words}<span>palabras</span></div>
+    </div>
+  `).join('');
+
+  triggerConfetti();
+  showScreen('screen-end');
+}
+
+// ============================================================
+//  CONFETTI
+// ============================================================
+function triggerConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colors = ['#d4a520','#f5cb30','#ffe200','#ffffff','#4a90d9','#2a60c0','#ffaa00'];
+  const particles = Array.from({ length: 150 }, () => ({
+    x: Math.random() * canvas.width,
+    y: -20,
+    r: Math.random() * 7 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    vx: (Math.random() - 0.5) * 6,
+    vy: Math.random() * 5 + 3,
+    va: (Math.random() - 0.5) * 0.25,
+    angle: Math.random() * Math.PI * 2,
+    shape: Math.random() > 0.4 ? 'rect' : 'circle'
+  }));
+
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, 1 - frame / 140);
+      if (p.shape === 'rect') ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+      else { ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill(); }
+      ctx.restore();
+      p.x += p.vx; p.y += p.vy;
+      p.angle += p.va; p.vy += 0.1;
+    });
+    frame++;
+    if (frame < 180) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+// ============================================================
+//  KEYBOARD
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('screen-game').classList.contains('active')) return;
+  if (e.key === 'ArrowRight' || e.key === 'Enter') nextRound();
+  if (e.key === ' ') { e.preventDefault(); timerRunning ? stopTimerManual() : startTimer(); }
+});
+</script>
+</body>
+</html>
