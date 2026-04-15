@@ -340,6 +340,9 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 #limite-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#f5f0e8}
 #limite-gamificado-app.active{display:block}
 #limite-gamificado-app iframe{width:100%;height:100vh;border:none;display:block;}
+#marketing-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#1a0533}
+#marketing-gamificado-app.active{display:block}
+#marketing-gamificado-app iframe{width:100%;height:100vh;border:none;display:block;}
 </style>
 </head>
 <body>
@@ -613,6 +616,8 @@ function launchMode(mode){
     openCertTeoricoApp();
   } else if(mode==='gamificado'&&currentTopic==='limite'){
     openLimiteGamificadoApp();
+  } else if(mode==='gamificado'&&currentTopic==='marketing'){
+    openMarketingGamificadoApp();
   } else {
     alert((mode==='teorico'?'📖 Próximamente: Refuerzo teórico':'🎮 Próximamente: Manos a la obra')+' de "'+currentTopicName+'"');
   }
@@ -661,6 +666,15 @@ function openLimiteGamificadoApp(){
 function closeLimiteGamificadoApp(){
   document.getElementById('limite-gamificado-app').classList.remove('active');
   document.getElementById('site-wrap').classList.remove('game-open');
+}
+function openMarketingGamificadoApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('marketing-gamificado-app').classList.add('active');
+}
+function closeMarketingGamificadoApp(){
+  document.getElementById('marketing-gamificado-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('marketing','Marketing, Alianzas y Mastercard','🤝');
 }
 function openSecuredGamificadoApp(){
   document.getElementById('site-wrap').classList.add('game-open');
@@ -1541,5 +1555,10 @@ function stToggle(card){
   <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeLimiteGamificadoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
   <iframe src="letras-flash.html" style="width:100%;height:100vh;border:none;display:block;" title="Letras Flash - Gestión de Límite"></iframe>
 </div><!-- /limite-gamificado-app -->
+<!-- ══ MARKETING GAMIFICADO APP ══ -->
+<div id="marketing-gamificado-app">
+  <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeMarketingGamificadoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
+  <iframe src="palabras-prohibidas.html" title="Palabras Prohibidas - Marketing, Alianzas y Mastercard"></iframe>
+</div><!-- /marketing-gamificado-app -->
 </body>
 </html>
