@@ -343,6 +343,9 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 #marketing-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#1a0533}
 #marketing-gamificado-app.active{display:block}
 #marketing-gamificado-app iframe{width:100%;height:100vh;border:none;display:block;}
+#marketing-teorico-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#3D1372}
+#marketing-teorico-app.active{display:block}
+#marketing-teorico-app iframe{width:100%;height:100vh;border:none;display:block;}
 </style>
 </head>
 <body>
@@ -618,6 +621,8 @@ function launchMode(mode){
     openLimiteGamificadoApp();
   } else if(mode==='gamificado'&&currentTopic==='marketing'){
     openMarketingGamificadoApp();
+  } else if(mode==='teorico'&&currentTopic==='marketing'){
+    openMarketingTeoricoApp();
   } else {
     alert((mode==='teorico'?'📖 Próximamente: Refuerzo teórico':'🎮 Próximamente: Manos a la obra')+' de "'+currentTopicName+'"');
   }
@@ -673,6 +678,15 @@ function openMarketingGamificadoApp(){
 }
 function closeMarketingGamificadoApp(){
   document.getElementById('marketing-gamificado-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('marketing','Marketing, Alianzas y Mastercard','🤝');
+}
+function openMarketingTeoricoApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('marketing-teorico-app').classList.add('active');
+}
+function closeMarketingTeoricoApp(){
+  document.getElementById('marketing-teorico-app').classList.remove('active');
   document.getElementById('site-wrap').classList.remove('game-open');
   openTopic('marketing','Marketing, Alianzas y Mastercard','🤝');
 }
@@ -1560,5 +1574,11 @@ function stToggle(card){
   <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeMarketingGamificadoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
   <iframe src="palabras-prohibidas.html" title="Palabras Prohibidas - Marketing, Alianzas y Mastercard"></iframe>
 </div><!-- /marketing-gamificado-app -->
+
+<!-- ══ MARKETING TEORICO APP ══ -->
+<div id="marketing-teorico-app">
+  <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeMarketingTeoricoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
+  <iframe src="guia_alianzas_mastercard_marketing.html" title="Guía Marketing, Alianzas y Mastercard"></iframe>
+</div><!-- /marketing-teorico-app -->
 </body>
 </html>
