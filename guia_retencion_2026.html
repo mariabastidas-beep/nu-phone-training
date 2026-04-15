@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guía de Retención Nu 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#7B3FE4;min-height:100vh;padding:0 0 48px;overflow-x:hidden;position:relative;}
+.deco{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.1);pointer-events:none;}
+.deco-1{width:420px;height:420px;top:-130px;right:-110px;}
+.deco-2{width:260px;height:260px;top:320px;left:-110px;}
+.deco-3{width:190px;height:190px;bottom:80px;right:30px;}
+
+/* HEADER */
+.nu-header{background:#1A0A3C;border-radius:0 0 36px 36px;padding:28px 22px 0;text-align:center;position:relative;z-index:1;margin-bottom:28px;}
+.nu-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(123,63,228,0.35);border:1.5px solid rgba(255,255,255,0.2);border-radius:40px;padding:6px 16px;margin-bottom:14px;}
+.nu-badge-dots{display:flex;gap:4px;align-items:center;}
+.nu-badge-dots span{display:block;border-radius:50%;background:#A97FF5;}
+.nu-badge-dots span:nth-child(1){width:11px;height:11px;}
+.nu-badge-dots span:nth-child(2){width:8px;height:8px;}
+.nu-badge-dots span:nth-child(3){width:6px;height:6px;}
+.nu-badge-text{color:#fff;font-size:12px;font-weight:700;letter-spacing:.5px;}
+.header-title{color:#fff;font-size:24px;font-weight:900;line-height:1.2;margin-bottom:6px;}
+.header-title em{color:#C4A0FF;font-style:normal;}
+.header-sub{color:rgba(255,255,255,0.55);font-size:13px;margin-bottom:0;}
+.header-hero{margin-top:20px;overflow:hidden;border-radius:0 0 36px 36px;}
+.header-hero img{width:100%;display:block;object-fit:cover;}
+
+/* TABS */
+.tabs-wrap{padding:0 20px;position:relative;z-index:1;margin-bottom:20px;}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;background:rgba(26,10,60,0.6);border:1.5px solid rgba(255,255,255,0.12);border-radius:30px;padding:8px 16px;color:rgba(255,255,255,0.65);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab-btn.active{background:#fff;color:#4a1a7a;border-color:#fff;}
+.tab-btn:hover:not(.active){background:rgba(255,255,255,0.15);color:#fff;}
+
+/* SECTIONS */
+.section{display:none;padding:0 20px;position:relative;z-index:1;}
+.section.active{display:block;}
+
+/* BLOCK HEADER */
+.block-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.block-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;}
+.bi-purple{background:rgba(169,127,245,0.25);}
+.bi-amber{background:rgba(239,159,39,0.25);}
+.bi-green{background:rgba(29,158,117,0.25);}
+.bi-coral{background:rgba(240,153,123,0.25);}
+.bi-red{background:rgba(226,75,74,0.25);}
+.block-title{color:#fff;font-size:20px;font-weight:900;line-height:1.2;}
+.block-sub{color:rgba(255,255,255,0.5);font-size:12px;margin-top:3px;}
+
+/* EVA CARDS */
+.eva-grid{display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.eva-card{border-radius:16px;padding:16px 18px;}
+.eva-e{background:linear-gradient(135deg,rgba(169,127,245,0.25),rgba(169,127,245,0.1));border:1.5px solid rgba(169,127,245,0.35);}
+.eva-v{background:linear-gradient(135deg,rgba(29,158,117,0.25),rgba(29,158,117,0.1));border:1.5px solid rgba(29,158,117,0.35);}
+.eva-a{background:linear-gradient(135deg,rgba(239,159,39,0.25),rgba(239,159,39,0.1));border:1.5px solid rgba(239,159,39,0.35);}
+.eva-letter{font-size:36px;font-weight:900;line-height:1;margin-bottom:4px;}
+.eva-e .eva-letter{color:#C4A0FF;}
+.eva-v .eva-letter{color:#5DCAA5;}
+.eva-a .eva-letter{color:#EF9F27;}
+.eva-word{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+.eva-e .eva-word{color:#A97FF5;}
+.eva-v .eva-word{color:#1D9E75;}
+.eva-a .eva-word{color:#BA7517;}
+.eva-desc{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;}
+.eva-quote{font-style:italic;color:rgba(255,255,255,0.6);font-size:12px;margin-top:6px;border-left:3px solid rgba(255,255,255,0.2);padding-left:10px;}
+
+/* OBJECTION CARDS (accordion) */
+.obj-card{background:#1A0A3C;border-radius:16px;border:1.5px solid rgba(255,255,255,0.08);margin-bottom:10px;overflow:hidden;}
+.obj-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;}
+.obj-header:hover{background:rgba(255,255,255,0.04);}
+.obj-tag{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;flex-shrink:0;}
+.tag-purple{background:rgba(169,127,245,0.2);color:#C4A0FF;}
+.tag-green{background:rgba(29,158,117,0.2);color:#5DCAA5;}
+.tag-amber{background:rgba(239,159,39,0.2);color:#EF9F27;}
+.tag-coral{background:rgba(240,153,123,0.2);color:#F09975;}
+.tag-blue{background:rgba(55,138,221,0.2);color:#85B7EB;}
+.obj-title{flex:1;color:#fff;font-size:14px;font-weight:700;line-height:1.3;}
+.obj-chevron{color:rgba(255,255,255,0.4);font-size:14px;flex-shrink:0;transition:transform .3s;}
+.obj-chevron.open{transform:rotate(180deg);}
+.obj-body{max-height:0;overflow:hidden;transition:max-height .45s ease,padding .3s;}
+.obj-body.open{max-height:300px;padding:0 16px 16px;}
+.obj-strategy{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;color:rgba(255,255,255,0.45);}
+.obj-speech{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.7;border-left:3px solid rgba(169,127,245,0.5);padding-left:12px;font-style:italic;}
+
+/* SCENARIO CARDS */
+.scenario-card{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(255,255,255,0.08);padding:14px 16px;margin-bottom:10px;}
+.scenario-num{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:8px;background:rgba(29,158,117,0.2);color:#5DCAA5;font-size:12px;font-weight:900;margin-bottom:8px;}
+.scenario-title{color:#5DCAA5;font-size:13px;font-weight:700;margin-bottom:8px;}
+.scenario-speech{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.7;border-left:3px solid rgba(29,158,117,0.4);padding-left:12px;font-style:italic;}
+.scenario-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+
+/* FEE CARD */
+.fee-card{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(239,159,39,0.25);padding:14px 16px;margin-bottom:10px;}
+.fee-title{color:#EF9F27;font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.fee-item{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.7;border-left:3px solid rgba(239,159,39,0.4);padding-left:12px;font-style:italic;margin-bottom:8px;}
+.fee-item:last-child{margin-bottom:0;}
+
+/* GOLD ALERTS */
+.gold-alert{background:rgba(26,10,60,0.85);border:1.5px solid rgba(239,159,39,0.25);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
+.gold-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.gold-content h4{color:#EF9F27;font-size:13px;font-weight:700;margin-bottom:4px;}
+.gold-content p{color:rgba(255,255,255,0.78);font-size:13px;line-height:1.6;}
+.gold-content strong{color:#fff;}
+.gold-content em{color:#C4A0FF;font-style:italic;}
+
+/* FOOTER */
+.nu-footer{text-align:center;margin-top:32px;padding:0 20px;position:relative;z-index:1;}
+.nu-footer p{color:rgba(255,255,255,0.3);font-size:11px;}
+</style>
+</head>
+<body>
+<div class="deco deco-1"></div>
+<div class="deco deco-2"></div>
+<div class="deco deco-3"></div>
+
+<!-- HEADER -->
+<div class="nu-header">
+  <div class="nu-badge">
+    <div class="nu-badge-dots"><span></span><span></span><span></span></div>
+    <span class="nu-badge-text">Nu Colombia</span>
+  </div>
+  <div class="header-title">Guía Maestra de<br><em>Retención 2026</em></div>
+  <div class="header-sub">No eres un tramitador de cierres, eres un aliado financiero</div>
+  <div class="header-hero">
+    <img src="data:image/jpeg;base64,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" alt="Clientes con productos Nu"/>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('eva',this)">🎯 Metodología EVA</button>
+    <button class="tab-btn" onclick="showTab('tc',this)">💳 Tarjeta Crédito</button>
+    <button class="tab-btn" onclick="showTab('savings',this)">💰 Cuenta Ahorros</button>
+    <button class="tab-btn" onclick="showTab('alertas',this)">🚩 Recuerda</button>
+    <button class="tab-btn" onclick="showTab('excepciones',this)">🚫 Excepciones</button>
+  </div>
+</div>
+
+<!-- ===== METODOLOGÍA EVA ===== -->
+<div id="tab-eva" class="section active">
+  <div class="block-header">
+    <div class="block-icon bi-purple">🎯</div>
+    <div>
+      <div class="block-title">Metodología EVA</div>
+      <div class="block-sub">El arte de retener — aplica en este orden</div>
+    </div>
+  </div>
+
+  <div class="eva-grid">
+    <div class="eva-card eva-e">
+      <div class="eva-letter">E</div>
+      <div class="eva-word">Empatía</div>
+      <div class="eva-desc">Valida la emoción del cliente sin admitir culpas legales.</div>
+      <div class="eva-quote">"Entiendo que esta situación ha sido frustrante para ti."</div>
+    </div>
+    <div class="eva-card eva-v">
+      <div class="eva-letter">V</div>
+      <div class="eva-word">Valor</div>
+      <div class="eva-desc">Resalta el beneficio que el cliente olvida. Conecta el producto con su dolor específico.</div>
+    </div>
+    <div class="eva-card eva-a">
+      <div class="eva-letter">A</div>
+      <div class="eva-word">Acuerdo</div>
+      <div class="eva-desc">Busca una solución intermedia antes del cierre definitivo. Siempre ofrece una alternativa.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TARJETA DE CRÉDITO ===== -->
+<div id="tab-tc" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-purple">💳</div>
+    <div>
+      <div class="block-title">Tarjeta de Crédito</div>
+      <div class="block-sub">Objeciones críticas — speech EVA con tuteo</div>
+    </div>
+  </div>
+
+  <div style="color:rgba(255,255,255,0.6);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px;">Toca cada objeción para ver el speech recomendado</div>
+
+  <!-- OBJECIONES -->
+  <div class="obj-card">
+    <div class="obj-header" onclick="toggleObj(this)">
+      <span class="obj-tag tag-coral">Servicio</span>
+      <span class="obj-title">Malas experiencias con el servicio</span>
+      <span class="obj-chevron">▾</span>
+    </div>
+    <div class="obj-body">
+      <div class="obj-strategy">Estrategia: Toma el control</div>
+      <div class="obj-speech">"Tú mereces un servicio eficiente. Voy a documentar los puntos exactos de tu inconformidad ahora mismo y yo mismo daré seguimiento a tu caso hoy."</div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-header" onclick="toggleObj(this)">
+      <span class="obj-tag tag-blue">Seguridad</span>
+      <span class="obj-title">Fraude o bloqueo de cuenta</span>
+      <span class="obj-chevron">▾</span>
+    </div>
+    <div class="obj-body">
+      <div class="obj-strategy">Estrategia: Protección activa</div>
+      <div class="obj-speech">"Ese bloqueo es nuestra IA protegiendo tu cupo. Prefiero que verifiquemos juntos tu identidad ahora, a que alguien más use tu dinero."</div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-header" onclick="toggleObj(this)">
+      <span class="obj-tag tag-amber">Límite</span>
+      <span class="obj-title">Límite insuficiente</span>
+      <span class="obj-chevron">▾</span>
+    </div>
+    <div class="obj-body">
+      <div class="obj-strategy">Estrategia: Plan de acción</div>
+      <div class="obj-speech">"Hagamos un plan: si concentras tus gastos aquí y pagas a tiempo, el algoritmo suele disparar aumentos en 3 meses. ¿Quieres que lo intentemos antes de cerrarla?"</div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-header" onclick="toggleObj(this)">
+      <span class="obj-tag tag-green">Sin uso</span>
+      <span class="obj-title">No la usa / no la necesita</span>
+      <span class="obj-chevron">▾</span>
+    </div>
+    <div class="obj-body">
+      <div class="obj-strategy">Estrategia: Seguro de emergencia</div>
+      <div class="obj-speech">"Mantenerla activa te cuesta $0. Es tu mejor aliado para una emergencia o para cuidar tu historial crediticio. ¿Qué tal si la guardas de respaldo?"</div>
+    </div>
+  </div>
+
+  <div class="obj-card">
+    <div class="obj-header" onclick="toggleObj(this)">
+      <span class="obj-tag tag-purple">Capacidad</span>
+      <span class="obj-title">Quiere liberar capacidad crediticia</span>
+      <span class="obj-chevron">▾</span>
+    </div>
+    <div class="obj-body">
+      <div class="obj-strategy">Estrategia: Educación financiera</div>
+      <div class="obj-speech">"¿Sabías que tener una línea antigua y bien manejada te ayuda más a mejorar tu perfil para créditos de vivienda que si la cierras hoy?"</div>
+    </div>
+  </div>
+
+  <!-- FEE CARD -->
+  <div style="color:rgba(255,255,255,0.6);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin:16px 0 10px;">Tarjetas con cuota (Fee Card)</div>
+  <div class="fee-card">
+    <div class="fee-title">💰 Costo-Beneficio</div>
+    <div class="fee-item">"Entiendo que la cuota es importante, pero ¿sabías que solo con el seguro de viajes que ya tienes incluido estás ahorrando más de lo que pagas al año?"</div>
+  </div>
+  <div class="fee-card">
+    <div class="fee-title">⬇️ Opción Downgrade</div>
+    <div class="fee-item">"Antes de que te vayas, miremos si calificas para nuestra versión Moradita ($0 cuota). Así conservas tu antigüedad sin pagar un peso más."</div>
+  </div>
+</div>
+
+<!-- ===== CUENTA DE AHORROS ===== -->
+<div id="tab-savings" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-green">💰</div>
+    <div>
+      <div class="block-title">Cuenta de Ahorros</div>
+      <div class="block-sub">Escenarios de retención — tono cercano</div>
+    </div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-num">1</div>
+    <div class="scenario-title">Confusión — buscaba TC o Préstamo</div>
+    <div class="scenario-label">El Puente</div>
+    <div class="scenario-speech">"Entiendo que buscabas crédito, pero esta cuenta es el puente para que te conozcamos mejor y podamos darte ese cupo que quieres mucho más rápido."</div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-num">2</div>
+    <div class="scenario-title">Inconformidad por 4x1000 (GMF)</div>
+    <div class="scenario-label" style="margin-bottom:4px;">La Solución</div>
+    <div class="scenario-speech" style="margin-bottom:10px;">"¡Te tengo una excelente noticia! Puedes marcar esta cuenta como tu Exenta de Ley para que muevas tu plata sin pagar ni un peso de este impuesto hasta los topes legales."</div>
+    <div class="scenario-label">Claridad</div>
+    <div class="scenario-speech">"Ese es un impuesto del gobierno, no es plata para Nu. Déjame ayudarte a configurar tu cuenta ahora mismo para que dejes de ver ese cobro."</div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-num">3</div>
+    <div class="scenario-title">Competencia — tiene otras cuentas</div>
+    <div class="scenario-label">Cuenta Secundaria</div>
+    <div class="scenario-speech">"No necesitas mover todo con nosotros. Úsanos para tus gastos diarios o ahorros específicos; recuerda que aquí tu plata crece más con nuestra rentabilidad del [X%]."</div>
+  </div>
+
+  <div class="scenario-card">
+    <div class="scenario-num">4</div>
+    <div class="scenario-title">Razones personales / Crisis financiera</div>
+    <div class="scenario-label">Congelar, no cerrar</div>
+    <div class="scenario-speech">"No tienes que cerrarla. Puedes dejarla en $0 y, cuando tu situación mejore, tu cuenta estará aquí esperándote, lista para cuando la necesites."</div>
+  </div>
+</div>
+
+<!-- ===== ALERTAS DE ORO ===== -->
+<div id="tab-alertas" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-amber">🚩</div>
+    <div>
+      <div class="block-title">¡Recuerda esto!</div>
+      <div class="block-sub">Alertas de oro — calidad en cada interacción</div>
+    </div>
+  </div>
+
+  <div class="gold-alert">
+    <div class="gold-icon">💡</div>
+    <div class="gold-content">
+      <h4>Ownership total — ponte en sus zapatos</h4>
+      <p>Antes de hablar, pregúntate: <em>"¿Qué necesitaría yo si fuera este cliente?"</em> Desde ahí, ofrece una solución real y concreta: <strong>"Entiendo exactamente lo que estás viviendo. Dame un momento y te busco la mejor salida ahora mismo."</strong></p>
+    </div>
+  </div>
+
+  <div class="gold-alert">
+    <div class="gold-icon">🚫</div>
+    <div class="gold-content">
+      <h4>Cero disculpas vacías</h4>
+      <p>No pidas perdón — eso te quita autoridad. Ofrece soluciones: <strong>"Tú mereces eficiencia y estoy aquí para asegurar que la recibas."</strong></p>
+    </div>
+  </div>
+
+  <div class="gold-alert">
+    <div class="gold-icon">📈</div>
+    <div class="gold-content">
+      <h4>Costo de oportunidad</h4>
+      <p>Recuérdale siempre que su <strong>antigüedad con Nu</strong> es un activo que le abre puertas financieras y que <strong>perdería si decide cerrar hoy</strong>.</p>
+    </div>
+  </div>
+
+  <div class="gold-alert">
+    <div class="gold-icon">🛡️</div>
+    <div class="gold-content">
+      <h4>Tono Nu siempre</h4>
+      <p>Mantén la calma y la transparencia. Si decide cerrar, despídete recordándole que <strong>siempre será bienvenido de nuevo.</strong> ¡Dejamos las puertas abiertas!</p>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- ===== EXCEPCIONES ===== -->
+<div id="tab-excepciones" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-red">🚫</div>
+    <div>
+      <div class="block-title">Excepciones</div>
+      <div class="block-sub">Únicamente en estos casos NO se hace retención</div>
+    </div>
+  </div>
+
+  <div style="background:rgba(226,75,74,0.1);border:1.5px solid rgba(226,75,74,0.3);border-radius:14px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#F09595;line-height:1.6;">
+    ⚠️ En los siguientes escenarios <strong style="color:#fff;">no se debe intentar retener</strong> al cliente. Proceder directamente con el proceso de cancelación.
+  </div>
+
+  <div style="background:#1A0A3C;border-radius:16px;border:1.5px solid rgba(226,75,74,0.25);padding:16px 18px;margin-bottom:12px;">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(226,75,74,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">⚖️</div>
+      <div>
+        <div style="color:#F09595;font-size:14px;font-weight:700;margin-bottom:6px;">Tema regulatorio — decisión de Nu</div>
+        <div style="color:rgba(255,255,255,0.75);font-size:13px;line-height:1.65;">Cuando el cliente tiene algún tema regulatorio activo y sus productos serán cancelados por decisión de Nu. En este caso la cancelación no es opcional y no corresponde hacer ningún intento de retención.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#1A0A3C;border-radius:16px;border:1.5px solid rgba(226,75,74,0.25);padding:16px 18px;margin-bottom:16px;">
+    <div style="display:flex;align-items:flex-start;gap:14px;">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(226,75,74,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">😤</div>
+      <div>
+        <div style="color:#F09595;font-size:14px;font-weight:700;margin-bottom:6px;">Cliente muy enojado con historial previo sin resolución</div>
+        <div style="color:rgba(255,255,255,0.75);font-size:13px;line-height:1.65;">Cuando el cliente está demasiado enojado por un tema que <strong style="color:#fff;">no se pudo resolver</strong> y ya hubo intentos previos de ayuda por parte de otro agente. En estos casos, revisar el <strong style="color:#fff;">Interaction History</strong> para confirmar los intentos anteriores antes de proceder.</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px;background:rgba(169,127,245,0.12);border-radius:10px;padding:8px 12px;">
+          <span style="font-size:14px;">🔍</span>
+          <span style="font-size:12px;color:#C4A0FF;font-weight:700;">Verificar en Interaction History → confirmar intentos previos → proceder sin retención</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:rgba(29,158,117,0.1);border:1.5px solid rgba(29,158,117,0.3);border-radius:12px;padding:12px 14px;font-size:13px;color:#5DCAA5;line-height:1.6;">
+    ✅ <strong style="color:#fff;">En todos los demás casos</strong>, siempre se debe intentar retención siguiendo la metodología EVA antes de aceptar el cierre.
+  </div>
+</div>
+
+<div class="nu-footer"><p>Nu Colombia · Guía Maestra de Retención 2026 · Customer Management</p></div>
+
+<script>
+function showTab(name,btn){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleObj(header){
+  var body=header.nextElementSibling;
+  var chev=header.querySelector('.obj-chevron');
+  var isOpen=body.classList.contains('open');
+  document.querySelectorAll('.obj-body').forEach(function(b){b.classList.remove('open');});
+  document.querySelectorAll('.obj-chevron').forEach(function(c){c.classList.remove('open');});
+  if(!isOpen){body.classList.add('open');chev.classList.add('open');}
+}
+</script>
+</body>
+</html>
