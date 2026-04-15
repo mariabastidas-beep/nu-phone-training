@@ -349,6 +349,9 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 #retencion-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#1a0533}
 #retencion-gamificado-app.active{display:block}
 #retencion-gamificado-app iframe{width:100%;height:100vh;border:none;display:block;}
+#amparada-teorico-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#3D1372}
+#amparada-teorico-app.active{display:block}
+#amparada-teorico-app iframe{width:100%;height:100vh;border:none;display:block;}
 </style>
 </head>
 <body>
@@ -628,6 +631,8 @@ function launchMode(mode){
     openMarketingTeoricoApp();
   } else if(mode==='gamificado'&&currentTopic==='retencion'){
     openRetencionGamificadoApp();
+  } else if(mode==='teorico'&&currentTopic==='amparada'){
+    openAmparadaTeoricoApp();
   } else {
     alert((mode==='teorico'?'📖 Próximamente: Refuerzo teórico':'🎮 Próximamente: Manos a la obra')+' de "'+currentTopicName+'"');
   }
@@ -703,6 +708,15 @@ function closeRetencionGamificadoApp(){
   document.getElementById('retencion-gamificado-app').classList.remove('active');
   document.getElementById('site-wrap').classList.remove('game-open');
   openTopic('retencion','Retención','💜');
+}
+function openAmparadaTeoricoApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('amparada-teorico-app').classList.add('active');
+}
+function closeAmparadaTeoricoApp(){
+  document.getElementById('amparada-teorico-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+  openTopic('amparada','Tarjeta Amparada','🔒');
 }
 function openSecuredGamificadoApp(){
   document.getElementById('site-wrap').classList.add('game-open');
@@ -1600,5 +1614,11 @@ function stToggle(card){
   <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeRetencionGamificadoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
   <iframe src="vendeme-este-caos.html" title="Véndeme Este Caos - Retención"></iframe>
 </div><!-- /retencion-gamificado-app -->
+
+<!-- ══ AMPARADA TEORICO APP ══ -->
+<div id="amparada-teorico-app">
+  <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeAmparadaTeoricoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
+  <iframe src="guia_tarjeta_amparada.html" title="Guía Tarjeta Amparada"></iframe>
+</div><!-- /amparada-teorico-app -->
 </body>
 </html>
