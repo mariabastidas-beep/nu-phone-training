@@ -34,7 +34,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
   }
 
@@ -86,11 +87,7 @@
     justify-content: center;
     filter: drop-shadow(0 0 20px rgba(212,165,32,0.6));
   }
-
-  .shield-logo svg {
-    width: 100%;
-    height: 100%;
-  }
+  .shield-logo svg { width: 100%; height: 100%; }
 
   .banner-title {
     display: flex;
@@ -106,7 +103,6 @@
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
     border: 2px solid var(--gold);
   }
-
   .banner-side.right {
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
   }
@@ -191,19 +187,6 @@
     transform: translateY(-2px);
   }
 
-  .btn-gold {
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
-    color: var(--purple-dark);
-    padding: 13px 32px;
-    font-size: 17px;
-    box-shadow: 0 4px 16px rgba(212,165,32,0.4), 0 0 0 2px rgba(212,165,32,0.3);
-    font-weight: 800;
-  }
-  .btn-gold:hover {
-    box-shadow: 0 6px 24px rgba(212,165,32,0.6), 0 0 0 3px var(--gold-light);
-    transform: translateY(-2px);
-  }
-
   .btn-outline {
     background: transparent;
     color: var(--lavender);
@@ -221,6 +204,9 @@
     gap: 24px;
     max-width: 900px;
     width: 100%;
+    justify-content: flex-start;
+    padding-top: 40px;
+    padding-bottom: 40px;
   }
 
   .rules-title {
@@ -239,7 +225,6 @@
     gap: 24px;
     width: 100%;
   }
-
   @media (max-width: 680px) {
     .rules-grid { grid-template-columns: 1fr; }
   }
@@ -252,7 +237,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .rules-card::before {
     content: '';
     position: absolute;
@@ -276,7 +260,6 @@
     color: var(--lavender);
     line-height: 1.7;
   }
-
   .rules-card-body strong {
     color: var(--magenta-light);
   }
@@ -323,6 +306,12 @@
     border: 1px solid rgba(255,60,60,0.3);
   }
 
+  .badge-orange {
+    background: rgba(255,160,0,0.25);
+    color: #ffcc60;
+    border: 1px solid rgba(255,160,0,0.4);
+  }
+
   .rules-actions {
     display: flex;
     gap: 16px;
@@ -333,7 +322,7 @@
 
   /* ============ GAME SCREEN ============ */
   #screen-game {
-    gap: 20px;
+    gap: 16px;
     max-width: 520px;
     width: 100%;
   }
@@ -370,7 +359,6 @@
     border-radius: 20px;
     padding: 5px 14px;
   }
-
   .score-live span {
     font-size: 14px;
     color: #80ffba;
@@ -394,6 +382,89 @@
     border-color: var(--magenta-light);
   }
 
+  /* ============ TIMER ============ */
+  .timer-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .timer-display {
+    font-family: 'Cinzel', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold-light);
+    min-width: 80px;
+    text-align: center;
+    text-shadow: 0 0 14px rgba(212,165,32,0.5);
+    transition: color 0.3s, text-shadow 0.3s;
+    line-height: 1;
+  }
+  .timer-display.warning {
+    color: #ff6a00;
+    text-shadow: 0 0 20px rgba(255,106,0,0.9);
+    animation: timerPulse 0.5s ease-in-out infinite alternate;
+  }
+  .timer-display.expired {
+    color: #ff3030;
+    text-shadow: 0 0 20px rgba(255,48,48,0.9);
+  }
+  .timer-display.stopped {
+    color: rgba(232,216,248,0.3);
+    text-shadow: none;
+  }
+
+  @keyframes timerPulse {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+
+  .timer-bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(212,165,32,0.2);
+  }
+  .timer-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--magenta), var(--gold));
+    border-radius: 4px;
+    transition: width 0.3s linear, background 0.3s;
+    width: 100%;
+  }
+  .timer-bar-fill.warning {
+    background: linear-gradient(90deg, #c03000, #ff6a00);
+  }
+
+  .btn-timer-toggle {
+    background: rgba(212,165,32,0.15);
+    border: 1px solid rgba(212,165,32,0.45);
+    color: var(--gold-light);
+    padding: 6px 14px;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.2s;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .btn-timer-toggle:hover {
+    background: rgba(212,165,32,0.3);
+    border-color: var(--gold-light);
+    transform: scale(1.1);
+  }
+
   /* ============ CARD ============ */
   .card-container {
     perspective: 1000px;
@@ -403,13 +474,13 @@
 
   .game-card {
     background: linear-gradient(165deg, #f5edff, #e8d8f8, #f0e4ff);
-    border: 3px solid;
-    border-image: linear-gradient(135deg, var(--gold-light), var(--gold-dark), var(--gold-light), var(--gold-dark)) 1;
+    border: 3px solid var(--gold);
     border-radius: 20px;
     overflow: hidden;
     position: relative;
     box-shadow:
-      0 0 0 4px rgba(212,165,32,0.25),
+      0 0 0 1px var(--gold-dark),
+      0 0 0 5px rgba(212,165,32,0.2),
       0 20px 60px rgba(0,0,0,0.6),
       0 0 40px rgba(192,21,122,0.15);
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -420,12 +491,16 @@
     transform: translateX(-140%) rotate(-12deg);
     opacity: 0;
   }
-
   .game-card.slide-out-right {
     transform: translateX(140%) rotate(12deg);
     opacity: 0;
   }
-
+  .game-card.slide-out-bomb {
+    transform: scale(1.15);
+    opacity: 0;
+    filter: brightness(2) saturate(0);
+    transition: all 0.4s ease;
+  }
   .game-card.slide-in {
     animation: slideInCard 0.35s ease forwards;
   }
@@ -459,15 +534,13 @@
     position: relative;
     border-bottom: 3px solid var(--gold);
   }
-
   .card-ribbon::before {
     content: '';
     position: absolute;
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 0;
-    height: 0;
+    width: 0; height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 8px solid var(--gold);
@@ -480,10 +553,8 @@
     margin-top: -2px;
     filter: drop-shadow(0 3px 8px rgba(0,0,0,0.4));
   }
-
   .ribbon-shield svg { width: 100%; height: 100%; }
 
-  /* Card body */
   .card-body {
     padding: 20px 24px 24px;
     display: flex;
@@ -525,7 +596,6 @@
     gap: 8px;
     padding: 0 16px;
   }
-
   .card-forbidden-list li {
     display: flex;
     align-items: center;
@@ -547,35 +617,46 @@
     flex-shrink: 0;
   }
 
+  /* Watermark */
+  .card-watermark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 1;
+  }
+  .card-watermark svg { width: 160px; height: 160px; }
+
   /* ============ ACTION BUTTONS ============ */
   .action-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 12px;
     width: 100%;
-    max-width: 480px;
+    max-width: 500px;
   }
 
   .btn-action {
     flex: 1;
-    max-width: 200px;
-    padding: 16px 20px;
+    padding: 14px 12px;
     border: none;
     border-radius: 16px;
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
     font-weight: 800;
-    font-size: 15px;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
     transition: all 0.2s ease;
     position: relative;
     overflow: hidden;
   }
-
   .btn-action::after {
     content: '';
     position: absolute;
@@ -594,9 +675,15 @@
     box-shadow: 0 6px 20px rgba(160,21,80,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
     border: 2px solid rgba(192,21,122,0.5);
   }
-  .btn-skip:hover {
-    box-shadow: 0 10px 30px rgba(160,21,80,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+  .btn-skip:hover { box-shadow: 0 10px 30px rgba(160,21,80,0.7); }
+
+  .btn-bomb {
+    background: linear-gradient(135deg, #5a1500, #b03010, #5a1500);
+    color: #ffcc80;
+    box-shadow: 0 6px 20px rgba(176,48,16,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,100,30,0.4);
   }
+  .btn-bomb:hover { box-shadow: 0 10px 30px rgba(176,48,16,0.7); }
 
   .btn-correct {
     background: linear-gradient(135deg, #0a5c2a, #158040);
@@ -604,44 +691,110 @@
     box-shadow: 0 6px 20px rgba(21,128,64,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
     border: 2px solid rgba(21,200,80,0.4);
   }
-  .btn-correct:hover {
-    box-shadow: 0 10px 30px rgba(21,128,64,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
-  }
+  .btn-correct:hover { box-shadow: 0 10px 30px rgba(21,128,64,0.7); }
 
-  .btn-action-icon {
-    font-size: 28px;
-    line-height: 1;
-  }
-
+  .btn-action-icon { font-size: 26px; line-height: 1; }
   .btn-action-label {
-    font-size: 13px;
+    font-size: 11px;
     opacity: 0.9;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
-  /* Keyboard hint */
+  /* Key hint */
   .key-hint {
     display: flex;
-    gap: 20px;
+    gap: 14px;
     justify-content: center;
+    flex-wrap: wrap;
   }
   .key-hint-item {
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 12px;
-    color: rgba(232,216,248,0.45);
+    font-size: 11px;
+    color: rgba(232,216,248,0.4);
   }
   .key-box {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 4px;
     padding: 1px 6px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
     color: rgba(232,216,248,0.5);
+  }
+
+  /* ============ BOMB OVERLAY ============ */
+  .bomb-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .bomb-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .bomb-box {
+    text-align: center;
+    animation: bombPop 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  }
+  @keyframes bombPop {
+    0% { transform: scale(0.3); opacity: 0; }
+    60% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .bomb-emoji {
+    font-size: 120px;
+    line-height: 1;
+    filter: drop-shadow(0 0 40px rgba(255,100,0,0.8));
+    animation: bombShake 0.4s ease 0.4s;
+  }
+  @keyframes bombShake {
+    0%,100% { transform: rotate(0); }
+    20% { transform: rotate(-10deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-6deg); }
+    80% { transform: rotate(6deg); }
+  }
+  .bomb-text {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff6030;
+    text-shadow: 0 0 20px rgba(255,100,0,0.8);
+    margin-top: 12px;
+    letter-spacing: 3px;
+  }
+  .bomb-sub {
+    font-size: 14px;
+    color: var(--lavender-mid);
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  /* ============ PROGRESS BAR ============ */
+  .card-progress-track {
+    width: 100%;
+    max-width: 420px;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .card-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--magenta), var(--gold));
+    border-radius: 3px;
+    transition: width 0.4s ease;
   }
 
   /* ============ END SCREEN ============ */
@@ -672,7 +825,7 @@
   .end-stats {
     display: flex;
     justify-content: space-around;
-    gap: 16px;
+    gap: 12px;
     margin-bottom: 24px;
     flex-wrap: wrap;
   }
@@ -686,17 +839,17 @@
 
   .stat-number {
     font-family: 'Cinzel', serif;
-    font-size: 52px;
+    font-size: 46px;
     font-weight: 700;
     line-height: 1;
   }
-
   .stat-number.green { color: #80ffba; }
   .stat-number.red { color: #ff8080; }
+  .stat-number.orange { color: #ffaa50; }
   .stat-number.gold { color: var(--gold-light); }
 
   .stat-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--lavender-mid);
     font-weight: 700;
     text-transform: uppercase;
@@ -718,7 +871,7 @@
     background: linear-gradient(90deg, #0a8040, #40d080);
     border-radius: 12px;
     transition: width 1s ease;
-    min-width: 4px;
+    width: 0;
   }
 
   .end-percentage {
@@ -739,42 +892,9 @@
   #confetti-canvas {
     position: fixed;
     top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100vw; height: 100vh;
     pointer-events: none;
     z-index: 999;
-  }
-
-  /* ============ PROGRESS BAR ============ */
-  .card-progress-track {
-    width: 100%;
-    max-width: 420px;
-    height: 6px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .card-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--magenta), var(--gold));
-    border-radius: 3px;
-    transition: width 0.4s ease;
-  }
-
-  /* ============ WATERMARK ============ */
-  .card-watermark {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    opacity: 0.04;
-    z-index: 1;
-  }
-  .card-watermark svg {
-    width: 160px;
-    height: 160px;
   }
 </style>
 </head>
@@ -782,29 +902,33 @@
 
 <canvas id="confetti-canvas"></canvas>
 
-<!-- ===== INTRO SCREEN ===== -->
+<!-- BOMB OVERLAY -->
+<div class="bomb-overlay" id="bomb-overlay">
+  <div class="bomb-box">
+    <div class="bomb-emoji">💥</div>
+    <div class="bomb-text">¡LA BOMBA EXPLOTÓ!</div>
+    <div class="bomb-sub">Se usó una palabra prohibida</div>
+  </div>
+</div>
+
+<!-- ===== INTRO ===== -->
 <div id="screen-intro" class="screen active">
   <div class="game-logo">
     <div class="shield-logo">
-      <!-- Nu shield SVG -->
       <svg viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M50 5 L92 22 L92 55 C92 78 73 98 50 105 C27 98 8 78 8 55 L8 22 Z" fill="url(#shieldGrad)" stroke="#d4a520" stroke-width="2.5"/>
         <path d="M50 12 L85 27 L85 55 C85 74 68 92 50 99 C32 92 15 74 15 55 L15 27 Z" fill="url(#shieldInner)"/>
         <text x="50" y="65" text-anchor="middle" font-family="Cinzel, serif" font-size="30" font-weight="700" fill="#d4a520">nu</text>
         <defs>
           <linearGradient id="shieldGrad" x1="0" y1="0" x2="100" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#d4a520"/>
-            <stop offset="50%" stop-color="#f0c84a"/>
-            <stop offset="100%" stop-color="#a07810"/>
+            <stop offset="0%" stop-color="#d4a520"/><stop offset="50%" stop-color="#f0c84a"/><stop offset="100%" stop-color="#a07810"/>
           </linearGradient>
           <linearGradient id="shieldInner" x1="0" y1="0" x2="100" y2="110" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#4a1a6e"/>
-            <stop offset="100%" stop-color="#2a0a3e"/>
+            <stop offset="0%" stop-color="#4a1a6e"/><stop offset="100%" stop-color="#2a0a3e"/>
           </linearGradient>
         </defs>
       </svg>
     </div>
-
     <div class="banner-title">
       <div class="banner-side"></div>
       <div class="banner-center">
@@ -813,15 +937,13 @@
       </div>
       <div class="banner-side right"></div>
     </div>
-
     <p class="intro-subtitle">Marketing · Alianzas · MC</p>
   </div>
-
   <button class="btn btn-primary" onclick="showRules()">Ver reglas y jugar</button>
   <button class="btn btn-outline" onclick="startGame()">Jugar directo</button>
 </div>
 
-<!-- ===== RULES SCREEN ===== -->
+<!-- ===== REGLAS ===== -->
 <div id="screen-rules" class="screen">
   <h2 class="rules-title">⚔️ Dinámica del Juego</h2>
 
@@ -834,7 +956,6 @@
         Si menciona alguna, sus sinónimos o derivados... <strong>¡la bomba explota!</strong> 💥
       </div>
     </div>
-
     <div class="rules-card">
       <span class="rules-icon">⏱️</span>
       <div class="rules-card-title">El Tiempo y la Puntuación</div>
@@ -846,8 +967,12 @@
             <span>El equipo adivina correctamente</span>
           </div>
           <div class="score-row">
-            <span class="score-badge badge-red">0 ptos</span>
-            <span>Se usa una palabra prohibida — el turno termina</span>
+            <span class="score-badge badge-orange">0 ptos</span>
+            <span>No adivina — se pasa a la siguiente</span>
+          </div>
+          <div class="score-row">
+            <span class="score-badge badge-red">💥 Bomba</span>
+            <span>Se usa una prohibida — se pierde el turno</span>
           </div>
         </div>
       </div>
@@ -860,7 +985,7 @@
   </div>
 </div>
 
-<!-- ===== GAME SCREEN ===== -->
+<!-- ===== JUEGO ===== -->
 <div id="screen-game" class="screen">
   <div class="game-header">
     <div class="progress-info">
@@ -873,13 +998,21 @@
     <button class="btn-end-small" onclick="endRound(true)">Finalizar ronda</button>
   </div>
 
+  <!-- Timer row -->
+  <div class="timer-row">
+    <button class="btn-timer-toggle" id="btn-timer" onclick="toggleTimer()" title="Iniciar/Pausar cronómetro">▶</button>
+    <div class="timer-display stopped" id="timer-display">1:00</div>
+    <div class="timer-bar-track">
+      <div class="timer-bar-fill" id="timer-bar"></div>
+    </div>
+  </div>
+
   <div class="card-progress-track">
     <div class="card-progress-fill" id="card-progress-fill"></div>
   </div>
 
   <div class="card-container">
     <div class="game-card" id="game-card">
-      <!-- Gold corner ornaments -->
       <div class="card-corner tl">
         <svg viewBox="0 0 40 40" fill="none"><path d="M2 2 L2 18 Q2 38 22 38 L38 38" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="8" cy="8" r="4" fill="#d4a520" opacity="0.7"/></svg>
       </div>
@@ -893,12 +1026,10 @@
         <svg viewBox="0 0 40 40" fill="none"><path d="M2 2 L2 18 Q2 38 22 38 L38 38" stroke="#d4a520" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="8" cy="8" r="4" fill="#d4a520" opacity="0.7"/></svg>
       </div>
 
-      <!-- Watermark -->
       <div class="card-watermark">
         <svg viewBox="0 0 100 100"><text x="50" y="65" text-anchor="middle" font-family="Cinzel" font-size="40" fill="#4a1a6e">nu</text></svg>
       </div>
 
-      <!-- Ribbon -->
       <div class="card-ribbon">
         <div class="ribbon-shield">
           <svg viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -917,7 +1048,6 @@
         </div>
       </div>
 
-      <!-- Body -->
       <div class="card-body">
         <div class="card-concept" id="card-concept">GOPASS</div>
         <div class="card-divider"></div>
@@ -934,6 +1064,10 @@
       <span class="btn-action-icon">✗</span>
       <span class="btn-action-label">No adivinó</span>
     </button>
+    <button class="btn-action btn-bomb" onclick="handleAction('bomb')">
+      <span class="btn-action-icon">💥</span>
+      <span class="btn-action-label">Bomba</span>
+    </button>
     <button class="btn-action btn-correct" onclick="handleAction('correct')">
       <span class="btn-action-icon">✓</span>
       <span class="btn-action-label">Acertó</span>
@@ -942,12 +1076,14 @@
 
   <div class="key-hint">
     <div class="key-hint-item"><span class="key-box">←</span> No adivinó</div>
+    <div class="key-hint-item"><span class="key-box">↓</span> Bomba</div>
     <div class="key-hint-item"><span class="key-box">→</span> Acertó</div>
-    <div class="key-hint-item"><span class="key-box">Esc</span> Finalizar</div>
+    <div class="key-hint-item"><span class="key-box">Space</span> Timer</div>
+    <div class="key-hint-item"><span class="key-box">Esc</span> Fin</div>
   </div>
 </div>
 
-<!-- ===== END SCREEN ===== -->
+<!-- ===== FIN ===== -->
 <div id="screen-end" class="screen">
   <div class="shield-logo" style="width:80px;height:80px;">
     <svg viewBox="0 0 100 110" fill="none"><path d="M50 5 L92 22 L92 55 C92 78 73 98 50 105 C27 98 8 78 8 55 L8 22 Z" fill="url(#shieldGrad3)" stroke="#d4a520" stroke-width="2.5"/><path d="M50 12 L85 27 L85 55 C85 74 68 92 50 99 C32 92 15 74 15 55 L15 27 Z" fill="url(#shieldInner3)"/><text x="50" y="65" text-anchor="middle" font-family="Cinzel,serif" font-size="30" font-weight="700" fill="#d4a520">nu</text><defs><linearGradient id="shieldGrad3" x1="0" y1="0" x2="100" y2="110" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#d4a520"/><stop offset="50%" stop-color="#f0c84a"/><stop offset="100%" stop-color="#a07810"/></linearGradient><linearGradient id="shieldInner3" x1="0" y1="0" x2="100" y2="110" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#4a1a6e"/><stop offset="100%" stop-color="#2a0a3e"/></linearGradient></defs></svg>
@@ -964,6 +1100,10 @@
       <div class="stat-block">
         <div class="stat-number red" id="end-skip">0</div>
         <div class="stat-label">No adivinadas</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-number orange" id="end-bombs">0</div>
+        <div class="stat-label">Bombas 💥</div>
       </div>
       <div class="stat-block">
         <div class="stat-number gold" id="end-total">0</div>
@@ -987,34 +1127,13 @@
 //  DATA
 // ============================================================
 const CARDS = [
-  {
-    concept: 'GOPASS',
-    forbidden: ['Peajes', 'Tag', 'Movilidad', 'Carro', 'Vehículo']
-  },
-  {
-    concept: 'MEDIPIEL',
-    forbidden: ['Descuento', 'Bono', 'Skincare', 'Dermatológicos']
-  },
-  {
-    concept: 'MINCA',
-    forbidden: ['Patineta', 'Eléctrica', 'Cuotas', 'Interés']
-  },
-  {
-    concept: 'ALIANZA CORPORATIVA',
-    forbidden: ['Empresa', 'Reclutador', 'Entrevista', 'Research']
-  },
-  {
-    concept: 'MASTERCARD STANDARD',
-    forbidden: ['Débito', 'Estándar', 'Franquicia', 'Global']
-  },
-  {
-    concept: 'MASTERCARD GOLD',
-    forbidden: ['Crédito', 'Garantía', 'Protección', 'Beneficios']
-  },
-  {
-    concept: 'ESTAFAS',
-    forbidden: ['Inversión', 'Falsa', 'David Vélez', 'Blog']
-  }
+  { concept: 'GOPASS',              forbidden: ['Peajes', 'Tag', 'Movilidad', 'Carro', 'Vehículo'] },
+  { concept: 'MEDIPIEL',            forbidden: ['Descuento', 'Bono', 'Skincare', 'Dermatológicos'] },
+  { concept: 'MINCA',               forbidden: ['Patineta', 'Eléctrica', 'Cuotas', 'Interés'] },
+  { concept: 'ALIANZA CORPORATIVA', forbidden: ['Empresa', 'Reclutador', 'Entrevista', 'Research'] },
+  { concept: 'MASTERCARD STANDARD', forbidden: ['Débito', 'Estándar', 'Franquicia', 'Global'] },
+  { concept: 'MASTERCARD GOLD',     forbidden: ['Crédito', 'Garantía', 'Protección', 'Beneficios'] },
+  { concept: 'ESTAFAS',             forbidden: ['Inversión', 'Falsa', 'David Vélez', 'Blog'] }
 ];
 
 // ============================================================
@@ -1024,7 +1143,13 @@ let deck = [];
 let currentIndex = 0;
 let score = 0;
 let skipped = 0;
+let bombs = 0;
 let animating = false;
+
+// Timer state
+let timerInterval = null;
+let timerSeconds = 60;
+let timerRunning = false;
 
 // ============================================================
 //  SHUFFLE (Fisher-Yates)
@@ -1046,8 +1171,83 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
 }
 
-function showRules() {
-  showScreen('screen-rules');
+function showRules() { showScreen('screen-rules'); }
+
+// ============================================================
+//  TIMER
+// ============================================================
+function toggleTimer() {
+  if (timerRunning) pauseTimer();
+  else startTimer();
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+
+  const btn = document.getElementById('btn-timer');
+  btn.textContent = '⏸';
+  btn.title = 'Pausar cronómetro';
+
+  const display = document.getElementById('timer-display');
+  display.classList.remove('stopped', 'expired');
+
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerUI();
+
+    if (timerSeconds <= 0) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerRunning = false;
+      const d = document.getElementById('timer-display');
+      d.classList.remove('warning');
+      d.classList.add('expired');
+      document.getElementById('btn-timer').textContent = '⏱';
+      // Auto-skip: time ran out
+      handleAction('skip');
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (!timerRunning) return;
+  clearInterval(timerInterval);
+  timerInterval = null;
+  timerRunning = false;
+  document.getElementById('btn-timer').textContent = '▶';
+  document.getElementById('btn-timer').title = 'Continuar cronómetro';
+}
+
+function resetTimer() {
+  pauseTimer();
+  timerSeconds = 60;
+  updateTimerUI();
+  const display = document.getElementById('timer-display');
+  display.classList.remove('warning', 'expired');
+  display.classList.add('stopped');
+  document.getElementById('timer-bar').classList.remove('warning');
+  document.getElementById('btn-timer').textContent = '▶';
+  document.getElementById('btn-timer').title = 'Iniciar cronómetro';
+}
+
+function updateTimerUI() {
+  const display = document.getElementById('timer-display');
+  const bar = document.getElementById('timer-bar');
+  const m = Math.floor(timerSeconds / 60);
+  const s = timerSeconds % 60;
+  display.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+
+  const pct = (timerSeconds / 60) * 100;
+  bar.style.width = pct + '%';
+
+  if (timerSeconds <= 10 && timerSeconds > 0) {
+    display.classList.add('warning');
+    bar.classList.add('warning');
+  } else {
+    display.classList.remove('warning');
+    bar.classList.remove('warning');
+  }
 }
 
 // ============================================================
@@ -1058,6 +1258,9 @@ function startGame() {
   currentIndex = 0;
   score = 0;
   skipped = 0;
+  bombs = 0;
+  animating = false;
+  resetTimer();
   renderCard(false);
   updateProgress();
   showScreen('screen-game');
@@ -1074,6 +1277,9 @@ function renderCard(animate = true) {
     `<li><span class="forbidden-bullet"></span>${w}</li>`
   ).join('');
 
+  // Reset timer for each new card
+  resetTimer();
+
   if (animate) {
     el.classList.add('slide-in');
     el.addEventListener('animationend', () => el.classList.remove('slide-in'), { once: true });
@@ -1085,48 +1291,74 @@ function updateProgress() {
   const current = currentIndex + 1;
   document.getElementById('progress-text').textContent = `${current} / ${total}`;
   document.getElementById('score-live').textContent = score;
-  const pct = ((currentIndex) / total) * 100;
+  const pct = (currentIndex / total) * 100;
   document.getElementById('card-progress-fill').style.width = pct + '%';
 }
 
 function handleAction(type) {
   if (animating) return;
   animating = true;
+  pauseTimer();
 
   if (type === 'correct') score++;
+  else if (type === 'bomb') bombs++;
   else skipped++;
 
   const el = document.getElementById('game-card');
-  el.classList.add(type === 'correct' ? 'slide-out-right' : 'slide-out-left');
 
-  setTimeout(() => {
-    el.classList.remove('slide-out-left', 'slide-out-right');
-    currentIndex++;
+  if (type === 'bomb') {
+    el.classList.add('slide-out-bomb');
+    showBombOverlay();
+    setTimeout(() => {
+      el.classList.remove('slide-out-bomb');
+      advanceCard();
+    }, 1600);
+  } else {
+    el.classList.add(type === 'correct' ? 'slide-out-right' : 'slide-out-left');
+    setTimeout(() => {
+      el.classList.remove('slide-out-left', 'slide-out-right');
+      advanceCard();
+    }, 300);
+  }
+}
 
-    if (currentIndex >= deck.length) {
-      animating = false;
-      endRound(false);
-    } else {
-      updateProgress();
-      renderCard(true);
-      animating = false;
-    }
-  }, 300);
+function advanceCard() {
+  currentIndex++;
+  if (currentIndex >= deck.length) {
+    animating = false;
+    endRound(false);
+  } else {
+    updateProgress();
+    renderCard(true);
+    animating = false;
+  }
+}
+
+function showBombOverlay() {
+  const overlay = document.getElementById('bomb-overlay');
+  overlay.classList.add('show');
+  setTimeout(() => overlay.classList.remove('show'), 1500);
 }
 
 function endRound(manual = false) {
-  const played = score + skipped;
-  const total = deck.length;
+  pauseTimer();
+  const played = score + skipped + bombs;
   const pct = played > 0 ? Math.round((score / played) * 100) : 0;
 
   document.getElementById('end-correct').textContent = score;
   document.getElementById('end-skip').textContent = skipped;
+  document.getElementById('end-bombs').textContent = bombs;
   document.getElementById('end-total').textContent = played;
   document.getElementById('end-percentage').textContent = `${pct}% de acierto`;
 
-  setTimeout(() => {
-    document.getElementById('end-bar-fill').style.width = pct + '%';
-  }, 300);
+  // Reset bar first, then animate
+  const bar = document.getElementById('end-bar-fill');
+  bar.style.transition = 'none';
+  bar.style.width = '0';
+  // Force reflow
+  void bar.offsetWidth;
+  bar.style.transition = 'width 1s ease';
+  setTimeout(() => { bar.style.width = pct + '%'; }, 50);
 
   if (score > 0) triggerConfetti();
 
@@ -1142,6 +1374,8 @@ document.addEventListener('keydown', (e) => {
 
   if (e.key === 'ArrowRight') handleAction('correct');
   else if (e.key === 'ArrowLeft') handleAction('skip');
+  else if (e.key === 'ArrowDown') handleAction('bomb');
+  else if (e.key === ' ') { e.preventDefault(); toggleTimer(); }
   else if (e.key === 'Escape') endRound(true);
 });
 
@@ -1176,18 +1410,11 @@ function triggerConfetti() {
       ctx.rotate(p.angle);
       ctx.fillStyle = p.color;
       ctx.globalAlpha = Math.max(0, 1 - frame / 120);
-      if (p.shape === 'rect') {
-        ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
-      } else {
-        ctx.beginPath();
-        ctx.arc(0, 0, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      if (p.shape === 'rect') ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+      else { ctx.beginPath(); ctx.arc(0, 0, p.r, 0, Math.PI * 2); ctx.fill(); }
       ctx.restore();
-      p.x += p.vx;
-      p.y += p.vy;
-      p.angle += p.va;
-      p.vy += 0.08;
+      p.x += p.vx; p.y += p.vy;
+      p.angle += p.va; p.vy += 0.08;
     });
     frame++;
     if (frame < 160) requestAnimationFrame(draw);
