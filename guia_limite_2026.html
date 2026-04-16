@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Límite de Tarjeta de Crédito — Nubank</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nu-purple: #820AD1;
+    --nu-purple-dark: #5A0891;
+    --nu-purple-light: #EDE0F8;
+    --nu-purple-mid: #C084F5;
+    --nu-pink: #F5E6FF;
+    --teal: #1DB87A;
+    --teal-light: #E0F7EE;
+    --teal-dark: #0A6B46;
+    --coral: #FF5C35;
+    --coral-light: #FFF0EC;
+    --amber: #F5A623;
+    --amber-light: #FFF8E7;
+    --gray-50: #F8F7FF;
+    --gray-100: #F0EDF8;
+    --gray-200: #DDD8EE;
+    --gray-400: #9B92B8;
+    --gray-600: #4A4265;
+    --gray-900: #1A1530;
+    --white: #FFFFFF;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 2px 16px rgba(130,10,209,0.08);
+    --shadow-card: 0 4px 24px rgba(26,21,48,0.07);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: linear-gradient(135deg, #820AD1 0%, #5A0891 60%, #3D0660 100%);
+    border-radius: 24px;
+    padding: 2.5rem 2.5rem 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    left: 40%; bottom: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-logo {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem;
+  }
+  .hero-logo svg { flex-shrink: 0; }
+  .hero-logo span {
+    font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+    position: relative; z-index: 1;
+  }
+  .hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    max-width: 520px;
+    position: relative; z-index: 1;
+  }
+  .hero-chips {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.25rem;
+    position: relative; z-index: 1;
+  }
+  .hero-chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
+    border-radius: 99px;
+    font-size: 12px; padding: 4px 14px;
+  }
+
+  /* ─── SECTION LABEL ─── */
+  .section-label {
+    display: flex; align-items: center; gap: 10px;
+    margin: 2rem 0 0.9rem;
+  }
+  .section-label .num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--nu-purple);
+    color: #fff; font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-label h2 {
+    font-size: 15px; font-weight: 600; color: var(--gray-900);
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── CARDS ─── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+    box-shadow: var(--shadow-card);
+  }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  .card-purple {
+    background: var(--nu-purple-light);
+    border: 1px solid var(--nu-purple-mid);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+  }
+  .card-teal {
+    background: var(--teal-light);
+    border: 1px solid #6DDAAC;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+  }
+  .card-coral {
+    background: var(--coral-light);
+    border: 1px solid #FFBCAB;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+  }
+  .card-amber {
+    background: var(--amber-light);
+    border: 1px solid #F5C96A;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.4rem;
+  }
+  .card h3 { font-size: 14px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+  .card-purple h3 { color: var(--nu-purple-dark); }
+  .card-teal h3 { color: var(--teal-dark); }
+  .card-coral h3 { color: #9B2D12; }
+  .card p, .card li { font-size: 13px; color: var(--gray-600); line-height: 1.65; }
+  .card-purple p, .card-purple li { color: #5A0891; }
+  .card-teal p, .card-teal li { color: var(--teal-dark); }
+  .card-coral p, .card-coral li { color: #9B2D12; }
+  .card ul { padding-left: 1rem; }
+  .card li + li { margin-top: 4px; }
+
+  /* ─── BADGES ─── */
+  .badge {
+    display: inline-block; border-radius: 99px;
+    font-size: 11px; font-weight: 500; padding: 3px 10px; margin: 2px 2px 0 0;
+  }
+  .badge-purple { background: #DCC5F8; color: #5A0891; }
+  .badge-teal { background: #9FE1CB; color: #0A6B46; }
+  .badge-gray { background: var(--gray-100); color: var(--gray-600); }
+  .badge-red { background: #FFE0D9; color: #9B2D12; }
+  .badge-green { background: #CFFAEA; color: #0A6B46; }
+
+  /* ─── ICON CIRCLE ─── */
+  .ic { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ic-purple { background: #DCC5F8; }
+  .ic-teal { background: #9FE1CB; }
+  .ic-coral { background: #FFD4C5; }
+  .ic-amber { background: #FAD99A; }
+
+  /* ─── STEP FLOW ─── */
+  .flow { display: flex; gap: 0; align-items: stretch; margin: 0.5rem 0 1rem; }
+  .flow-step {
+    flex: 1; background: var(--nu-purple-light);
+    border: 1px solid var(--nu-purple-mid);
+    padding: 0.9rem 0.75rem;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .flow-step:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+  .flow-step:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .flow-step + .flow-step { border-left: none; }
+  .flow-step:not(:last-child)::after {
+    content: '›';
+    position: absolute; right: -9px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--nu-purple);
+    font-size: 18px; font-weight: 600;
+    z-index: 2; background: var(--nu-purple-light);
+    line-height: 1;
+  }
+  .flow-step .fn { font-size: 10px; font-weight: 600; color: var(--nu-purple); letter-spacing: 0.05em; margin-bottom: 3px; }
+  .flow-step .ft { font-size: 12px; font-weight: 600; color: var(--nu-purple-dark); }
+  .flow-step .fs { font-size: 11px; color: #6B3B9A; margin-top: 2px; }
+
+  /* ─── WARN / OK BOX ─── */
+  .warn-ok { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .warn-box, .ok-box {
+    border-radius: var(--radius);
+    padding: 1.1rem 1.2rem;
+  }
+  .warn-box { background: #FFF0EC; border: 1px solid #FFBCAB; }
+  .ok-box { background: var(--teal-light); border: 1px solid #6DDAAC; }
+  .box-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; margin-bottom: 8px;
+  }
+  .box-label-red { color: #9B2D12; }
+  .box-label-green { color: var(--teal-dark); }
+  .warn-box p, .warn-box li { font-size: 13px; color: #7A2010; line-height: 1.6; }
+  .ok-box p, .ok-box li { font-size: 13px; color: var(--teal-dark); line-height: 1.6; }
+  .warn-box ul, .ok-box ul { padding-left: 1rem; }
+  .warn-box li + li, .ok-box li + li { margin-top: 3px; }
+
+  /* ─── STEPS (numbered) ─── */
+  .steps { display: flex; flex-direction: column; gap: 8px; }
+  .step-row { display: flex; align-items: flex-start; gap: 12px; }
+  .step-num {
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--nu-purple); color: #fff;
+    font-size: 12px; font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .step-text { font-size: 13px; color: var(--gray-600); line-height: 1.6; }
+  .step-text strong { color: var(--nu-purple-dark); }
+
+  /* ─── SCENARIOS ─── */
+  .sc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .sc-btn {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .sc-btn:hover { background: var(--nu-purple-light); border-color: var(--nu-purple-mid); }
+  .sc-btn.active {
+    background: var(--nu-purple-light);
+    border: 2px solid var(--nu-purple);
+  }
+  .sc-btn .st { font-size: 13px; font-weight: 600; color: var(--nu-purple-dark); }
+  .sc-btn .ss { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .sc-btn.active .ss { color: #6B3B9A; }
+  .sc-detail {
+    background: var(--nu-purple-light);
+    border: 1px solid var(--nu-purple-mid);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.4rem;
+    min-height: 130px;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .sc-detail h4 { font-size: 14px; font-weight: 600; color: var(--nu-purple-dark); margin-bottom: 8px; }
+  .sc-detail ul { padding-left: 1rem; }
+  .sc-detail li { font-size: 13px; color: #5A0891; line-height: 1.65; }
+  .sc-detail li + li { margin-top: 4px; }
+
+  /* ─── ANALYSIS FACTORS ─── */
+  .factors { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .factor { display: flex; align-items: flex-start; gap: 12px; }
+  .factor-text .ft { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+  .factor-text .fs { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+
+  /* ─── HIGHLIGHT BOX ─── */
+  .info-box {
+    background: var(--gray-100);
+    border-left: 3px solid var(--nu-purple);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.75rem 1rem;
+    font-size: 12px; color: var(--gray-600); line-height: 1.6;
+  }
+  .info-box strong { color: var(--nu-purple-dark); }
+
+  /* ─── DIVIDER ─── */
+  .divider { height: 1px; background: var(--gray-200); margin: 2rem 0; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-200);
+    text-align: center;
+    font-size: 12px; color: var(--gray-400);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .grid2, .grid3, .grid4, .warn-ok, .sc-grid, .factors { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-step { border-radius: var(--radius-sm) !important; border: 1px solid var(--nu-purple-mid) !important; }
+    .flow-step:not(:last-child)::after { display: none; }
+    .hero { padding: 1.75rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-logo">
+      <svg width="32" height="20" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="20" rx="4" fill="rgba(255,255,255,0.15)"/>
+        <rect x="3" y="6" width="26" height="8" rx="1.5" fill="rgba(255,255,255,0.9)"/>
+        <rect x="3" y="8.5" width="26" height="3" fill="rgba(130,10,209,0.6)"/>
+        <rect x="5" y="11" width="7" height="1.5" rx="0.75" fill="rgba(130,10,209,0.5)"/>
+      </svg>
+      <span>Nubank · Customer Management</span>
+    </div>
+    <h1>Límite de tarjeta de crédito</h1>
+    <p>Guía interactiva para especialistas BPO: conceptos clave, ajustes de cupo, escenarios de atención y protocolos de comunicación.</p>
+    <div class="hero-chips">
+      <span class="hero-chip">Límite aprobado vs. ajustado</span>
+      <span class="hero-chip">Flujo de 5 pasos</span>
+      <span class="hero-chip">6 escenarios</span>
+      <span class="hero-chip">Frases clave</span>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: CONCEPTOS -->
+  <div class="section-label">
+    <div class="num">1</div>
+    <h2>Dos conceptos esenciales: límite aprobado vs. cupo ajustado</h2>
+  </div>
+  <div class="grid2">
+    <div class="card-purple">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div class="ic ic-purple">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#5A0891" stroke-width="1.4"/><path d="M5 8l2 2 4-4" stroke="#5A0891" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="margin:0;">Límite aprobado</h3>
+      </div>
+      <p>El cupo máximo que <strong style="color:#5A0891;">Nu asigna al cliente</strong> tras evaluar su perfil financiero. Es el techo de lo que puede gastar.</p>
+      <ul style="margin-top:8px;">
+        <li>Solo cambia si Nu otorga un aumento</li>
+        <li>No se puede prometer en un plazo específico</li>
+        <li>Determinado por algoritmo de riesgo</li>
+      </ul>
+      <div style="margin-top:10px;">
+        <span class="badge badge-purple">Lo define Nu</span>
+        <span class="badge badge-gray">Sin papeleos</span>
+      </div>
+    </div>
+    <div class="card-teal">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div class="ic ic-teal">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="#0A6B46" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="margin:0;">Cupo ajustado</h3>
+      </div>
+      <p>El tope personalizado que <strong style="color:#0A6B46;">el cliente configura</strong> sobre su límite aprobado. Funciona como herramienta de control financiero.</p>
+      <ul style="margin-top:8px;">
+        <li>Solo se modifica desde la app</li>
+        <li>Puede cambiarse cuando el cliente quiera</li>
+        <li>No puede superar el límite aprobado</li>
+      </ul>
+      <div style="margin-top:10px;">
+        <span class="badge badge-teal">Lo define el cliente</span>
+        <span class="badge badge-teal">Ilimitadas veces</span>
+      </div>
+    </div>
+  </div>
+  <div class="info-box" style="margin-top:10px;">
+    <strong>Centrales de riesgo:</strong> El cupo ajustado se reporta al mes vencido. Si hay varios cambios en el mes, se reporta el mayor cupo elegido. Si el cupo ajustado es menor a la deuda, se reporta el cupo más reciente igual o mayor al saldo.
+  </div>
+
+  <!-- SECCIÓN 2: AJUSTAR CUPO -->
+  <div class="section-label">
+    <div class="num">2</div>
+    <h2>¿Cómo ajusta el cliente su cupo desde la app?</h2>
+  </div>
+  <div class="card" style="padding:1.4rem;">
+    <div class="flow">
+      <div class="flow-step">
+        <div class="fn">PASO 1</div>
+        <div class="ft">Tarjeta de crédito</div>
+        <div class="fs">Sección principal</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">PASO 2</div>
+        <div class="ft">Ajuste de cupo</div>
+        <div class="fs">Menú de la tarjeta</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">PASO 3</div>
+        <div class="ft">Mueve la barra</div>
+        <div class="fs">Elige el valor</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">PASO 4</div>
+        <div class="ft">Confirmar</div>
+        <div class="fs">Toca "Ajustar cupo"</div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:4px;">
+      El nuevo cupo queda configurado de inmediato. <strong>El reporte en centrales de riesgo</strong> se ve reflejado al siguiente mes vencido, sin trámites ni papeleos.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: TARJETAS VIRTUALES -->
+  <div class="section-label">
+    <div class="num">3</div>
+    <h2>Ajustar límite en tarjetas virtuales</h2>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div class="ic ic-purple">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="2" stroke="#5A0891" stroke-width="1.3"/><path d="M4 7h3" stroke="#5A0891" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="margin:0;font-size:13px;">Configurar límite</h3>
+      </div>
+      <div class="steps">
+        <div class="step-row"><div class="step-num">1</div><div class="step-text">Ve a <strong>Mis tarjetas</strong> → selecciona la tarjeta virtual</div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">Toca <strong>Configurar</strong> e ingresa el NIP</div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text">Selecciona <strong>Ajustar cupo</strong></div></div>
+        <div class="step-row"><div class="step-num">4</div><div class="step-text">Ingresa el monto y toca <strong>Elegir límite</strong></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <div class="ic ic-coral">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#9B2D12" stroke-width="1.3"/><path d="M7 4.5v3.5M7 9.5v0.5" stroke="#9B2D12" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <h3 style="margin:0;font-size:13px;">Sin cupo suficiente</h3>
+      </div>
+      <p style="margin-bottom:8px;">Si el cliente no puede ajustar su cupo a uno mayor, es porque <strong style="color:#9B2D12;">no tiene cupo disponible</strong> para hacer compras.</p>
+      <div class="info-box">
+        <strong>Importante:</strong> Siempre valida el tope que el cliente desea y su cupo disponible <em>antes</em> de dar cualquier indicación.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECCIÓN 4: FRASES -->
+  <div class="section-label">
+    <div class="num">4</div>
+    <h2>Cómo hablar del aumento de cupo — frases clave</h2>
+  </div>
+  <div class="warn-ok">
+    <div class="warn-box">
+      <div class="box-label box-label-red">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" fill="#FF5C35"/><path d="M4.5 9.5l5-5M9.5 9.5l-5-5" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Prohibido decir
+      </div>
+      <ul>
+        <li>"Hemos <strong style="color:#9B2D12;">aumentado automáticamente</strong> el cupo" — suena abusivo</li>
+        <li>"Si estuviera en <strong style="color:#9B2D12;">mis manos</strong> te haría el aumento"</li>
+        <li>"Es la <strong style="color:#9B2D12;">empresa quien no</strong> realiza el aumento"</li>
+        <li>Dar un plazo exacto para el aumento de cupo</li>
+      </ul>
+    </div>
+    <div class="ok-box">
+      <div class="box-label box-label-green">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" fill="#1DB87A"/><path d="M4.5 7l2 2 3.5-3.5" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Correcto decir
+      </div>
+      <ul>
+        <li>"Te damos la <strong style="color:#0A6B46;">opción de aumentar</strong> el límite, tú decides"</li>
+        <li>"Tienes el <strong style="color:#0A6B46;">control total</strong> y puedes ajustarlo desde la app"</li>
+        <li>Mostrar empatía sin prometer lo imposible</li>
+        <li>Ser transparente: no hay plazo exacto</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: FLUJO DE ATENCIÓN -->
+  <div class="section-label">
+    <div class="num">5</div>
+    <h2>El flujo de atención: 5 pasos</h2>
+  </div>
+  <div class="card" style="padding:1.4rem;">
+    <div class="grid4" style="gap:10px;margin-bottom:1rem;">
+      <div style="text-align:center;padding:1rem 0.5rem;background:var(--nu-purple-light);border-radius:var(--radius-sm);border:1px solid var(--nu-purple-mid);">
+        <div style="font-size:11px;font-weight:600;color:var(--nu-purple);margin-bottom:4px;">01</div>
+        <div style="font-size:13px;font-weight:600;color:var(--nu-purple-dark);">Escucha activa</div>
+        <div style="font-size:11px;color:#6B3B9A;margin-top:2px;">Validación emocional</div>
+      </div>
+      <div style="text-align:center;padding:1rem 0.5rem;background:var(--nu-purple-light);border-radius:var(--radius-sm);border:1px solid var(--nu-purple-mid);">
+        <div style="font-size:11px;font-weight:600;color:var(--nu-purple);margin-bottom:4px;">02</div>
+        <div style="font-size:13px;font-weight:600;color:var(--nu-purple-dark);">Validación</div>
+        <div style="font-size:11px;color:#6B3B9A;margin-top:2px;">Contexto interno</div>
+      </div>
+      <div style="text-align:center;padding:1rem 0.5rem;background:var(--nu-purple-light);border-radius:var(--radius-sm);border:1px solid var(--nu-purple-mid);">
+        <div style="font-size:11px;font-weight:600;color:var(--nu-purple);margin-bottom:4px;">03</div>
+        <div style="font-size:13px;font-weight:600;color:var(--nu-purple-dark);">Escenario</div>
+        <div style="font-size:11px;color:#6B3B9A;margin-top:2px;">Identifica el caso</div>
+      </div>
+      <div style="text-align:center;padding:1rem 0.5rem;background:var(--nu-purple-light);border-radius:var(--radius-sm);border:1px solid var(--nu-purple-mid);">
+        <div style="font-size:11px;font-weight:600;color:var(--nu-purple);margin-bottom:4px;">04</div>
+        <div style="font-size:13px;font-weight:600;color:var(--nu-purple-dark);">Herramienta</div>
+        <div style="font-size:11px;color:#6B3B9A;margin-top:2px;">Respuesta adecuada</div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:1rem;background:linear-gradient(135deg,#820AD1,#5A0891);border-radius:var(--radius-sm);">
+      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,0.7);margin-bottom:3px;">05</div>
+      <div style="font-size:14px;font-weight:600;color:#fff;">Educa — Comunica y cierra</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-top:2px;">Usa macros correctamente. Las macros son tu salvación o tu perdición.</div>
+    </div>
+    <div class="info-box" style="margin-top:12px;">
+      En el <strong>paso 2 (Validación)</strong> revisa siempre: antigüedad del cliente, historial de contactos anteriores e historial de aumentos recibidos.
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: ESCENARIOS -->
+  <div class="section-label">
+    <div class="num">6</div>
+    <h2>Escenarios de atención — ¿qué decirle al cliente?</h2>
+  </div>
+  <div class="sc-grid" id="sc-btns">
+    <button class="sc-btn active" onclick="showScenario(0)">
+      <div class="st">Dudas generales</div>
+      <div class="ss">¿Cuándo me aumentan? ¿Cómo?</div>
+    </button>
+    <button class="sc-btn" onclick="showScenario(1)">
+      <div class="st">No recibió aumento</div>
+      <div class="ss">Frustración o pregunta qué le falta</div>
+    </button>
+    <button class="sc-btn" onclick="showScenario(2)">
+      <div class="st">Emergencia / urgencia</div>
+      <div class="ss">Necesita cupo ya para una compra</div>
+    </button>
+    <button class="sc-btn" onclick="showScenario(3)">
+      <div class="st">Recibió aumento</div>
+      <div class="ss">Sorprendido, poco o no lo quiere</div>
+    </button>
+    <button class="sc-btn" onclick="showScenario(4)">
+      <div class="st">Morada Abre Caminos</div>
+      <div class="ss">Cupo garantizado / dudas misiones</div>
+    </button>
+    <button class="sc-btn" onclick="showScenario(5)">
+      <div class="st">Caso especial</div>
+      <div class="ss">Insistente o años sin aumento</div>
+    </button>
+  </div>
+  <div class="sc-detail" id="sc-detail">
+    <h4>Dudas generales</h4>
+    <ul>
+      <li>Sé transparente: no hay plazo exacto para el aumento de cupo.</li>
+      <li>El cupo inicial se basa en proyección de gastos, nivel de riesgo y perfil de uso.</li>
+      <li>No son necesarios documentos adicionales — recomienda mantener la información financiera actualizada.</li>
+      <li>Las revisiones son regulares. Si es elegible, será notificado por correo electrónico.</li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECCIÓN 7: FACTORES DE ANÁLISIS -->
+  <div class="section-label">
+    <div class="num">7</div>
+    <h2>¿Qué analiza Nu para asignar o aumentar el cupo?</h2>
+  </div>
+  <div class="card" style="padding:1.4rem;">
+    <div class="factors">
+      <div class="factor">
+        <div class="ic ic-purple">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="4.5" r="2.5" stroke="#5A0891" stroke-width="1.3"/><path d="M2 13c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="#5A0891" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="factor-text">
+          <div class="ft">Experiencia crediticia</div>
+          <div class="fs">Historial de crédito del cliente</div>
+        </div>
+      </div>
+      <div class="factor">
+        <div class="ic ic-teal">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5.5" width="10" height="7" rx="1.5" stroke="#0A6B46" stroke-width="1.3"/><path d="M5 5.5V4a2 2 0 014 0v1.5" stroke="#0A6B46" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="factor-text">
+          <div class="ft">Capacidad de endeudamiento</div>
+          <div class="fs">Ingresos y perfil financiero actual</div>
+        </div>
+      </div>
+      <div class="factor">
+        <div class="ic ic-coral">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2L2 11h10L7 2z" stroke="#9B2D12" stroke-width="1.3" stroke-linejoin="round"/><path d="M7 6v2M7 9.5v.5" stroke="#9B2D12" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div class="factor-text">
+          <div class="ft">Reportes en centrales de riesgo</div>
+          <div class="fs">Historial en Datacrédito y similares</div>
+        </div>
+      </div>
+      <div class="factor">
+        <div class="ic ic-amber">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="4" width="10" height="7" rx="1.5" stroke="#8B5E0A" stroke-width="1.3"/><path d="M2 7h10" stroke="#8B5E0A" stroke-width="1.3"/><circle cx="5" cy="9" r="0.8" fill="#8B5E0A"/></svg>
+        </div>
+        <div class="factor-text">
+          <div class="ft">Manejo de la tarjeta Nu</div>
+          <div class="fs">Uso frecuente, pagos puntuales</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 8: REPORTAR CASO -->
+  <div class="section-label">
+    <div class="num">8</div>
+    <h2>Cómo reportar un caso: falla en límite de tarjeta virtual</h2>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-bottom:10px;font-size:13px;">Pasos para reportar</h3>
+      <div class="steps">
+        <div class="step-row"><div class="step-num">1</div><div class="step-text">Selecciona el <strong>CR correspondiente</strong> en la herramienta</div></div>
+        <div class="step-row"><div class="step-num">2</div><div class="step-text">Crea una <strong>nueva solicitud</strong></div></div>
+        <div class="step-row"><div class="step-num">3</div><div class="step-text">Haz clic en <strong>Nved limit tarj virtual</strong></div></div>
+        <div class="step-row"><div class="step-num">4</div><div class="step-text">Agrega la descripción del problema e incluye <strong>evidencia</strong> del cliente</div></div>
+        <div class="step-row"><div class="step-num">5</div><div class="step-text">Envía el <strong>reporte</strong></div></div>
+      </div>
+    </div>
+    <div class="card-purple">
+      <h3 style="margin-bottom:8px;font-size:13px;">Qué decirle al cliente</h3>
+      <p style="margin-bottom:10px;">Una vez enviado el reporte, comunica al cliente:</p>
+      <div style="background:#DCC5F8;border-radius:var(--radius-sm);padding:0.9rem;margin-bottom:8px;">
+        <p style="font-size:13px;font-style:italic;color:#3D0660;">"Esta revisión puede tardar hasta <strong style="color:#3D0660;">3 días hábiles</strong>. Cualquier novedad la recibirás a través del <strong style="color:#3D0660;">correo electrónico registrado</strong>."</p>
+      </div>
+      <p style="font-size:12px;color:#6B3B9A;">Solicita siempre evidencia (capturas de pantalla) para que el equipo encargado pueda realizar las validaciones.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN MORADA ABRE CAMINOS -->
+  <div class="section-label">
+    <div class="num">9</div>
+    <h2>Tarjeta Morada Abre Caminos — puntos clave</h2>
+  </div>
+  <div class="grid3">
+    <div class="card-amber">
+      <h3 style="color:#6B4A08;margin-bottom:6px;">¿Límite $0?</h3>
+      <p style="color:#6B4A08;">Es una tarjeta <strong style="color:#6B4A08;">garantizada</strong>. El límite equivale al dinero depositado en la Cajita de Respaldo.</p>
+    </div>
+    <div class="card-purple">
+      <h3 style="margin-bottom:6px;">Completé misiones</h3>
+      <p>Cumplir misiones <strong style="color:#5A0891;">aumenta la probabilidad</strong> de obtener cupo no garantizado, pero no lo garantiza.</p>
+    </div>
+    <div class="card-teal">
+      <h3 style="margin-bottom:6px;">Hábitos que ayudan</h3>
+      <ul style="font-size:12px;">
+        <li>Misiones a tiempo</li>
+        <li>Usar la tarjeta frecuentemente</li>
+        <li>Pagos puntuales</li>
+        <li>Historial crediticio saludable</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:var(--nu-purple-light);border:1px solid var(--nu-purple-mid);border-radius:99px;padding:6px 16px;">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="#820AD1"/><path d="M3.5 6l2 2 3-3" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span style="font-size:12px;color:var(--nu-purple-dark);font-weight:500;">Nubank · Material de onboarding BPO · Customer Management</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const scenarios = [
+  {
+    title: "Dudas generales",
+    items: [
+      "Sé transparente: no hay plazo exacto para el aumento de cupo.",
+      "El cupo inicial se basa en proyección de gastos, nivel de riesgo y perfil de uso.",
+      "No son necesarios documentos adicionales — recomienda mantener la información financiera actualizada.",
+      "Las revisiones son regulares. Si es elegible, será notificado por correo electrónico."
+    ]
+  },
+  {
+    title: "No recibió aumento",
+    items: [
+      "Si es cliente nuevo (~3 meses): el sistema necesita más tiempo para conocerlo.",
+      "Enfócalo en buenos hábitos: pagar a tiempo, usar la tarjeta frecuentemente y actualizar ingresos.",
+      "Si tiene mal hábito de pago: valida su deseo pero recomienda organizar primero sus finanzas.",
+      "Nunca des un plazo específico ni prometas el aumento."
+    ]
+  },
+  {
+    title: "Emergencia / urgencia",
+    items: [
+      "Con empatía: no es posible procesar un aumento de cupo de forma inmediata.",
+      "El proceso siempre se realiza mediante revisiones periódicas automáticas del sistema.",
+      "No prometas excepciones ni trámites especiales de ningún tipo.",
+      "Oriéntalo a revisar si tiene cupo disponible en su tarjeta actual para la compra."
+    ]
+  },
+  {
+    title: "Recibió aumento",
+    items: [
+      "NUNCA digas que Nu aumentó automáticamente el cupo — puede considerarse práctica abusiva.",
+      "Usa: 'Te damos la opción de aumentar el límite, tú tienes el control y decides.'",
+      "Si le pareció poco: el incremento depende de hábitos de pago y frecuencia de uso. Anímalo a continuar.",
+      "Si no lo quiere: guíalo para reducir el cupo desde la app con la opción Ajuste de cupo."
+    ]
+  },
+  {
+    title: "Morada Abre Caminos",
+    items: [
+      "Es una tarjeta garantizada — el límite equivale al dinero en su Cajita de Respaldo.",
+      "Si completó misiones y no ve cupo: felicítalo, pero no garantices un aumento.",
+      "Cumplir misiones aumenta la probabilidad de obtener cupo no garantizado, no lo asegura.",
+      "Constancia, uso frecuente y pagos puntuales fortalecen el historial crediticio."
+    ]
+  },
+  {
+    title: "Caso especial (+3 contactos o años sin aumento)",
+    items: [
+      "Mantén la calma y sigue el protocolo de empatía sin prometer lo imposible.",
+      "No uses frases como 'si estuviera en mis manos' — genera más malestar en el cliente.",
+      "Valida sus buenos hábitos y explica que el sistema evalúa continuamente.",
+      "Registra el caso si aplica y escala según el procedimiento interno establecido."
+    ]
+  }
+];
+
+function showScenario(idx) {
+  const btns = document.querySelectorAll('.sc-btn');
+  btns.forEach((b, i) => b.classList.toggle('active', i === idx));
+  const s = scenarios[idx];
+  const d = document.getElementById('sc-detail');
+  d.innerHTML = '<h4>' + s.title + '</h4><ul>' + s.items.map(i => '<li>' + i + '</li>').join('') + '</ul>';
+}
+</script>
+</body>
+</html>
