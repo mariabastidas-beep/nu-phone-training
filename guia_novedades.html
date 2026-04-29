@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Novedades · Nu Colombia</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:#7B3FE4;min-height:100vh;padding:0 0 48px;overflow-x:hidden;position:relative;}
+.deco{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,0.1);pointer-events:none;}
+.deco-1{width:420px;height:420px;top:-130px;right:-110px;}
+.deco-2{width:260px;height:260px;top:320px;left:-110px;}
+.deco-3{width:190px;height:190px;bottom:80px;right:30px;}
+
+/* HEADER */
+.nu-header{background:#1A0A3C;border-radius:0 0 36px 36px;padding:28px 22px 24px;text-align:center;position:relative;z-index:1;margin-bottom:28px;}
+.nu-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(123,63,228,0.35);border:1.5px solid rgba(255,255,255,0.2);border-radius:40px;padding:6px 16px;margin-bottom:14px;}
+.nu-badge-dots{display:flex;gap:4px;align-items:center;}
+.nu-badge-dots span{display:block;border-radius:50%;background:#A97FF5;}
+.nu-badge-dots span:nth-child(1){width:11px;height:11px;}
+.nu-badge-dots span:nth-child(2){width:8px;height:8px;}
+.nu-badge-dots span:nth-child(3){width:6px;height:6px;}
+.nu-badge-text{color:#fff;font-size:12px;font-weight:700;letter-spacing:.5px;}
+.header-title{color:#fff;font-size:26px;font-weight:900;line-height:1.2;margin-bottom:6px;}
+.header-title em{color:#C4A0FF;font-style:normal;}
+.header-sub{color:rgba(255,255,255,0.55);font-size:13px;margin-bottom:20px;}
+
+/* Novedad pills en header */
+.novedad-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px;}
+.novedad-pill{background:rgba(255,255,255,0.1);border:1.5px solid rgba(255,255,255,0.18);border-radius:30px;padding:5px 14px;color:rgba(255,255,255,0.8);font-size:11px;font-weight:700;}
+.novedad-pill.active-pill{background:rgba(169,127,245,0.35);border-color:rgba(169,127,245,0.6);color:#C4A0FF;}
+
+/* TABS */
+.tabs-wrap{padding:0 20px;position:relative;z-index:1;margin-bottom:20px;}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;background:rgba(26,10,60,0.6);border:1.5px solid rgba(255,255,255,0.12);border-radius:30px;padding:8px 14px;color:rgba(255,255,255,0.65);font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.tab-btn.active{background:#fff;color:#4a1a7a;border-color:#fff;}
+.tab-btn:hover:not(.active){background:rgba(255,255,255,0.15);color:#fff;}
+
+.section{display:none;padding:0 20px;position:relative;z-index:1;}
+.section.active{display:block;}
+
+/* BLOCK HEADERS */
+.block-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.block-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:26px;}
+.bi-purple{background:rgba(169,127,245,0.25);}
+.bi-amber{background:rgba(239,159,39,0.25);}
+.bi-green{background:rgba(29,158,117,0.25);}
+.bi-red{background:rgba(226,75,74,0.25);}
+.bi-blue{background:rgba(96,165,250,0.25);}
+.bi-teal{background:rgba(20,184,166,0.25);}
+.block-title{color:#fff;font-size:20px;font-weight:900;line-height:1.2;}
+.block-sub{color:rgba(255,255,255,0.5);font-size:12px;margin-top:3px;}
+
+/* QUALITY CARDS */
+.quality-card{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(255,255,255,0.08);padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
+.quality-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.quality-content h4{color:#C4A0FF;font-size:13px;font-weight:700;margin-bottom:4px;}
+.quality-content p{color:rgba(255,255,255,0.75);font-size:13px;line-height:1.65;}
+.quality-content strong{color:#fff;}
+
+/* GOLD CARDS */
+.gold-alert{background:rgba(26,10,60,0.85);border:1.5px solid rgba(239,159,39,0.25);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:flex-start;gap:12px;}
+.gold-icon{font-size:20px;flex-shrink:0;margin-top:2px;}
+.gold-content h4{color:#EF9F27;font-size:13px;font-weight:700;margin-bottom:4px;}
+.gold-content p{color:rgba(255,255,255,0.78);font-size:13px;line-height:1.65;}
+.gold-content strong{color:#fff;}
+
+/* ALERTS */
+.alert-warn{background:rgba(239,159,39,0.12);border:1.5px solid rgba(239,159,39,0.3);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:13px;color:#EF9F27;line-height:1.65;}
+.alert-danger{background:rgba(226,75,74,0.12);border:1.5px solid rgba(226,75,74,0.3);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:13px;color:#F09595;line-height:1.65;}
+.alert-info{background:rgba(169,127,245,0.12);border:1.5px solid rgba(169,127,245,0.3);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:13px;color:#C4A0FF;line-height:1.65;}
+.alert-green{background:rgba(29,158,117,0.12);border:1.5px solid rgba(29,158,117,0.3);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:13px;color:#5DCAA5;line-height:1.65;}
+
+/* FLOW */
+.flow-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.flow-step{background:rgba(169,127,245,0.18);border-radius:8px;padding:5px 11px;font-size:12px;color:#C4A0FF;font-weight:700;}
+.flow-step.red{background:rgba(226,75,74,0.18);color:#F09595;}
+.flow-step.green{background:rgba(29,158,117,0.18);color:#5DCAA5;}
+.flow-step.amber{background:rgba(239,159,39,0.18);color:#EF9F27;}
+.flow-arrow{color:rgba(255,255,255,0.35);font-size:13px;}
+
+/* ACCORDIONS */
+.req-card{background:#1A0A3C;border-radius:16px;border:1.5px solid rgba(255,255,255,0.08);margin-bottom:12px;overflow:hidden;}
+.req-header{display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;}
+.req-header:hover{background:rgba(255,255,255,0.04);}
+.req-num{width:32px;height:32px;border-radius:10px;background:rgba(169,127,245,0.2);color:#C4A0FF;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.req-num.amber{background:rgba(239,159,39,0.2);color:#EF9F27;}
+.req-num.green{background:rgba(29,158,117,0.2);color:#5DCAA5;}
+.req-num.red{background:rgba(226,75,74,0.2);color:#F09595;}
+.req-title{flex:1;color:#fff;font-size:14px;font-weight:700;line-height:1.3;}
+.req-chevron{color:rgba(255,255,255,0.4);font-size:14px;flex-shrink:0;transition:transform .3s;}
+.req-chevron.open{transform:rotate(180deg);}
+.req-body{max-height:0;overflow:hidden;transition:max-height .45s ease,padding .3s;}
+.req-body.open{max-height:900px;padding:0 16px 16px;}
+.req-body-inner{font-size:13px;color:rgba(255,255,255,0.78);line-height:1.7;}
+.req-body-inner strong{color:#fff;}
+
+/* SCORECARD ROWS */
+.scorecard-row{display:flex;align-items:stretch;gap:0;margin-bottom:8px;border-radius:12px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.07);}
+.scorecard-num{background:rgba(169,127,245,0.25);color:#C4A0FF;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:12px 14px;min-width:40px;flex-shrink:0;}
+.scorecard-body{background:#1A0A3C;flex:1;padding:11px 14px;}
+.scorecard-title{color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;}
+.scorecard-desc{color:rgba(255,255,255,0.6);font-size:12px;line-height:1.55;}
+.scorecard-row.critical .scorecard-num{background:rgba(226,75,74,0.3);color:#F09595;}
+.scorecard-row.critical .scorecard-body{border-left:2px solid rgba(226,75,74,0.4);}
+
+/* FEATURE GRID */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.feat-card{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(169,127,245,0.2);padding:14px 12px;text-align:center;}
+.feat-emoji{font-size:22px;display:block;margin-bottom:6px;}
+.feat-title{color:#fff;font-size:12px;font-weight:800;margin-bottom:4px;}
+.feat-desc{color:rgba(255,255,255,0.55);font-size:11px;line-height:1.5;}
+
+/* TWO-COL COMPARE */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.compare-col{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(169,127,245,0.2);padding:14px 12px;}
+.compare-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+.compare-col .compare-label.purple{color:#A97FF5;}
+.compare-col .compare-label.green{color:#5DCAA5;}
+.compare-item{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:4px;}
+.compare-item strong{color:#fff;}
+
+/* DAY-27 TIMELINE */
+.timeline-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.tl-card{background:#1A0A3C;border-radius:14px;padding:14px;border:1.5px solid rgba(255,255,255,0.07);}
+.tl-card.green-border{border-color:rgba(29,158,117,0.4);}
+.tl-card.amber-border{border-color:rgba(239,159,39,0.4);}
+.tl-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:8px;}
+.tl-tag.green{background:rgba(29,158,117,0.2);color:#5DCAA5;}
+.tl-tag.amber{background:rgba(239,159,39,0.2);color:#EF9F27;}
+.tl-title{color:#fff;font-size:13px;font-weight:800;margin-bottom:4px;}
+.tl-desc{color:rgba(255,255,255,0.6);font-size:12px;line-height:1.55;}
+.tl-example{background:rgba(255,255,255,0.05);border-radius:8px;padding:7px 10px;margin-top:8px;font-size:12px;color:rgba(255,255,255,0.7);line-height:1.5;}
+.tl-example strong{color:#C4A0FF;}
+
+/* EXCLUSION LIST */
+.excl-list{background:#1A0A3C;border-radius:14px;border:1.5px solid rgba(226,75,74,0.2);padding:14px 16px;margin-bottom:10px;}
+.excl-title{color:#F09595;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+.excl-item{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px;font-size:13px;color:rgba(255,255,255,0.7);line-height:1.5;}
+.excl-dot{width:6px;height:6px;border-radius:50%;background:#F09595;flex-shrink:0;margin-top:5px;}
+
+/* STEP CARDS */
+.step-row{display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;}
+.step-num{width:30px;height:30px;border-radius:50%;background:#7B3FE4;color:#fff;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-body{background:#1A0A3C;border-radius:12px;border:1.5px solid rgba(255,255,255,0.07);padding:11px 14px;flex:1;}
+.step-title{color:#fff;font-size:13px;font-weight:700;margin-bottom:2px;}
+.step-desc{color:rgba(255,255,255,0.6);font-size:12px;line-height:1.55;}
+
+/* VIGENCIA BADGE */
+.vigencia-badge{background:rgba(169,127,245,0.15);border:1.5px solid rgba(169,127,245,0.3);border-radius:12px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;}
+.vigencia-icon{font-size:22px;}
+.vigencia-text strong{color:#C4A0FF;font-size:13px;font-weight:800;display:block;}
+.vigencia-text span{color:rgba(255,255,255,0.6);font-size:12px;}
+
+/* HIGHLIGHT $0 */
+.big-highlight{background:rgba(169,127,245,0.12);border:2px dashed rgba(169,127,245,0.4);border-radius:16px;padding:20px;text-align:center;margin-bottom:14px;}
+.big-highlight .big-num{font-size:52px;font-weight:900;color:#A97FF5;line-height:1;display:block;}
+.big-highlight .big-label{color:rgba(255,255,255,0.7);font-size:13px;margin-top:4px;}
+
+.nu-footer{text-align:center;margin-top:32px;padding:0 20px;position:relative;z-index:1;}
+.nu-footer p{color:rgba(255,255,255,0.3);font-size:11px;}
+</style>
+</head>
+<body>
+<div class="deco deco-1"></div>
+<div class="deco deco-2"></div>
+<div class="deco deco-3"></div>
+
+<!-- HEADER -->
+<div class="nu-header">
+  <div class="nu-badge">
+    <div class="nu-badge-dots"><span></span><span></span><span></span></div>
+    <span class="nu-badge-text">Nu Colombia · Novedades</span>
+  </div>
+  <div class="header-title">Lo nuevo en<br><em>Nu Colombia</em></div>
+  <div class="header-sub">Actualizaciones, beneficios y alianzas vigentes</div>
+  <div class="novedad-pills">
+    <span class="novedad-pill active-pill">💳 Pay for Clip</span>
+    <span class="novedad-pill active-pill">🎯 MGM Nu Plus</span>
+    <span class="novedad-pill active-pill">☕ Juan Valdez</span>
+    <span class="novedad-pill active-pill">🏠 House of Nu</span>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showTab('clip',this)">💳 Pay for Clip</button>
+    <button class="tab-btn" onclick="showTab('mgm',this)">🎯 MGM Nu Plus</button>
+    <button class="tab-btn" onclick="showTab('juanvaldez',this)">☕ Juan Valdez</button>
+    <button class="tab-btn" onclick="showTab('housenu',this)">🏠 House of Nu</button>
+  </div>
+</div>
+
+
+<!-- ===== PAY FOR CLIP ===== -->
+<div id="tab-clip" class="section active">
+  <div class="block-header">
+    <div class="block-icon bi-purple">💳</div>
+    <div>
+      <div class="block-title">Pay for Clip</div>
+      <div class="block-sub">Impulso de Límite Nu · Customer Management</div>
+    </div>
+  </div>
+
+  <div class="alert-info">🚀 Un beneficio opcional para obtener cupo extra de forma <strong>inmediata</strong>, sin esperar meses ni requerir garantías adicionales.</div>
+
+  <!-- Qué es -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">1</div>
+      <span class="req-title">¿Qué es y qué problema resuelve?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        Antes, cuando un cliente necesitaba más cupo de forma urgente y no había aumentos orgánicos disponibles, la respuesta era: <em style="color:#C4A0FF;">"Tienes que esperar..."</em><br><br>
+        <strong>Pay for Clip cambia eso.</strong> Es un piloto que permite a clientes seleccionados ampliar su capacidad de crédito de forma inmediata, pagando una tarifa mensual mientras deseen conservar el cupo extra.
+        <div class="alert-green" style="margin-top:10px;">✅ El cliente decide si quiere conservar el cupo adicional o darlo de baja cuando prefiera.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beneficios -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">2</div>
+      <span class="req-title">Beneficios para el Cliente</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner" style="padding-top:8px;">
+        <div class="feat-grid">
+          <div class="feat-card">
+            <span class="feat-emoji">⚡</span>
+            <div class="feat-title">Crecimiento Inmediato</div>
+            <div class="feat-desc">Aumento en el límite al instante, sin esperar meses</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">🎮</span>
+            <div class="feat-title">Control en sus Manos</div>
+            <div class="feat-desc">Decide si conserva el cupo extra o lo da de baja</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">💵</span>
+            <div class="feat-title">Retiro Mensual sin Costo</div>
+            <div class="feat-desc">Un retiro de efectivo gratis al mes, sin comisión</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">📅</span>
+            <div class="feat-title">Pago Solo por Uso</div>
+            <div class="feat-desc">Sin compras ni deuda en el mes → no paga la tarifa</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lo que debes recordar -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num amber">3</div>
+      <span class="req-title">Lo que Debes Recordar</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="quality-card" style="margin-top:4px;">
+          <div class="quality-icon">❓</div>
+          <div class="quality-content">
+            <h4>¿Es obligatorio?</h4>
+            <p>No. Es <strong>opcional</strong> siempre que el cliente tenga la oferta disponible.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">⏳</div>
+          <div class="quality-content">
+            <h4>¿Cuánto dura la invitación?</h4>
+            <p>La vigencia es de <strong>30 días</strong> desde que se genera la oferta.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">🔍</div>
+          <div class="quality-content">
+            <h4>¿En qué consiste?</h4>
+            <p>Es un <strong>piloto</strong> para que algunos clientes puedan ampliar su capacidad de crédito de forma inmediata. Nu trabaja para brindar a más colombianos acceso a mejores oportunidades financieras.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== MGM NU PLUS ===== -->
+<div id="tab-mgm" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-amber">🎯</div>
+    <div>
+      <div class="block-title">Misión MGM · Nu Plus</div>
+      <div class="block-sub">Member Get Member · Nuevo beneficio</div>
+    </div>
+  </div>
+
+  <div class="big-highlight">
+    <span class="big-num">$0</span>
+    <div class="big-label">Nu Plus gratis sin alcanzar el mínimo de gasto mensual de $900.000</div>
+  </div>
+
+  <!-- Mecánica -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">1</div>
+      <span class="req-title">Mecánica: Referir Amigos</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="compare-grid">
+          <div class="compare-col">
+            <div class="compare-label purple">ACQ — Referencia Exitosa</div>
+            <div class="compare-item">Referir a alguien que se convierte en cliente Nu.</div>
+            <div class="compare-item">La persona referida debe abrir al menos <strong>un producto</strong> (Cuenta de ahorros o Tarjeta de Crédito).</div>
+          </div>
+          <div class="compare-col">
+            <div class="compare-label green">CM — El Premio</div>
+            <div class="compare-item"><strong>Exención del objetivo de gasto mínimo</strong> para el próximo ciclo de Nu Plus.</div>
+            <div class="compare-item">El cliente goza de la mensualidad <strong>gratis</strong> sin gastar los $900.000 habituales.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resolución de casos -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">2</div>
+      <span class="req-title">Resolución de Casos: ¿ACQ o CM?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="quality-card" style="margin-top:4px;">
+          <div class="quality-icon">📨</div>
+          <div class="quality-content">
+            <h4>ACQ se encarga de…</h4>
+            <p>Todo lo relacionado con el <strong>proceso de invitación</strong>: dudas sobre cómo invitar, problemas con el link, estado del invitado o por qué no se ha liberado el premio.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">⭐</div>
+          <div class="quality-content">
+            <h4>CM se encarga de…</h4>
+            <p>La <strong>gestión del beneficio una vez entregado</strong>: cómo activar el mes de regalo, cómo funciona Nu Plus, o cualquier issue con el uso del beneficio.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Identificación en Shuffle -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">3</div>
+      <span class="req-title">¿Cómo identificar el beneficio en Shuffle?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Ingresa al widget de Rollouts</div>
+            <div class="step-desc">Dentro de Shuffle, ubica el widget de Rollouts en la ficha del cliente.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Busca "first-mgm-invite-mission"</div>
+            <div class="step-desc">En "búsqueda" o "search experiment", escribe ese término exacto.</div>
+          </div>
+        </div>
+        <div class="alert-green" style="margin-top:4px;">✅ Sale <strong>first-mgm-invite-mission · treatment</strong> → <strong>Sí</strong> cuenta con el beneficio.</div>
+        <div class="alert-danger">❌ Sale <strong>first-mgm-invite-mission · control</strong> → <strong>No</strong> cuenta con el beneficio.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Regla del Día 27 -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num amber">4</div>
+      <span class="req-title">⚠️ Regla del Día 27 (Corte)</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="alert-warn">📅 El día 27 es el punto más crítico para explicar al cliente <strong>cuándo verá reflejado su premio</strong>.</div>
+        <div class="timeline-wrap">
+          <div class="tl-card green-border">
+            <span class="tl-tag green">Antes del día 27</span>
+            <div class="tl-title">Exención mes siguiente</div>
+            <div class="tl-desc">Si cumple el día 27 o antes: Nu Plus gratis el mes inmediato.</div>
+            <div class="tl-example"><strong>Ejemplo A:</strong> Cumple 20 de Abril → Gratis en <strong>Mayo</strong></div>
+          </div>
+          <div class="tl-card amber-border">
+            <span class="tl-tag amber">Después del día 27</span>
+            <div class="tl-title">Exención ciclo subsiguiente</div>
+            <div class="tl-desc">Si cumple después del 27: Nu Plus gratis en el ciclo siguiente al próximo.</div>
+            <div class="tl-example"><strong>Ejemplo B:</strong> Cumple 29 de Marzo → Gratis en <strong>Junio</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== JUAN VALDEZ ===== -->
+<div id="tab-juanvaldez" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-teal">☕</div>
+    <div>
+      <div class="block-title">Alianza Juan Valdez</div>
+      <div class="block-sub">10% de descuento en tiendas participantes</div>
+    </div>
+  </div>
+
+  <div class="vigencia-badge">
+    <div class="vigencia-icon">📅</div>
+    <div class="vigencia-text">
+      <strong>Vigencia: 21 Abril 2026 → 21 Abril 2027</strong>
+      <span>Aplica solo en tiendas físicas participantes a nivel nacional</span>
+    </div>
+  </div>
+
+  <div class="quality-card" style="border-color:rgba(20,184,166,0.3);">
+    <div class="quality-icon">🎁</div>
+    <div class="quality-content">
+      <h4 style="color:#5DCAA5;">El Beneficio</h4>
+      <p><strong>10% de descuento</strong> sobre el valor total de la compra al pagar con Tarjeta de Crédito o Débito Nu en tiendas Juan Valdez participantes, mencionando la alianza en caja. Aplica para <strong>bebidas de café y productos alimenticios</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Cómo obtenerlo -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num green">1</div>
+      <span class="req-title">¿Cómo obtiene el cliente el descuento?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Mencionar la alianza en caja</div>
+            <div class="step-desc">Antes de pagar, el cliente debe informar al cajero que va a usar el beneficio Nu.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Pagar con tarjeta Nu</div>
+            <div class="step-desc">Pagar la totalidad de la compra con la <strong>Tarjeta de Crédito Nu</strong> o la <strong>Tarjeta de Débito Nu</strong>.</div>
+          </div>
+        </div>
+        <div class="alert-warn" style="margin-top:4px;">⚠️ Si el cliente no menciona la alianza <strong>antes de pagar</strong>, el descuento no se aplica.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Elegibilidad -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">2</div>
+      <span class="req-title">Criterios de Elegibilidad</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="quality-card" style="margin-top:4px;">
+          <div class="quality-icon">👤</div>
+          <div class="quality-content">
+            <h4>Requisitos del Cliente</h4>
+            <p>Ser <strong>persona natural, mayor de edad y residente en Colombia</strong>. Tener una Cuenta Nu activa o una Tarjeta de Crédito Nu. Realizar la compra en <strong>tiendas físicas participantes</strong>.</p>
+          </div>
+        </div>
+        <div class="alert-info">🔒 No es acumulable con otras promociones o convenios.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exclusiones -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num red">3</div>
+      <span class="req-title">❌ Exclusiones — Lo que NO aplica</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="excl-list" style="margin-top:4px;">
+          <div class="excl-title">🚫 Productos Excluidos</div>
+          <div class="excl-item"><div class="excl-dot"></div><span>"Combo Ideal", café empacado/pre-empacado (libras de café)</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span>Artículos de mercadeo: cafeteras, ropa, calzado, mugs, termos, etc.</span></div>
+        </div>
+        <div class="excl-list">
+          <div class="excl-title">🚫 Canales Excluidos</div>
+          <div class="excl-item"><div class="excl-dot"></div><span>App Juan Valdez y sitio web oficial</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span>Plataformas de domicilios: Rappi, iFood, etc.</span></div>
+        </div>
+        <div class="excl-list">
+          <div class="excl-title">🚫 Tiendas NO Participantes</div>
+          <div class="excl-item"><div class="excl-dot"></div><span>Cine Colombia, franquicias Popsy y tiendas móviles</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Bogotá:</strong> Federación Boutique, C.A. U. de los Andes, El Tiempo, Federación Express, Gran Plaza Bosa, U. de los Andes, U. El Bosque, U. Javeriana</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Cartagena:</strong> La Mansión y Sociedad Portuaria</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Manizales:</strong> Parque del Agua</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Medellín:</strong> EAFIT Medellín</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Soacha:</strong> Antares</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>Rionegro:</strong> Todas las tiendas del Aeropuerto</span></div>
+          <div class="excl-item"><div class="excl-dot"></div><span><strong>San Andrés:</strong> Todas las tiendas de la ciudad</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== HOUSE OF NU ===== -->
+<div id="tab-housenu" class="section">
+  <div class="block-header">
+    <div class="block-icon bi-blue">🏠</div>
+    <div>
+      <div class="block-title">House of Nu</div>
+      <div class="block-sub">Experiencia inmersiva · Miami · 1–3 Mayo 2026</div>
+    </div>
+  </div>
+
+  <div class="vigencia-badge">
+    <div class="vigencia-icon">📅</div>
+    <div class="vigencia-text">
+      <strong>1 al 3 de mayo de 2026 · Wynwood, Miami</strong>
+      <span>Nu × Mercedes-AMG PETRONAS F1 Team · Experiencia global</span>
+    </div>
+  </div>
+
+  <div class="alert-info">🌎 House of Nu es una experiencia inmersiva creada por Nu en alianza con el equipo <strong>Mercedes-AMG PETRONAS F1</strong>. Las comunicaciones (incluso en portugués) son <strong>verídicas y oficiales de Nu</strong>.</div>
+
+  <!-- Contexto -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">1</div>
+      <span class="req-title">Contexto y Puntos Clave</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="quality-card" style="margin-top:4px;">
+          <div class="quality-icon">🚫</div>
+          <div class="quality-content">
+            <h4>No es un concurso ni sorteo</h4>
+            <p>Nu <strong>no está rifando viajes ni tiquetes</strong>. Solo invita a quienes se registraron y son seleccionados para asistir si estarán en Miami en esas fechas.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">✉️</div>
+          <div class="quality-content">
+            <h4>La comunicación es oficial de Nu</h4>
+            <p>Si el cliente recibió un correo sobre House of Nu (aunque esté en portugués), corresponde a una <strong>campaña global de Nu</strong> y no es fraude. Aun así, <strong>nunca debe compartir datos sensibles</strong> (claves, códigos SMS, CVV, etc.).</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">🎟️</div>
+          <div class="quality-content">
+            <h4>Cupo limitado y sin garantía</h4>
+            <p>Inscribirse en la lista de acceso exclusivo solo expresa interés. <strong>No garantiza invitación ni entrada.</strong> Solo los seleccionados reciben correo de confirmación con día, hora y QR.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">✈️</div>
+          <div class="quality-content">
+            <h4>Responsabilidad de traslado</h4>
+            <p>Nu ofrece la experiencia en el lugar. El cliente <strong>asume sus propios gastos</strong> de viaje, estadía y traslados. No se cubren tiquetes, hoteles ni transporte.</p>
+          </div>
+        </div>
+        <div class="quality-card">
+          <div class="quality-icon">🇧🇷</div>
+          <div class="quality-content">
+            <h4>¿Por qué llegó en portugués?</h4>
+            <p>Es una campaña global, por eso el idioma puede aparecer en portugués. Sigue siendo comunicación oficial de Nu. No hay más detalles que inventar sobre esto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cómo registrarse -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num green">2</div>
+      <span class="req-title">¿Cómo obtiene el cliente la experiencia?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="step-row">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Registro en la lista de acceso exclusivo</div>
+            <div class="step-desc">Ingresar a <strong>nu.com/2026-en/house-of-nu</strong> y completar el formulario con correo, nombre y país. Opcionalmente, seguir a <strong>@hello.nu</strong> en Instagram donde se anuncian los cupos.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Espera de invitación / selección</div>
+            <div class="step-desc">Solo algunos registrados son seleccionados según el aforo. Si es seleccionado, recibe un correo con: día de visita, hora de inicio y fin de la franja, instrucciones y <strong>código QR de acceso</strong>.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Confirmar asistencia y preparar la visita</div>
+            <div class="step-desc">Seguir instrucciones del correo para confirmar. El evento es en <strong>116 NW 25th St, Miami, FL 33127</strong> — zona caminable con acceso a transporte público y rideshare.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Asistencia el día del evento</div>
+            <div class="step-desc">Llegar con el <strong>QR en el celular</strong> (no necesita impresión) y documento de identidad. En el sitio podrá disfrutar de la entrada inmersiva Nu × F1, exhibición del traje de carrera con realidad aumentada, y el Pit Stop Experience con expertos del equipo Mercedes-AMG PETRONAS F1.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Walk-ins (sin reserva previa)</div>
+            <div class="step-desc">Si el cliente está en Miami pero no alcanzó cupo, puede presentarse directamente y unirse a la <strong>fila de espera (standby)</strong>. El ingreso depende de la capacidad y cupos que se liberen.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Qué se vive -->
+  <div class="req-card">
+    <div class="req-header" onclick="toggleReq(this)">
+      <div class="req-num">3</div>
+      <span class="req-title">🏎️ ¿Qué se vive en House of Nu?</span>
+      <span class="req-chevron">▾</span>
+    </div>
+    <div class="req-body">
+      <div class="req-body-inner">
+        <div class="feat-grid" style="margin-top:4px;">
+          <div class="feat-card">
+            <span class="feat-emoji">🌌</span>
+            <div class="feat-title">Entrada Inmersiva</div>
+            <div class="feat-desc">Recorrido temático Nu × Mercedes-AMG PETRONAS F1 Team</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">🥋</span>
+            <div class="feat-title">Traje Oficial + AR</div>
+            <div class="feat-desc">Exhibición del traje de carrera con interacción de realidad aumentada</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">🏁</span>
+            <div class="feat-title">Pit Stop Experience</div>
+            <div class="feat-desc">Espacio interactivo con expertos del equipo Mercedes-AMG PETRONAS F1</div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-emoji">📍</span>
+            <div class="feat-title">Wynwood, Miami</div>
+            <div class="feat-desc">116 NW 25th St · Del 1 al 3 de mayo 2026</div>
+          </div>
+        </div>
+        <div class="alert-green" style="margin-top:4px;">🏎️ El fin de semana coincide con el <strong>Gran Premio de Miami de Fórmula 1</strong>, lo que hace de esta una experiencia única e irrepetible.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nu-footer">
+  <p>Nu Colombia · Novedades · Customer Management Phone</p>
+</div>
+
+<script>
+function showTab(id, btn){
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function toggleReq(header){
+  var body = header.nextElementSibling;
+  var chev = header.querySelector('.req-chevron');
+  var isOpen = body.classList.contains('open');
+  document.querySelectorAll('.req-body').forEach(function(b){ b.classList.remove('open'); });
+  document.querySelectorAll('.req-chevron').forEach(function(c){ c.classList.remove('open'); });
+  if(!isOpen){ body.classList.add('open'); chev.classList.add('open'); }
+}
+</script>
+</body>
+</html>

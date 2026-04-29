@@ -351,6 +351,12 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
 #limite-teorico-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#3D1372}
 #limite-teorico-app.active{display:block}
 #limite-teorico-app iframe{width:100%;height:100vh;border:none;display:block;}
+#novedades-noticias-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#3D1372}
+#novedades-noticias-app.active{display:block}
+#novedades-noticias-app iframe{width:100%;height:100vh;border:none;display:block;}
+#novedades-calidad-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#3D1372}
+#novedades-calidad-app.active{display:block}
+#novedades-calidad-app iframe{width:100%;height:100vh;border:none;display:block;}
 #marketing-gamificado-app{display:none;position:fixed;inset:0;z-index:1000;overflow-y:auto;background:#1a0533}
 #marketing-gamificado-app.active{display:block}
 #marketing-gamificado-app iframe{width:100%;height:100vh;border:none;display:block;}
@@ -417,6 +423,9 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
         <button class="topic-card" style="animation-delay:.45s" onclick="openTopic('canceltarjeta','Cancelación Tarjeta de Crédito','💳')">
           <span class="topic-emoji">💳</span><div class="topic-name">Cancelación Tarjeta de Crédito</div><div class="topic-arrow">→</div>
         </button>
+        <button class="topic-card lila" style="animation-delay:.5s" onclick="openTopic('novedades','Novedades','🆕')">
+          <span class="topic-emoji">🆕</span><div class="topic-name">Novedades</div><div class="topic-arrow">→</div>
+        </button>
       </div>
       <button class="links-card" onclick="openTopic('links','Links Weduka','🔗')">
         <span class="links-card-emoji">🔗</span>
@@ -448,6 +457,25 @@ main{max-width:1100px;margin:0 auto;padding:2.5rem 2rem 4rem}
             <div class="mode-desc">Pon a prueba lo que sabes con casos reales, preguntas y puntos. ¡A jugar!</div>
             <div class="mode-badge">🏆 Gamificado</div>
             <div class="mode-cta"><span style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.8)">¡A jugar!</span><span class="mode-cta-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="novedades-section" style="display:none">
+        <p class="sec-label">📢 ¿Qué quieres consultar? 👇</p>
+        <div class="mode-grid">
+          <div class="mode-card teorico" onclick="launchNovedades('noticias')" style="cursor:pointer">
+            <span class="mode-emoji">📰</span>
+            <div class="mode-title">Últimas Noticias</div>
+            <div class="mode-desc">Entérate de los cambios recientes, actualizaciones y comunicados importantes del equipo.</div>
+            <div class="mode-badge">🔔 Actualizaciones</div>
+            <div class="mode-cta"><span style="font-size:14px;font-weight:800;color:var(--nu-mid)">Ver noticias</span><span class="mode-cta-arrow">→</span></div>
+          </div>
+          <div class="mode-card gamificado" onclick="launchNovedades('calidad')" style="cursor:pointer">
+            <span class="mode-emoji">⭐</span>
+            <div class="mode-title">Calidad</div>
+            <div class="mode-desc">Revisa los estándares de calidad, métricas y lineamientos para brindar el mejor servicio.</div>
+            <div class="mode-badge">✅ Estándares</div>
+            <div class="mode-cta"><span style="font-size:14px;font-weight:800;color:rgba(255,255,255,0.8)">Ver calidad</span><span class="mode-cta-arrow">→</span></div>
           </div>
         </div>
       </div>
@@ -616,8 +644,9 @@ function openTopic(id,name,emoji){
   document.getElementById('detail-view').classList.add('active');
   document.getElementById('detail-title').textContent=name;
   document.getElementById('detail-emoji').textContent=emoji||'';
-  document.getElementById('modes-section').style.display=id==='links'?'none':'block';
+  document.getElementById('modes-section').style.display=(id==='links'||id==='novedades')?'none':'block';
   document.getElementById('links-section').style.display=id==='links'?'block':'none';
+  document.getElementById('novedades-section').style.display=id==='novedades'?'block':'none';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -671,6 +700,31 @@ function launchMode(mode){
   } else {
     alert((mode==='teorico'?'📖 Próximamente: Refuerzo teórico':'🎮 Próximamente: Manos a la obra')+' de "'+currentTopicName+'"');
   }
+}
+function launchNovedades(tipo){
+  if(tipo==='noticias'){
+    openNovedadesNoticiasApp();
+  } else if(tipo==='calidad'){
+    openNovedadesCalidadApp();
+  }
+}
+function openNovedadesNoticiasApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('novedades-noticias-app').classList.add('active');
+  window.scrollTo({top:0});
+}
+function closeNovedadesNoticiasApp(){
+  document.getElementById('novedades-noticias-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
+}
+function openNovedadesCalidadApp(){
+  document.getElementById('site-wrap').classList.add('game-open');
+  document.getElementById('novedades-calidad-app').classList.add('active');
+  window.scrollTo({top:0});
+}
+function closeNovedadesCalidadApp(){
+  document.getElementById('novedades-calidad-app').classList.remove('active');
+  document.getElementById('site-wrap').classList.remove('game-open');
 }
 function openCharadasApp(){
   document.getElementById('site-wrap').classList.add('game-open');
@@ -1749,5 +1803,17 @@ function stToggle(card){
   <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeLimiteTeoricoApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
   <iframe src="guia_limite_2026.html" title="Guía Gestión de Límite 2026"></iframe>
 </div><!-- /limite-teorico-app -->
+
+<!-- ══ NOVEDADES NOTICIAS APP ══ -->
+<div id="novedades-noticias-app">
+  <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeNovedadesNoticiasApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
+  <iframe src="guia_novedades.html" style="width:100%;height:100vh;border:none;display:block;" title="Últimas Noticias - Novedades"></iframe>
+</div><!-- /novedades-noticias-app -->
+
+<!-- ══ NOVEDADES CALIDAD APP ══ -->
+<div id="novedades-calidad-app">
+  <div style="position:fixed;top:16px;left:16px;z-index:2000;"><button onclick="closeNovedadesCalidadApp()" style="display:inline-flex;align-items:center;gap:6px;background:rgba(74,26,122,0.9);border:1.5px solid rgba(74,26,122,0.5);border-radius:40px;padding:8px 18px;color:#e8d5ff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Lato',sans-serif;backdrop-filter:blur(4px);">← Volver</button></div>
+  <iframe src="guia_calidad.html" style="width:100%;height:100vh;border:none;display:block;" title="Calidad - Novedades"></iframe>
+</div><!-- /novedades-calidad-app -->
 </body>
 </html>
